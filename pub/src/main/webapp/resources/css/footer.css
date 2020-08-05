@@ -1,0 +1,4 @@
+@charset "UTF-8";
+/*하단 로고*/
+#footer {background-color: gray;}
+#footer .footer-info .logo img{width: 250px; height: 100px;}

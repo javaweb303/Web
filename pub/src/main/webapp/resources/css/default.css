@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/*태그 전체설정?*/
+*{margin: 0;padding: 0;outline: 0;}
+a{text-decoration: none; color:black;}
+/*상단 로그인 메뉴*/
+#top_head {height: 25px;}
+#top_head .tnb{float: right; margin-right: 5px;}
+/*중간 헤드메뉴*/
+#mid_head{width: 100%;height: 180px; text-align: center;}
+/*로그*/
+#mid_head .logo{position:absolute; width: 250px; height: 100px;left: 5%;top: 6%;}
+#mid_head .logo img{
+   width:250px; height:100px;
+	background-size: 250px 100px;
+}
+/*검색관련*/
+#mid_head .search{position:absolute; width: 570px; height: 70px; left: 35%; top: 8%; margin: 10px;}
+#mid_head .search .search_{
+   border:0; border-bottom: 3px solid black;box-sizing:border-box; margin: 1px; padding: 5px;}
+#mid_head .search .field{height: 50px;font-size: 20px;}
+#mid_head .search .inputbox{height: 50px; width: 400px; font-size: 20px;}
+#mid_head .search .searchbtn{height: 50px; width: 60px;}
+/*lnb 메뉴*/
+#mid_head .lnb{position:absolute; height: 30px;float: right; right: 1%; top:10%; display: none; }
+#mid_head .lnb a{padding: 5px;}
+#mid_head .lnb img{height: 16px;}
+/*네비게이션 메뉴*/
+#bottom_head {height: 90px; background-color: #171d33;}
+#bottom_head ul{list-style-type: none; margin:  0 auto;}
+#gnb{width: auto;text-align: center;}
+#bottom_head #gnb>li {position:absolute; width: 19%; height: 90px; text-align: center;}
+   /*밑에는 #gnb li첫째,둘째.. 이런식임* last-nth-child()면 뒤에서부터 숫자 카운터*/
+#bottom_head #gnb li:nth-child(1){left: 10%;}
+#bottom_head #gnb li:nth-child(2){left: 30%;}
+#bottom_head #gnb li:nth-child(3){left: 50%;}
+#bottom_head #gnb li:nth-child(4){left: 70%;}
+
+#gnb li ul{position: absolute; top:83px; width:100%; background-color: black;border-top: 7px solid #d34451; z-index: 1;}
+#gnb li ul li{height: 47px;}
+#gnb li ul a{display:block; color: #fff; padding: 12px 0 11px; margin:0 10px; border-bottom: 1px solid white;}
+#gnb>li>a{display: block; padding: 31px 0 28px; color: #fff; font-size: 21px; font-weight: 700;}
+#gnb .gnb_sub{visibility: hidden; opacity: 0;}
+#gnb .on .gnb_sub{visibility: visible; opacity: 1;transition: all 1s ease-in-out;}
+#gnb .on .gnb_sub a{color: #c0c0c0}
+#gnb .on .gnb_sub a:hover{transition: all .3s ease-in-out; color: #fff;}
+/*중간*/
+#content{width: 100%;}
+/*슬라이더*/
+#slider-wrap{position:relative;height:420px;}
+.slider{height:100%;}
+.slider ul{height:100%;}
+.slider ul li{display:none;position:absolute;left:0;top:0;width:100%;height:420px;}
+.slider ul li div{width:100%;height:420px;}
+.slider ul li div > img{width:100%;height:100%;}
+.slider a.controller{display:block;position:absolute;top:158px;width:48px;height:86px;text-indent:-9999px;background-repeat:no-repeat;background-position:0 0;z-index:0;}
+.slider a.btnPrev{left:30px;background-image:url(../images/slider/btnPrev.png);}
+.slider a.btnNext{right:30px;background-image:url(../images/slider/btnNext.png);}
+/* 책 */
+#bookbox{width: 100%; height: 390px;}
+/* 리스트 */
+#listbox{width: 100%; height: 420px;}
+#listbox .l{width: 80%; height: auto; float: left;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+#listbox .r{width: 20%; height: auto; float: left;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
+/*하단*/
+/*하단 로고*/
+#footer {background-color: gray;}
+#footer .footer-info .logo img{width: 250px; height: 100px;}
+
+@media all and (max-width:1024px) {.search{display: none;} #top_head .tnb{display: none;} #mid_head .lnb{display: block;}}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+<insert id="m_join">
+<!-- 1은 가입회원 2는 탈퇴회원 -->
+insert into member (id,pw,name,email,gender,birth,regdate,state) values(#{id},#{pw},#{name},#{email},#{gender},#{birth},sysdate,1)
+</insert>
+</mapper>
