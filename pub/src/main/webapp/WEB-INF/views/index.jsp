@@ -7,9 +7,9 @@
 <title></title>
 <link rel="stylesheet" type="text/css" href="resources/css/default.css" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="resources/js/ae.js"></script>
 <script type="text/javascript" src="resources/js/slider.js"></script>
 <script type="text/javascript" src="resources/js/index.js"></script>
+<script type="text/javascript" src="resources/js/ae.js"></script>
 <script>
 $(function(){
    //$('.gnb_sub').hide();주석한이유는 스타일시트가 더 빨라서 주석함.
@@ -22,17 +22,17 @@ $(function(){
 </head>
 <body>
    <div id="wrap">
-   <jsp:include page="menu.jsp"></jsp:include>
+   <jsp:include page="./menu.jsp"></jsp:include>
       <header>
          <div id="top_head">
             <div class="tnb">
-            <a href="/controller/login">로그인</a>
-            <a href="/controller/join">회원가입</a>
+            <a href="/login">로그인</a>
+            <a href="/join">회원가입</a>
             </div>
          </div>
          <div id="mid_head">
             <div class="logo">
-            <a href="/controller"><img alt="로고" src="resources/images/logo.png"></a>
+            <a href="/"><img alt="로고" src="resources/images/logo.png"></a>
             </div>
             <div class="search">
             <select name="searchField" class="search_ field">
@@ -44,7 +44,7 @@ $(function(){
             <button type="button" onclick="alert('확인');" class="search_ searchbtn">검색</button>
             </div>
             <div class="lnb">
-            <a href="/controller/login"><img src="resources/images/login.png"></a>
+            <a href="/login"><img src="resources/images/login.png"></a>
             <a href="#" id="slbtn"><img src="resources/images/menu_Main.png"></a>
             </div>
          </div>
@@ -55,7 +55,7 @@ $(function(){
                         <ul class="gnb_sub">
                            <li><a href="./jsp/search.jsp">통합검색</a></li>
                            <li><a href="#">신간도서</a></li>
-                           <li><a href="/controller/popular">베스트 셀러</a></li>
+                           <li><a href="/popular">베스트 셀러</a></li>
                            <li><a href="#">추천도서</a></li>
                         </ul>
                   </li>
@@ -64,18 +64,18 @@ $(function(){
                            <li><a href="./jsp/ebook.jsp">전자책</a></li>
                         </ul>
                   </li>
-                  <li><a href="/controller/history">도서관 안내</a>
+                  <li><a href="/history">도서관 안내</a>
                         <ul class="gnb_sub">
-                           <li><a href="/controller/history">도서관 소개</a></li>
-                           <li><a href="/controller/guid">도서관 이용</a></li>
-                           <li><a href="/controller/status">도서관 현황</a></li>
-                           <li><a href="/controller/location">오시는 길</a></li>
+                           <li><a href="/history">도서관 소개</a></li>
+                           <li><a href="/guid">도서관 이용</a></li>
+                           <li><a href="/status">도서관 현황</a></li>
+                           <li><a href="/location">오시는 길</a></li>
                         </ul>
                   </li>
-                  <li><a href="/controller/bbs_list">열린공간</a>
+                  <li><a href="/bbs_list">열린공간</a>
                         <ul class="gnb_sub">
-                           <li><a href="/controller/bbs_list">공지사항</a></li>
-                           <li><a href="/controller/faq">FAQ</a></li>
+                           <li><a href="/bbs_list">공지사항</a></li>
+                           <li><a href="/faq">FAQ</a></li>
                         </ul>
                   </li>
                </ul>
@@ -100,7 +100,7 @@ $(function(){
 				border-top: 1px solid gray;">
 					<c:forEach items="${pubList}" var="list" step="1">
 						<li style="width: 200px; height: 275px; float:left; margin: 0 15px 0 15px;">
-						<a href="/controller/bookcont?isbn=${list['isbn13']}">
+						<a href="/bookcont?isbn=${list['isbn13']}">
 						<img alt="책이미지" src="${list['bookImageURL']}" style="width: 200px; height: 250px;"></a>
 						<p style="width: 200px; height: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${list['bookname']}</p>
 						</li>
