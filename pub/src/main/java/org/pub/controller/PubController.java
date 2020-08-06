@@ -31,7 +31,7 @@ public class PubController {
 		String start=dateFormat.format(cal.getTime());
 		
 		//XML 데이터를 호출할 URL
-		String url = "http://data4library.kr/api/loanItemSrch?authKey=60ae2adbf5c860435596c14ca52a122889124505a03ee28c41a829ea7185fce0&startDt="+start+"&endDt="+end+"&gender=0&from_age=6&to_age=10&region=11;22&addCode=0&kdc=6&pageNo=1&pageSize=8";
+		String url = "http://data4library.kr/api/loanItemSrch?authKey=60ae2adbf5c860435596c14ca52a122889124505a03ee28c41a829ea7185fce0&startDt="+start+"&endDt="+end+"&gender=0&from_age=6&to_age=10&region=11;22&addCode=0&kdc=6&pageNo=1&pageSize=10";
 		
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열 
 		String[] fieldNames ={"bookname","authors","publisher","publication_year","bookImageURL","isbn13"};

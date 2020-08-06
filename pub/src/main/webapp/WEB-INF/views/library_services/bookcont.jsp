@@ -75,7 +75,9 @@
 							<p><Strong>책 소개</Strong></p>
 							<p>${list['description']}</p>
 							</c:forEach>
-							<!-- 댓글 작업? -->
+					</div>
+					<!-- 댓글 창? -->
+					<div>
 					</div>
 				</div>
 			</div><!-- 여기까지가 몸체우측 -->

@@ -41,3 +41,8 @@ header{position: fixed; height: 90px; z-index:3;}
 #gnb li:nth-child(2) a:hover{color: #f38f3a;transition: all .3s ease-in-out;}
 #gnb li:nth-child(3) a:hover{color: #cd6176;transition: all .3s ease-in-out;}
 #gnb li:nth-child(4) a:hover{color: #605eae;transition: all .3s ease-in-out;}
+
+/*float 속성으로 깨지는 걸 방지하기위한 class clearfix만듬.*/
+.clearfix {*zoom:1;}
+.clearfix:before, .clearfix:after {display:block; content: ''; line-height: 0;}
+.clearfix:after {clear: both;}
