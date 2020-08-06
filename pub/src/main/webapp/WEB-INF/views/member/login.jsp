@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<link rel="stylesheet" type="text/css" href="../../css/login.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/login.css" />
 <script>
-function goPage() { location.href="/controller"; }
+function goPage() { location.href="/"; }
 </script>
 <div class="loginbox">
 	<div id="su_img" onclick="goPage();"></div>

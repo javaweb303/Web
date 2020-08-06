@@ -75,7 +75,7 @@ public class PubController {
 			e.printStackTrace();
 		}
 		ModelAndView m=new ModelAndView();
-		m.setViewName("/index");
+		m.setViewName("index");
 		m.addObject("pubList", pubList);
 		return m;
 	}

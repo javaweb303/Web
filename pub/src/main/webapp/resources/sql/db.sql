@@ -1,6 +1,7 @@
 create table chk_email(
-chk_email varchar2(50) not null,
-chk_number varchar2(50) not null
+email varchar2(100) not null,
+code varchar2(50) not null
 );
 
+drop table chk_email;
 select * from chk_email;

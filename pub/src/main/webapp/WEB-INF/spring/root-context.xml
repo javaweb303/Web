@@ -19,8 +19,8 @@
 	<property name="driverClassName" value="oracle.jdbc.OracleDriver" /><!-- driverClassName 멤버변수에 value속성값을 저장 -->
 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 	<!-- 오라클 접속주소, 1521은 포트번호, xe는 디비명 -->
-	<property name="username" value="week" /><!-- 오라클 접속사용자 -->
-	<property name="password" value="week" /><!-- 비번 -->
+	<property name="username" value="pub" /><!-- 오라클 접속사용자 -->
+	<property name="password" value="pub" /><!-- 비번 -->
 	</bean>	<!-- bean이 자바 클래스 단위. id명인 dataSource는 자바언어에서 객체명에 해당됨. -->
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
