@@ -14,3 +14,17 @@ admin char(4) default 'N'
 
 drop table member;
 select * from member;
+
+
+/* 책코드
+ * 제목
+ * 저자
+ * 출판사
+ * 이미지
+ * 파일
+ * 대출인원
+ * 좋아요
+ */
+create table ebook(
+
+);
