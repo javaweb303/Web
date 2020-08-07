@@ -31,9 +31,9 @@
 								<li><a href="/popular">베스트 셀러</a></li>
 								<li><a href="#">추천도서</a></li>
 							</ul></li>
-						<li class="gnb_menu"><a href="../jsp/ebook.jsp">전자 도서관</a>
+						<li class="gnb_menu"><a href="/eBook">전자 도서관</a>
 							<ul class="gnb_sub">
-								<li><a href="../jsp/ebook.jsp">전자책</a></li>
+								<li><a href="/eBook">전자책</a></li>
 							</ul></li>
 						<li class="gnb_menu"><a href="/history">도서관안내</a>
 							<ul class="gnb_sub">
