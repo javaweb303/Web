@@ -20,6 +20,6 @@ public class eBookController {
 		List<eBookVO> list=new ArrayList<>();
 		//list = eBookService.recent();
 		m.addAttribute("list", list);
-		return "ebook/ebook";
+		return "ebook/ebook"; 
 	}
 }
