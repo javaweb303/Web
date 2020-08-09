@@ -59,9 +59,9 @@ $(function(){
                            <li><a href="#">추천도서</a></li>
                         </ul>
                   </li>
-                  <li><a href="./jsp/ebook.jsp">전자 도서관</a>
+                  <li><a href="/eBook">전자 도서관</a>
                         <ul class="gnb_sub">
-                           <li><a href="./jsp/ebook.jsp">전자책</a></li>
+                           <li><a href="/eBook">전자책</a></li>
                         </ul>
                   </li>
                   <li><a href="/history">도서관 안내</a>
