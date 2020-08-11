@@ -65,17 +65,12 @@ public class LibraryController {
 	
 	@RequestMapping("/recomm")
 	public ModelAndView recomm() {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		String end = df.format(cal.getTime());
-		cal.add(Calendar.MONTH, -5);
-		String start = df.format(cal.getTime());
 		
 		//XML 데이터를 호출할 URL
 		String url = "http://book.interpark.com/api/recommend.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
 		
 		 //서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-	    String[] fieldNames ={"coverLargeUrl"};
+	    String[] fieldNames ={"title","author","publisher","pubDate","coverLargeUrl","isbn"};
 	    
 	    String itemsname="item";
 	    
@@ -115,7 +110,7 @@ public class LibraryController {
 		String url = "http://book.interpark.com/api/newBook.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
 		
 		 //서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-	    String[] fieldNames ={"coverLargeUrl"};
+	    String[] fieldNames ={"title","author","publisher","pubDate","coverLargeUrl","isbn"};
 	    
 	    String itemsname="item";
 	    

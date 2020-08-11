@@ -64,6 +64,75 @@
     height: 250px
 }
 
+.imgList_wrap .list_img li .over {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	padding: 20% 0 0;
+	width: 100%;
+	line-height: 28px;
+	color: #fff;
+	text-align: center;
+	background: rgba(0, 0, 0, .7);
+	font-size: 12px;
+	display: none
+}
+
+.imgList_wrap .list_img li:hover .over {
+	display: block
+}
+
+.imgList_wrap .list_img li .over>strong {
+	padding: 0 10px;
+	font-weight: lighter;
+	font-size: 1.5em !important;
+	color: #ff7200;
+	display: -webkit-box;
+	-webkit-line-clamp: 2
+}
+
+.imgList_wrap .list_img li .over>span, .over>strong {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word
+}
+
+.imgList_wrap .list_img li .over>span {
+	display: -webkit-box;
+	-webkit-line-clamp: 1
+}
+
+.imgList_wrap .list_img li .over>p, .imgList_wrap .list_img li .over>span
+	{
+	margin: 5% 0 0;
+	padding: 0 10px;
+	color: #fff;
+	font-size: 1.25em
+}
+
+.imgList_wrap .list_img li .over>em {
+	position: absolute;
+	bottom: 72px;
+	left: 0;
+	right: 0;
+	padding-top: 10px;
+	font-size: 1.1em;
+	text-align: center
+}
+
+.imgList_wrap .list_img li .over>em:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin: 0 0 0 -13px;
+	display: inline-block;
+	width: 27px;
+	height: 1px;
+	background: #fff
+}
 </style>
 
 <div id="content">
@@ -90,7 +159,12 @@
           <ul class="list_img">
    		  <c:forEach items="${pubList}" var="list" step="1">
           <li>
-          
+          <div class="over">
+          <strong>${list['title']}</strong>
+          <span>${list['author']}</span>
+          <p>${list['publisher']}</p>
+          <p>${list['pubDate']}</p>
+          </div>
           <a href="#"><img src="${list['coverLargeUrl']}" class="img-responsive thumImg"></a>
           </li>
    			</c:forEach>
