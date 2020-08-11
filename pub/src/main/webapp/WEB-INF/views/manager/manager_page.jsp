@@ -26,31 +26,33 @@ $(function(){
 </head>
 <body>
 <br>
+<form method="post" enctype="multipart/form-data" action="/add" > 
 <table>
 <tr>
-<th>제목</th><td><input id="e_title"></td>
+<th>제목</th><td><input id="e_title" name="e_title"></td>
 </tr>
 <tr>
-<th>저자</th><td><input id="e_author"></td>
+<th>저자</th><td><input id="e_author" name="e_author"></td>
 </tr>
 <tr>
-<th>출판사</th><td><input id="e_publisher"></td>
+<th>출판사</th><td><input id="e_publisher" name="e_publisher"></td>
 </tr>
 <tr>
-<th>출판연도</th><td><input id="e_publication_year"></td>
+<th>출판연도</th><td><input id="e_publication_year" name="e_publication_year"></td>
 </tr>
 <tr>
-<th>분류코드</th><td><input id="e_group"></td>
+<th>분류코드</th><td><input id="e_group" name="e_group"></td>
 </tr>
 <tr>
-<th>이미지</th><td><input type="file" name="ebookimg"></td>
+<th>이미지</th><td><input type="file" name="e_bookimg" id="e_bookimg"></td>
 </tr>
 <tr>
-<th>파일</th><td><input type="file" name="ebookfile"></td>
+<th>파일</th><td><input type="file" name="e_bookfile" id="e_bookfile"></td>
 </tr>
 <tr>
-<th colspan="2"><input type="button" value="확인" id="ok"><input type="reset" value="취소" id="no"></th>
+<th colspan="2"><input type="submit" value="확인"><input type="reset" value="취소" id="no"></th>
 </tr>
 </table>
+</form>
 </body>
 </html>

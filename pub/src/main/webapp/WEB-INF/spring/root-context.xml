@@ -12,41 +12,75 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		<!-- Spring JDBC -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	<property name="driverClassName" value="oracle.jdbc.OracleDriver" /><!-- driverClassName 멤버변수에 value속성값을 저장 -->
-	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-	<!-- 오라클 접속주소, 1521은 포트번호, xe는 디비명 -->
-	<property name="username" value="pub" /><!-- 오라클 접속사용자 -->
-	<property name="password" value="pub" /><!-- 비번 -->
+	<!-- Spring JDBC -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" /><!-- driverClassName 멤버변수에 value속성값을 
+			저장 -->
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<!-- 오라클 접속주소, 1521은 포트번호, xe는 디비명 -->
+		<property name="username" value="pub" /><!-- 오라클 접속사용자 -->
+		<property name="password" value="pub" /><!-- 비번 -->
 	</bean>	<!-- bean이 자바 클래스 단위. id명인 dataSource는 자바언어에서 객체명에 해당됨. -->
-	
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	<property name="dataSource" ref="dataSource" />
-	<!-- 스프링의 setter()메서드를 통한 의존성 주입. 그러면 dataSource변수에 ref 빈 아이디 dataSource를 호출해서 사용되게 함.  -->
-	<property name="configLocation" value="classpath:/mybatis-config.xml" />
-	<!-- mybatis-config.xml파일의 역활을 데이터 저장빈 클래스 객체 별칭을 관리.
-	classpath경로는 이클립스 가상경로로 src/main/resources이고, 실제 톰캣 경로로 /WEB-INF/calasses경로를 뜻한다. -->
-	<!-- mybatis 매퍼 xml태그로 쿼리문을 다루는 매퍼태그 위치지정 -->
-	<property name="mapperLocations" value="classpath:org/pub/mappers/*/*.xml" />
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 스프링의 setter()메서드를 통한 의존성 주입. 그러면 dataSource변수에 ref 빈 아이디 dataSource를 
+			호출해서 사용되게 함. -->
+		<property name="configLocation"
+			value="classpath:/mybatis-config.xml" />
+		<!-- mybatis-config.xml파일의 역활을 데이터 저장빈 클래스 객체 별칭을 관리. classpath경로는 이클립스 
+			가상경로로 src/main/resources이고, 실제 톰캣 경로로 /WEB-INF/calasses경로를 뜻한다. -->
+		<!-- mybatis 매퍼 xml태그로 쿼리문을 다루는 매퍼태그 위치지정 -->
+		<property name="mapperLocations"
+			value="classpath:org/pub/mappers/*/*.xml" />
 	</bean>
-	
+
 	<!-- mybatis쿼리문 수행객체를 생성 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-	<!-- clearCache는 임시메모리를 깨끗이 지운다. 또 다른 의미로 데이터베이스 연결을 close()해주는 역활을 한다.-->
-	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/><!-- 생성자를 통한 의존성 DI 설정 
-	constructor는 생성자를 말함. -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<!-- clearCache는 임시메모리를 깨끗이 지운다. 또 다른 의미로 데이터베이스 연결을 close()해주는 역활을 한다. -->
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" /><!-- 생성자를 통한 의존성 DI 설정 constructor는 생성자를 말함. -->
 	</bean>
-	
+
 	<!-- Model *DAOImpl의 @Repository러 설정된 부분을 스프링에서 오토스캔 하게 등록해 줌 -->
-	<context:component-scan base-package="org.pub.dao" />
-	
-	<!-- 서비스 오토스캔 추가.
-		서비스(Service)의 역활: 1.컨트롤러와 모델 DAO를 연결하는 중간 매게체 역활
-		2. 고객의 추가요구사항을 반영하는 서비스
-		3. 스프링의 aop를 통한 트랜잭션을 적용함으로써 레코드 정확도, 일관성, 원자성의 원칙을 지켜서 사이트의 신뢰도를 가져온다. 자료의 불일치성을 완정히 제거한다. -->
-		<context:component-scan base-package="org.pub.service" />
+	<context:component-scan
+		base-package="org.pub.dao" />
+
+	<!-- 서비스 오토스캔 추가. 서비스(Service)의 역활: 1.컨트롤러와 모델 DAO를 연결하는 중간 매게체 역활 2. 고객의 
+		추가요구사항을 반영하는 서비스 3. 스프링의 aop를 통한 트랜잭션을 적용함으로써 레코드 정확도, 일관성, 원자성의 원칙을 지켜서 
+		사이트의 신뢰도를 가져온다. 자료의 불일치성을 완정히 제거한다. -->
+	<context:component-scan
+		base-package="org.pub.service" />
+
+	<!-- 멀티파트 리졸버 -->
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- 최대업로드 가능한 바이트크기 -->
+
+		<property name="maxUploadSize" value="52428800" />
+
+
+
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+
+
+
+		<!-- defaultEncoding -->
+
+		<property name="defaultEncoding" value="utf-8" />
+
+	</bean>
 
 </beans>
