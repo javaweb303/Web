@@ -17,4 +17,9 @@ public class OpenController {
 		
 		return "open/faq";
 	}
+	@RequestMapping("/notice")
+	public String notice() {
+		
+		return "open/notice";
+	}
 }
