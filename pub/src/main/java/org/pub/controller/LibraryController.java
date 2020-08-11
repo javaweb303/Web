@@ -62,6 +62,73 @@ public class LibraryController {
 		model.addObject("pubList", pubList);
 		return model;
 	}
+	
+	@RequestMapping("/recomm")
+	public ModelAndView recomm() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		String end = df.format(cal.getTime());
+		cal.add(Calendar.MONTH, -5);
+		String start = df.format(cal.getTime());
+		
+		//XML 데이터를 호출할 URL
+		String url = "http://book.interpark.com/api/recommend.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
+		
+		 //서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+	    String[] fieldNames ={"coverLargeUrl"};
+	    
+	    String itemsname="item";
+	    
+	  //각 게시물하나에 해당하는 XML 노드를 담을 리스트
+	  		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
+	  		
+	  		ModelAndView model=new ModelAndView();
+			model.addObject("pubList", pubList);
+			model.setViewName("library_services/recBook");
+			return model;
+	}
+	
+	@RequestMapping("/search")
+	public ModelAndView search() {
+		
+		//XML 데이터를 호출할 URL
+		String url = "http://book.interpark.com/api/search.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&query=%ED%86%A0%EC%A7%80&inputEncoding=utf-8";
+		
+		 //서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+	    String[] fieldNames ={"itemId","title","author","publisher","imageUrl"};
+	    
+	    String itemsname="item";
+	    
+	  //각 게시물하나에 해당하는 XML 노드를 담을 리스트
+	  		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
+	  		
+	  		ModelAndView model=new ModelAndView();
+			model.addObject("pubList", pubList);
+			model.setViewName("library_services/srchBook");
+			return model;
+	}
+	
+	@RequestMapping("/new")
+	public ModelAndView newBook() {
+		
+		//XML 데이터를 호출할 URL
+		String url = "http://book.interpark.com/api/newBook.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
+		
+		 //서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+	    String[] fieldNames ={"coverLargeUrl"};
+	    
+	    String itemsname="item";
+	    
+	  //각 게시물하나에 해당하는 XML 노드를 담을 리스트
+	  		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
+	  		
+	  		ModelAndView model=new ModelAndView();
+			model.addObject("pubList", pubList);
+			model.setViewName("library_services/newBook");
+			return model;
+	}
+	
+	
 	public ArrayList<Map> xmlp(String url,String[] fieldNames,String itemsname) {
 		ArrayList<Map> pubList= new ArrayList<Map>();
 		try {
