@@ -27,7 +27,7 @@ select * from member;
  * 대출인원
  * 좋아요
  */
-create table ebook(
+create table tbl_ebook(
 e_num number(38) constraint ebook_pk primary key,
 e_title varchar2(500) not null,
 e_author varchar2(500) not null,
@@ -38,14 +38,20 @@ e_status number(38) default 5,
 e_recommend number(38) default 0,
 file_no varchar2(50),
 boardcd varchar2(30),
-constraint ebook_file_no_fk foreign key(boardcd) references file(file_no),
+--constraint ebook_file_no_fk foreign key(file_no) references tbl_file(file_no),
 constraint ebook_boardcd_fk foreign key(boardcd) references board(boardcd)
 );
+
+drop table tbl_ebook;
+
+select * from tbl_ebook;
 
 create sequence e_num_seq
 increment by 1 
 start with 1 
 nocache;
+
+drop sequence e_num_seq;
 
 create table tbl_file(
 file_no number constraint file_no_pk primary key,
@@ -55,6 +61,9 @@ file_size number,
 boardcd varchar2(30),
 constraint file_boardcd_fk foreign key(boardcd) references board(boardcd)
 );
+
+drop table tbl_file;
+
 
 select * from tbl_file;
 /* 파일 번호
@@ -70,7 +79,7 @@ increment by 1
 start with 1 
 nocache;
 
-drop sequence file_idx_seq;
+drop sequence file_no_seq;
 
 --게시판을 구별하기위해.. 만듬
 create table board(

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.pub.service.FileService;
 import org.pub.service.ManagerService;
+import org.pub.service.eBookService;
 import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class ManagerController {
 	private ManagerService managerService;
 	@Autowired
 	private FileService fileService;
+	@Autowired
+	private eBookService ebookService;
 	
 	@RequestMapping("/manager")
 	public String page() {
@@ -40,7 +43,8 @@ public class ManagerController {
 		
 		List<MultipartFile> files=new ArrayList<>();
 		files.add(img);files.add(file);
-		fileService.upload(files,"ebook");
+		List<Integer> files_no=fileService.upload(files,"ebook");
+		ebookService.upload(book,"ebook",files_no);
 		
 		return "/eBook";
 	}

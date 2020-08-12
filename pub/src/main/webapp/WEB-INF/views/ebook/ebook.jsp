@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <style>
 /*헤더 색*/
@@ -89,6 +90,31 @@
                <input class="inputbox">
                <input type="button" value="검색" class="searchbtn">
                </form>
+               </div>
+               <div><!-- 리스트  -->
+					<ul>
+						<c:forEach items="${list}" var="book_info">
+							<li>
+								<div style="margin: 10px; border-bottom: 1px solid gray; padding:10px; width: auto; height: 250px;">
+								<a href="/ebookcont">
+								<c:forEach items="${book_info.file}" var="file">
+								<c:if test="${file.ext eq '.jpg' || file.ext eq '.png' || file.ext eq '.jpeg'}">
+								<img src="/file/${file.y}/${file.m}/${file.d}/img/${file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
+								</c:if>
+								</c:forEach>
+								<div>
+								<p>제목 : ${book_info.e_title}</p>
+								<p>저자 : ${book_info.e_author}</p>
+								<p>출판사 : ${book_info.e_publisher}</p>
+								<p>출판연도 : ${book_info.e_publication_year}</p>
+								<p>도서현황 : 5/${book_info.e_status}</p>
+								<p>추천수 : ${book_info.e_recommend}</p>
+								</div>
+								</a>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>               		
                </div>
             </div>
          </div><!-- 여기까지가 몸체우측 -->

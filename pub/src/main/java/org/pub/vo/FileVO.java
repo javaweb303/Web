@@ -13,4 +13,7 @@ public class FileVO {
 	private String boardcd; //
 	private String ext;
 	private MultipartFile file;
+	private String y;
+	private String m;
+	private String d;
 }

@@ -28,9 +28,10 @@ public class FileServiceImpl implements FileService {
 	//private static final String PREFIX_URL = "/upload/";
 
 	@Override
-	public void upload(List<MultipartFile> files,String board) {
+	public List<Integer> upload(List<MultipartFile> files,String board) {
 		//파일리스트로 받고 파일 업로드를 요청한 곳에 뭔가를 받아온다. 그걸 저장하고 업로드를 다 처리하고 db에다가 처리한다.
 		List<FileVO> list=new ArrayList<>();
+		List<Integer> numbers=new ArrayList<>();
 		try {
 			// 파일 정보
 			for(MultipartFile file:files) {
@@ -72,10 +73,13 @@ public class FileServiceImpl implements FileService {
 				System.out.println("\n-------------------------------------");
 			}
 			fileDAO.in_file(list);
+			numbers=fileDAO.get_fileupload(list);
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		return numbers;
 	}
 	// 현재 시간을 기준으로 파일 이름 생성
 	//가변인자로 받음..
@@ -148,6 +152,10 @@ public class FileServiceImpl implements FileService {
 		fos.close();
 
 		return result;
+	}
+	@Override
+	public List<FileVO> getFile(List<Integer> file_no) {
+		return fileDAO.getFile(file_no);
 	}
 
 }

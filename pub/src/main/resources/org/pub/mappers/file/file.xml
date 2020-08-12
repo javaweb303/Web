@@ -6,4 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <insert id="in_file">
 insert into tbl_file values(file_no_seq.nextval,#{original_file_name},#{stored_file_name},#{file_size},#{boardcd})
 </insert>
+<select id="get_fileupload" resultType="int">
+select file_no from tbl_file where boardcd=#{boardcd} and original_file_name=#{original_file_name} and stored_file_name=#{stored_file_name}
+</select>
+<select id="get_file" resultType="file">
+select file_no,original_file_name,stored_file_name,file_size,boardcd from tbl_file where file_no=#{i}
+</select>
 </mapper>
