@@ -7,4 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 1은 가입회원 2는 탈퇴회원 -->
 insert into member (id,pw,name,email,gender,birth,regdate,state) values(#{id},#{pw},#{name},#{email},#{gender},#{birth},sysdate,1)
 </insert>
+<select id="getMember" resultType="m">
+select * from member where id=#{id}
+</select>
 </mapper>

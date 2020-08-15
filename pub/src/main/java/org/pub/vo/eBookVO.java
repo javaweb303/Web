@@ -11,6 +11,7 @@ public class eBookVO {
 	private String e_author;//저자
 	private String e_publisher;//출판사
 	private int e_publication_year;//출판연도
+	private String e_introduce;//책소개
 	private String e_group;//KDC분류코드
 	private String e_status;//도서현황
 	private int e_recommend;//추천수

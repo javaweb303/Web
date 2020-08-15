@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
-	private MemberDAO pubDAO;
+	private MemberDAO MemberDAO;
 	
 	@Override
 	public void join(MemberVO m) {
-		pubDAO.join(m);
+		MemberDAO.join(m);
+	}
+
+	@Override
+	public MemberVO getMember(String id) {
+		return MemberDAO.getMember(id);
 	}
 
 }

@@ -96,7 +96,7 @@
 						<c:forEach items="${list}" var="book_info">
 							<li>
 								<div style="margin: 10px; border-bottom: 1px solid gray; padding:10px; width: auto; height: 250px;">
-								<a href="/ebookcont">
+								<a href="/ebookcont?ebook_no=${book_info.e_num}">
 								<c:forEach items="${book_info.file}" var="file">
 								<c:if test="${file.ext eq '.jpg' || file.ext eq '.png' || file.ext eq '.jpeg'}">
 								<img src="/file/${file.y}/${file.m}/${file.d}/img/${file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
@@ -109,6 +109,8 @@
 								<p>출판연도 : ${book_info.e_publication_year}</p>
 								<p>도서현황 : 5/${book_info.e_status}</p>
 								<p>추천수 : ${book_info.e_recommend}</p>
+								<br>
+								<p>책소개<br>${book_info.e_introduce}</p>
 								</div>
 								</a>
 								</div>

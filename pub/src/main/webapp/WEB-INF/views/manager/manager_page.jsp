@@ -13,6 +13,7 @@ $(function(){
 		var e_author=$('#e_author').val();
 		var e_publisher=$('#e_publisher').val();
 		var e_publication_year=$('#e_publication_year').val();
+		
 		var e_group=$('#e_group').val();
 		var e_bookimg=$('#e_bookimg').val();
 		var e_file=$('#e_file').val();
@@ -39,6 +40,9 @@ $(function(){
 </tr>
 <tr>
 <th>출판연도</th><td><input id="e_publication_year" name="e_publication_year"></td>
+</tr>
+<tr>
+<th>책소개</th><td><textarea rows="14" cols="36" id="e_introduce" name="e_introduce"></textarea></td>
 </tr>
 <tr>
 <th>분류코드</th><td><input id="e_group" name="e_group"></td>

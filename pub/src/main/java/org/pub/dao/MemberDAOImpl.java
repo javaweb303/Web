@@ -13,5 +13,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public void join(MemberVO m) {
 		sqlSession.insert("m_join", m);
 	}
+	@Override
+	public MemberVO getMember(String id) {
+		return sqlSession.selectOne("getMember", id);
+	}
 
 }

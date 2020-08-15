@@ -5,14 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.pub.service.FileService;
 import org.pub.service.eBookService;
 import org.pub.vo.FileVO;
 import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.w3c.dom.Entity;
 
 @Controller
 public class eBookController {
@@ -55,8 +62,86 @@ public class eBookController {
 	}
 	
 	@RequestMapping("/ebookcont")
-	public String eBookCont() {
+	public String eBookCont(Model m,@RequestParam("ebook_no") int no) {
+		eBookVO book=eBookService.selectOne(no);
+		List<Integer> file_no=new ArrayList<>();
+		String[] sarry=book.getFile_no().split(",");//자른다 ,기준
+		for(String str:sarry) {
+			no=Integer.parseInt(str);
+			file_no.add(no);
+		}
+		List<FileVO> filelist=fileService.getFile(file_no);
+		for(FileVO file:filelist) {
+			String filename=file.getStored_file_name();
+			String ext=filename.substring(filename.lastIndexOf('.'),filename.length());
+			file.setExt(ext);
+			String d_y=filename.substring(0, 4);
+			String d_m=filename.substring(4, 6);
+			String d_d=filename.substring(6, 8);
+			file.setY(d_y);
+			file.setM(d_m);
+			file.setD(d_d);
+		}
+		book.setFile(filelist);
+		m.addAttribute("book", book);
 		
 		return "ebook/ebook_cont"; 
 	}
+	 
 }
+
+@RestController
+class Rest{
+	@Autowired
+	private eBookService eBookService;
+	
+	@RequestMapping("/recommend")
+	public ResponseEntity<String> Recommend(){
+		ResponseEntity<String> entity=null;
+		try {
+			eBookService.up_recommend();
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
+	}
+	@RequestMapping("/book_loan")
+	public ResponseEntity<String> book_loan(){
+		ResponseEntity<String> entity=null;
+		try {
+			
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

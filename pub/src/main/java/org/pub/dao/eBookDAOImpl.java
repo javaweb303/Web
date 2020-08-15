@@ -21,4 +21,14 @@ public class eBookDAOImpl implements eBookDAO {
 	public List<eBookVO> select() {
 		return sqlSession.selectList("sel");
 	}
+
+	@Override
+	public eBookVO selectOne(int no) {
+		return sqlSession.selectOne("sel_one", no);
+	}
+
+	@Override
+	public void up_recommend() {
+		sqlSession.update("up_recommend");
+	}
 }

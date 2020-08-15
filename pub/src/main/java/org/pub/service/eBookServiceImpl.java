@@ -38,5 +38,15 @@ public class eBookServiceImpl implements eBookService {
 		return eBookDAO.select();
 	}
 
+	@Override
+	public eBookVO selectOne(int no) {
+		return eBookDAO.selectOne(no);
+	}
+
+	@Override
+	public void up_recommend() {
+		eBookDAO.up_recommend();
+	}
+
 	
 }

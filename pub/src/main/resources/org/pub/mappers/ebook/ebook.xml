@@ -4,9 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="eBook">
 <insert id="upload">
-insert into tbl_ebook (e_num,e_title,e_author,e_publisher,e_publication_year,e_group,file_no,boardcd) values(e_num_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{e_group},#{file_no},#{boardcd})
+insert into tbl_ebook (e_num,e_title,e_author,e_publisher,e_publication_year,e_introduce,e_group,file_no,boardcd) values(e_num_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{e_introduce},#{e_group},#{file_no},#{boardcd})
 </insert>
 <select id="sel" resultType="ebook">
 select * from tbl_ebook order by e_num desc
 </select>
+<select id="sel_one" resultType="ebook">
+select * from tbl_ebook where e_num=#{no}
+</select>
+<update id="up_recommend">
+update tbl_ebook set e_recommend=e_recommend+1 where e_num=#{i}
+</update>
 </mapper>

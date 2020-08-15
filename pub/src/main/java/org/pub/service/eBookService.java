@@ -10,5 +10,9 @@ public interface eBookService {
 
 	List<eBookVO> select();
 
+	eBookVO selectOne(int no);
+
+	void up_recommend();
+
 
 }

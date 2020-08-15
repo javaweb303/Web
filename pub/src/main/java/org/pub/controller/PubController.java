@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -23,13 +26,15 @@ import org.w3c.dom.NodeList;
 public class PubController {
 		
 	@RequestMapping("/")
-	public ModelAndView index() {
+	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
 		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal=Calendar.getInstance();
 		String end=dateFormat.format(cal.getTime());
 		cal.add(Calendar.MONTH,-5);
 		String start=dateFormat.format(cal.getTime());
-		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		System.out.println(id);
 		//XML 데이터를 호출할 URL
 		String url = "http://data4library.kr/api/loanItemSrch?authKey=60ae2adbf5c860435596c14ca52a122889124505a03ee28c41a829ea7185fce0&startDt="+start+"&endDt="+end+"&gender=0&from_age=6&to_age=10&region=11;22&addCode=0&kdc=6&pageNo=1&pageSize=10";
 		

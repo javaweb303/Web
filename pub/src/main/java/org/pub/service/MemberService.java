@@ -7,4 +7,6 @@ public interface MemberService {
 
 	void join(MemberVO m);
 
+	MemberVO getMember(String id);
+
 }

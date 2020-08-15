@@ -31,7 +31,7 @@ public class ManagerController {
 
 	@RequestMapping("/add")
 	public String add(Model m,@RequestParam("e_title") String title,@RequestParam("e_author") String author,
-			@RequestParam("e_publisher") String publisher,@RequestParam("e_publication_year") String publication_year,@RequestParam("e_group") String group,
+			@RequestParam("e_publisher") String publisher,@RequestParam("e_publication_year") String publication_year,@RequestParam("e_introduce") String introduce,@RequestParam("e_group") String group,
 			@RequestParam("e_bookimg") MultipartFile img,@RequestParam("e_bookfile") MultipartFile file) {
 	
 		eBookVO book=new eBookVO();
@@ -39,6 +39,7 @@ public class ManagerController {
 		book.setE_author(author);
 		book.setE_publisher(publisher);
 		book.setE_publication_year(Integer.parseInt(publication_year));
+		book.setE_introduce(introduce);
 		book.setE_group(group);
 		
 		List<MultipartFile> files=new ArrayList<>();
