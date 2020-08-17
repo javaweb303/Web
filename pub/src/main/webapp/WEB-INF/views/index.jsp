@@ -51,12 +51,12 @@ $(function(){
          <div id="bottom_head">
             <nav>
                <ul id="gnb">
-                  <li><a href="./jsp/search.jsp">도서관 서비스</a>
+                  <li><a href="./search">도서관 서비스</a>
                         <ul class="gnb_sub">
-                           <li><a href="./jsp/search.jsp">통합검색</a></li>
-                           <li><a href="#">신간도서</a></li>
-                           <li><a href="/popular">베스트 셀러</a></li>
-                           <li><a href="#">추천도서</a></li>
+                           <li><a href="./search">통합검색</a></li>
+                           <li><a href="./new">신간도서</a></li>
+                           <li><a href="./popular">베스트 셀러</a></li>
+                           <li><a href="./recomm">추천도서</a></li>
                         </ul>
                   </li>
                   <li><a href="/eBook">전자 도서관</a>
