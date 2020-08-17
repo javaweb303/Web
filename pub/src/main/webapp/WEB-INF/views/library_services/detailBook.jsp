@@ -122,6 +122,7 @@
 	box-sizing: border-box;
 	cursor: pointer;
 	float: left;
+	margin: 0;
 	width: 18%;
 }
 
@@ -134,7 +135,7 @@
 .imgList_wrap .list_img .thumImg {
 	width: 80%;
 	height: 250px;
-	margin: 20px;
+	margin : 20px;
 }
 
 .imgList_wrap .list_img li .over {
@@ -216,7 +217,7 @@
 	<div class="location">
 		<!-- 이것도 이건 상단에 home>열린공간 >오시는길 이거 표시하는 부분? -->
 		<ul class="">
-			<li>추천도서</li>
+			<li>신간도서</li>
 			<li>도서관서비스 ></li>
 			<li><a href="../index.jsp">Home</a> ></li>
 		</ul>
@@ -236,7 +237,7 @@
 			</div>
 			<div class="cont_box">
 				<!-- 몸체 우측공간 -->
-				<h2>추천도서</h2>
+				<h2>도서검색</h2>
 				<div>
 					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
 					<div class="imgList_wrap">
@@ -244,8 +245,8 @@
 							<c:forEach items="${pubList}" var="list" step="1">
 								<li>
 									<div class="over">
-										<strong>${list['title']}</strong> 
-										<span>${list['author']}</span>
+										<strong>${list['title']}</strong>
+										<%-- <span>${list['author']}</span>--%>
 										<p>${list['publisher']}</p>
 										<p>${list['pubDate']}</p>
 									</div> <a href="#"><img src="${list['coverLargeUrl']}"
