@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.pub.service.FileService;
 import org.pub.service.eBookService;
@@ -62,7 +64,10 @@ public class eBookController {
 	}
 	
 	@RequestMapping("/ebookcont")
-	public String eBookCont(Model m,@RequestParam("ebook_no") int no) {
+	public String eBookCont(Model m,@RequestParam("ebook_no") int no,HttpServletRequest request,HttpServletResponse response) {
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		System.out.println(id);
 		eBookVO book=eBookService.selectOne(no);
 		List<Integer> file_no=new ArrayList<>();
 		String[] sarry=book.getFile_no().split(",");//자른다 ,기준
@@ -96,28 +101,36 @@ class Rest{
 	private eBookService eBookService;
 	
 	@RequestMapping("/recommend")
-	public ResponseEntity<String> Recommend(){
+	public ResponseEntity<String> Recommend(HttpServletRequest request){
 		ResponseEntity<String> entity=null;
-		try {
-			eBookService.up_recommend();
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		HttpSession session=request.getSession();
+		if(session.getAttribute("id")==null) {
+			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
+		}else {		
+			try {
+				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			}catch (Exception e) {
+				e.printStackTrace();
+				entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			}
 		}
 		
 		return entity;
 		
 	}
 	@RequestMapping("/book_loan")
-	public ResponseEntity<String> book_loan(){
+	public ResponseEntity<String> book_loan(HttpServletRequest request){
 		ResponseEntity<String> entity=null;
-		try {
-			
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		HttpSession session=request.getSession();
+		if(session.getAttribute("id") == null) {
+			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
+		}else {		
+			try {
+				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			}catch (Exception e) {
+				e.printStackTrace();
+				entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			}
 		}
 		
 		return entity;

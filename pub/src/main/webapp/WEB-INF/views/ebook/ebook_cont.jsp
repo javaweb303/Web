@@ -56,6 +56,9 @@ $(function(){
 				if(data=='SUCCESS'){
 					alert('정상');
 				}
+				if(data=='noLogin'){
+					alert('로그인을 해주세요!');
+				}
 			}
 		});
 	});
@@ -67,6 +70,9 @@ $(function(){
 			success:function(data){
 				if(data=='SUCCESS'){
 					alert('정상');
+				}
+				if(data=='noLogin'){
+					alert('로그인을 해주세요!');
 				}
 			}
 		});

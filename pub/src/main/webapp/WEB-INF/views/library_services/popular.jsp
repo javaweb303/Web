@@ -56,10 +56,10 @@
 				<!-- 카테고리 부분 몸체 좌측-->
 				<h2>도서관 서비스</h2>
 				<ul class="cont_lnb_sub">
-					<li><a href="search.jsp">전체도서</a></li>
-					<li><a href="#">신간도서</a></li>
+					<li><a href="/controller/search">전체도서</a></li>
+					<li><a href="/controller/new">신간도서</a></li>
 					<li><a href="/controller/popular">인기도서</a></li>
-					<li><a href="#">추천도서</a></li>
+					<li><a href="/controller/recomm">추천도서</a></li>
 				</ul>
 			</div>
 			<div class="cont_box">
