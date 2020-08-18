@@ -16,7 +16,7 @@
 
 <div id="slidermenu_back"></div>
    <div id="slmenu_wrap">
-      <div class="top_menu"><img alt="상단로고" src="resources/images/logo.png"></div>
+      <div class="top_menu"><img alt="상단로고" src="resources/images/logo/logo.png"></div>
          <div class="listmenu">
             <ul id="slider_menu">
                <li><a>도서관 서비스</a>

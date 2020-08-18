@@ -29,7 +29,7 @@
 	margin: 0 auto;
 	width: 300px;
 	height: 150px;
-	background-image: url(resources/images/logo.png);
+	background-image: url(resources/images/logo/logo.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 100%;

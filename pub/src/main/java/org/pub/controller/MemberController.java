@@ -80,4 +80,33 @@ public class MemberController {
 		
 		return null;
 	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=response.getWriter();
+		String id=(String)session.getAttribute("id");
+		if(id != null) {
+			session.invalidate();
+			out.println("<script>");
+			out.println("alert('정상로그아웃 되었습니다.')");
+			out.println("location='/'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('로그인이 안되있는데 말도안되..');");
+			out.println("history.go(-1)");
+			out.println("</script>");
+		}
+		return null;
+	}
+	
+	@RequestMapping("/mypage")
+	public ModelAndView mypage(HttpSession session,HttpServletResponse response) {
+		String id=(String)session.getAttribute("id");
+		if(id != null) {
+			
+		}
+		return null;
+	}
 }

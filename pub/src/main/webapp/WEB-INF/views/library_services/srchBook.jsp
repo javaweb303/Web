@@ -226,7 +226,7 @@
 	</div>
 	<div class="location">
 		<ul class="">
-			<li>전체 검색</li>
+			<li>통합 검색</li>
 			<li>도서관 서비스 ></li>
 			<li><a href="../index.jsp">Home</a> ></li>
 		</ul>
@@ -238,9 +238,9 @@
 
 			<!-- 좌측 카테고리 -->
 			<div class="cont_lnb">
-				<h2>전체 검색</h2>
+				<h2>통합 검색</h2>
 				<ul class="cont_lnb_sub">
-					<li><a href="/controller/search">전체도서</a></li>
+					<li><a href="/controller/search">통합검색</a></li>
 					<li><a href="/controller/new">신간도서</a></li>
 					<li><a href="/controller/popular">인기도서</a></li>
 					<li><a href="/controller/recomm">추천도서</a></li>
@@ -250,13 +250,13 @@
 
 			<!-- 우측 본문내용 -->
 			<div class="cont_box">
-				<h2>전체 검색</h2>
+				<h2>통합 검색</h2>
 				<div>
 					<!-- 우측 메뉴 창 -->
 					<form name="searchForm" id="searchForm" method="post" action = "/detail">
 						<div class="contentcore">
 							<div class="nav">
-								<h3>전체검색</h3>
+								<h3>통합검색</h3>
 								<br>
 							</div>
 							<div class="contents" id="contents">

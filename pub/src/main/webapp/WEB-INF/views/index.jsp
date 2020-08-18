@@ -26,13 +26,20 @@ $(function(){
       <header>
          <div id="top_head">
             <div class="tnb">
-            <a href="/login">로그인</a>
-            <a href="/join">회원가입</a>
+          	<c:if test="${empty id}">
+            <a href="/login">Login</a>
+            <a href="/join">Join</a>
+            </c:if>
+            <c:if test="${!empty id}">
+            <span>${id}님</span>&nbsp;
+            <a href="/logout">Logout</a>
+            <a href="/mypage">Mypage</a>
+            </c:if>
             </div>
          </div>
          <div id="mid_head">
             <div class="logo">
-            <a href="/"><img alt="로고" src="resources/images/logo.png"></a>
+            <a href="/"><img alt="로고" src="resources/images/logo/logo.png"></a>
             </div>
             <div class="search">
             <select name="searchField" class="search_ field">
@@ -44,19 +51,26 @@ $(function(){
             <button type="button" onclick="alert('확인');" class="search_ searchbtn">검색</button>
             </div>
             <div class="lnb">
+            <c:if test="${empty id}">
             <a href="/login"><img src="resources/images/login.png"></a>
             <a href="#" id="slbtn"><img src="resources/images/menu_Main.png"></a>
+            </c:if>
+            <c:if test="${!empty id}">
+            <a href="/loginout"><img src="resources/images/login.png"></a>
+            <a href="/mypage"><img src="resources/images/myPage.png"></a>
+            <a href="#" id="slbtn"><img src="resources/images/menu_Main.png"></a>
+            </c:if>
             </div>
          </div>
          <div id="bottom_head">
             <nav>
                <ul id="gnb">
-                  <li><a href="./search">도서관 서비스</a>
+                  <li><a href="/search">도서관 서비스</a>
                         <ul class="gnb_sub">
-                           <li><a href="./search">통합검색</a></li>
-                           <li><a href="./new">신간도서</a></li>
-                           <li><a href="./popular">베스트 셀러</a></li>
-                           <li><a href="./recomm">추천도서</a></li>
+                           <li><a href="/search">통합검색</a></li>
+                           <li><a href="/new">신간도서</a></li>
+                           <li><a href="/popular">인기도서</a></li>
+                           <li><a href="/recomm">추천도서</a></li>
                         </ul>
                   </li>
                   <li><a href="/eBook">전자 도서관</a>
@@ -130,9 +144,9 @@ $(function(){
       </div>
       <footer id="footer">
 			<div class="footer-info">
-				<div class="logo">
+				<!--<div class="logo">
 					<img alt="하단로고" src="resources/images/logo_white.png">
-				</div>
+				</div> -->
 				<div class="footer-cont">
 					<address>서울특별시 동작구 장승배기로 171 2층, 3층 303호</address>
 					문의전화 02) 866-9357 | 팩스 02) 5249-1464

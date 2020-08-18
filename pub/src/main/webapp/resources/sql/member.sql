@@ -8,6 +8,7 @@ birth varchar2(100) not null,
 regdate date not null,
 deldate date,
 delcont varchar2(3000),
+--overdue date,--연체기간
 state number(38) not null,
 admin char(4) default 'N'
 );
@@ -17,3 +18,6 @@ select * from member;
 
 insert into member (id,pw,name,email,gender,birth,regdate,state)
 values('st4731','123456','범더기','st4731@naver.com','남자','19961212',sysdate,1)
+
+insert into member (id,pw,name,email,gender,birth,regdate,state)
+values('test','test','test','test@naver.com','남자','19961212',sysdate,1)

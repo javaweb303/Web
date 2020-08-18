@@ -47,5 +47,7 @@ e_num number(38)
 
 create table book_loan_return(
 id varchar2(100),
-e_num number(38)
+e_num number(38),
+loan_date date,
+return_date date,
 );

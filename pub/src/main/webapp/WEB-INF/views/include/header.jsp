@@ -20,7 +20,7 @@
 		<header>
 			<div id="head">
 				<div class="logo">
-					<a href="/"><img alt="로고" src="resources/images/logo_white.png"></a>
+					<a href="/"><img alt="로고" src="resources/images/logo/logo_white.png"></a>
 				</div>
 				<nav class="nav">
 					<ul id="gnb">
