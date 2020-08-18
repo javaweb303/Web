@@ -8,6 +8,8 @@ public interface MailService {
 
 	String code(String email);
 
+	void del_code(String email);
+
 	
 
 }

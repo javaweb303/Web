@@ -62,10 +62,10 @@ function goPage() { location.href="/"; }
 					data : JSON.stringify(obj),
 					success : function(data) {
 						if(data=='SUCCESS'){
-							$('#iderrbox').text('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
+							$('#iderrbox').append('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
 						}
 						if(data=='FAIL'){
-							$('#iderrbox').text('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
+							$('#iderrbox').append('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
 						}
 					},
 					error : function(errorThrown) {
@@ -141,7 +141,7 @@ function goPage() { location.href="/"; }
 				data : JSON.stringify(obj),
 				success : function(data) {
 					if(data=='SUCCESS'){
-						return true;
+						
 					}
 					if(data=='FAIL'){
 						alert('인증코드가 다르다.');
@@ -157,7 +157,6 @@ function goPage() { location.href="/"; }
 		}else{
 			return false;
 		}
-		return false;
 	}
 </script>
 <div id="join">

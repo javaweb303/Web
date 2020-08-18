@@ -27,12 +27,12 @@ $(function(){
          <div id="top_head">
             <div class="tnb">
           	<c:if test="${empty id}">
-            <a href="./login">Login</a>
+            <a href="./login">Login</a> | 
             <a href="./join">Join</a>
             </c:if>
             <c:if test="${!empty id}">
             <span>${id}님</span>&nbsp;
-            <a href="./logout">Logout</a>
+            <a href="./logout">Logout</a> | 
             <a href="./mypage">Mypage</a>
             </c:if>
             </div>
@@ -125,19 +125,25 @@ $(function(){
       		<div style="width: 50%; height: 350px; float: left;">
       		<h3 style="margin: 20px 0;">공지사항</h3>
       		<div class="l"><!-- 제목 나오는곳 -->
-      		<a href="#">1111</a>
+      		<a href="#">공지입니다.</a>
       		</div>
       		<div class="r"><!-- 날짜 나오는곳 -->
-      		2222
+      		2020/08/09
+      		</div>
+      		<div class="l"><!-- 제목 나오는곳 -->
+      		<a href="#">첫 공지입니다.</a>
+      		</div>
+      		<div class="r"><!-- 날짜 나오는곳 -->
+      		2020/08/08
       		</div>
       		</div>
       		<div style="width: 50%; height: 350px; float: left;">
       		<h3 style="margin: 20px 0;">FAQ</h3>
       		<div class="l"><!-- 제목 나오는곳 -->
-      		<a href="#">asdasdasd</a>
+      		<a href="#">이곳은 뭐하는 곳인가요?</a>
       		</div>
       		<div class="r"><!-- 날짜 나오는곳 -->
-      		asdas
+      		2020/08/08
       		</div>
       		</div>
       	</div>
