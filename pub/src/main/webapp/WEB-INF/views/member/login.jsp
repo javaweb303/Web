@@ -19,6 +19,6 @@ function goPage() { location.href="/"; }
 		</div>
 	</div>
 	<div id="footer">
-		<p align="center">&copy; 문아공간</p>
+		<p align="center">&copy; PuB</p>
 	</div>
 </div>

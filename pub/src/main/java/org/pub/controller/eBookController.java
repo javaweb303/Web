@@ -101,9 +101,8 @@ class Rest{
 	private eBookService eBookService;
 	
 	@RequestMapping("/recommend")
-	public ResponseEntity<String> Recommend(HttpServletRequest request){
+	public ResponseEntity<String> Recommend(HttpServletRequest request,HttpSession session){
 		ResponseEntity<String> entity=null;
-		HttpSession session=request.getSession();
 		if(session.getAttribute("id")==null) {
 			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
 		}else {		
@@ -119,9 +118,8 @@ class Rest{
 		
 	}
 	@RequestMapping("/book_loan")
-	public ResponseEntity<String> book_loan(HttpServletRequest request){
+	public ResponseEntity<String> book_loan(HttpServletRequest request,HttpSession session){
 		ResponseEntity<String> entity=null;
-		HttpSession session=request.getSession();
 		if(session.getAttribute("id") == null) {
 			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
 		}else {		
