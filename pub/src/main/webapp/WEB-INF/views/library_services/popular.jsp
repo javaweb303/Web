@@ -5,14 +5,14 @@
 
 <style>
 /*헤더 색*/
-#head{background-color: #848d2e;}/*색변경*/
+#head{background-color: #D4748C;}/*색변경*/
 /*#gnb li ul{border-top: 7px solid #b5c13e;}/*색변경*/
 /*내용*/
 #content{ height: 100%;}
 #content .container{margin: 0 40px;height: 100%; padding-bottom: 80px;}
 
 /*테마 이름*/
-#content .content_head{height: 200px; background-color: #a0ac37;}/*색변경*/
+#content .content_head{height: 200px; background-color: #ED829D;}/*색변경*/
 #content .content_head h2{padding: 75px 0 70px; text-align: center;}
 /*로컬주소*/
 #content .location{margin: 0 auto 23px; width: 100%;}

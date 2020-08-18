@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <style>
-
 /*헤더 색*/
 #head{background-color: #5F78D4}/*색변경*/
 #gnb li ul{border-top: 7px solid #B36276;}/*색변경*/
