@@ -30,12 +30,12 @@ SQL>create tablespace javaoracle datafile 'C:\app\user\product\18.0.0\oradata\XE
 
 SQL>alter session set "_oracle_script"=true; //18c에서 오라클 사용자 생성을 11g와 같은 이전에 쓰던 방식으로 돌려준다. 비번 변경과는 관계 없다.
 
-SQL> create user week // 계정 생성
-2  identified by week // 패스워드 생성
+SQL> create user pub // 계정 생성
+2  identified by pub // 패스워드 생성
 3  default tablespace javaoracle // 위에서 생성한 테이블스페이스 명
 4  quota UNLIMITED ON javaoracle; // 테이블 스페이스의 제한량 무한대
 
-SQL> GRANT connect, resource TO week;
+SQL> GRANT connect, resource TO pub;
 ```
 ### 2. 톰캣 서버를 생성합니다.
 ### 3. 파일을 클론합니다. (import -> GIT)
