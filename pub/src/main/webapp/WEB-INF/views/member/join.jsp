@@ -46,7 +46,6 @@
 function goPage() { location.href="/"; }
 	$(function() {
 		$('#chk_code').hide();
-		$('#send').attr("disabled",true);
 		$msg = '<font color="red" size="0.6"><b>필수 입력 값입니다.</b></font>';
 		$('#id').blur(function() {
 			if ($.trim($(this).val()) == "") {
@@ -54,6 +53,25 @@ function goPage() { location.href="/"; }
 				$('#iderrbox').append($msg);
 			} else {
 				$('#iderrbox').text('');
+				var obj = {"id":$.trim($(this).val())};
+				$.ajax({
+					type : "post",
+					url : "/idcheck",
+					dataType : "text",
+					contentType : "application/json",
+					data : JSON.stringify(obj),
+					success : function(data) {
+						if(data=='SUCCESS'){
+							$('#iderrbox').text('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
+						}
+						if(data=='FAIL'){
+							$('#iderrbox').text('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
+						}
+					},
+					error : function(errorThrown) {
+						alert(errorThrown.statusText);
+					}
+				});
 			}
 		});
 		$('#pw').blur(function() {
@@ -92,6 +110,7 @@ function goPage() { location.href="/"; }
 		$('#chkBtn').on("click", function() {
 			var email = $('#emailbox').val();
 			var obj = {"email":email};
+			$('#chk_code').css("display","block");
 			$.ajax({
 				type : "post",
 				url : "/sendmail",
@@ -100,7 +119,7 @@ function goPage() { location.href="/"; }
 				data : JSON.stringify(obj),
 				success : function(data) {
 					if(data=='SUCCESS'){
-						$('#chk_code').css("display","block");
+						alert('인증메일이 발송되었습니다.');
 					}
 				},
 				error : function(errorThrown) {
@@ -108,39 +127,43 @@ function goPage() { location.href="/"; }
 				}
 			});
 		});
-		$('#chk_code').blur(function() {
-			var email = $.trim($('#emailbox').val());
-			var code = $.trim($('#chk_code').val());
-			var obj = {"email":email,"code":code};
-			var code;
-			if(code != ""){
-				$.ajax({
-					type:"post",
-					url:"/chk",
-					dataType:"text",
-					contentType : "application/json",
-					data : JSON.stringify(obj),
-					success : function(data) {
-						if(data=='SUCCESS'){
-							$('#send').attr("disabled",false);
-						}
-						if(data=='FAIL'){
-							alert('인증코드가 다르다.');
-							$('#chk_code').val("").focus();
-						}
-					},
-					error : function(errorThrown) {
-						alert(errorThrown.statusText);
-					}
-				});
-			}
-		});
 	});
+	function codecheck(){
+		var email = $.trim($('#emailbox').val());
+		var code = $.trim($('#chk_code').val());
+		var obj = {"email":email,"code":code};
+		if(code != ""){
+			$.ajax({
+				type:"post",
+				url:"/chk",
+				dataType:"text",
+				contentType : "application/json",
+				data : JSON.stringify(obj),
+				success : function(data) {
+					if(data=='SUCCESS'){
+						return true;
+					}
+					if(data=='FAIL'){
+						alert('인증코드가 다르다.');
+						$('#chk_code').val("").focus();
+						return false;
+					}
+					return false;
+				},
+				error : function(errorThrown) {
+					alert(errorThrown.statusText);
+				}
+			});
+		}else{
+			return false;
+		}
+		return false;
+	}
 </script>
 <div id="join">
 	<div id="su_img" onclick="goPage();"></div>
 	<form id="joinbox" method="post" action="join_ok"
-		onsubmit="return check();">
+		onsubmit="return codecheck();">
 		<label>아이디</label>
 		<div id="idBox" class="box">
 			<input type="text" id="id" name="id" class="inputbox"> <span
