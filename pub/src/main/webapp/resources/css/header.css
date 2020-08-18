@@ -33,12 +33,12 @@ header{position: fixed; height: 90px; z-index:3;}
 #gnb .on .gnb_sub a:hover{transition: all .3s ease-in-out; color: #fff;}
 /*드롭 메뉴? 색*/
 #gnb li:nth-child(1) ul{background-color: #bcc74f;border-top: 7px solid #b7c444;}
-#gnb li:nth-child(2) ul{background-color: #f38f3a;border-top: 7px solid #f2852b;}
+#gnb li:nth-child(2) ul{background-color: #708EFA;border-top: 7px solid #8CA5FF;}
 #gnb li:nth-child(3) ul{background-color: #cd6176;border-top: 7px solid #d34451;}
 #gnb li:nth-child(4) ul{background-color: #605eae;border-top: 7px solid #5755a8;}
 /*헤더 a호버시*/
 #gnb li:nth-child(1) a:hover{color: #bcc74f;transition: all .3s ease-in-out;}
-#gnb li:nth-child(2) a:hover{color: #f38f3a;transition: all .3s ease-in-out;}
+#gnb li:nth-child(2) a:hover{color: #6B87ED;transition: all .3s ease-in-out;}
 #gnb li:nth-child(3) a:hover{color: #cd6176;transition: all .3s ease-in-out;}
 #gnb li:nth-child(4) a:hover{color: #605eae;transition: all .3s ease-in-out;}
 
