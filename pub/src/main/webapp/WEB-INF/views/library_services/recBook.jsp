@@ -11,7 +11,7 @@
 <style>
 /*헤더 색*/
 #head {
-	background-color: #da690e
+	background-color:#D4748C
 } /*색변경*/
 #gnb li ul {
 	border-top: 7px solid #f18023;
@@ -30,7 +30,7 @@
 /*테마 이름*/
 #content .content_head {
 	height: 200px;
-	background-color: #ec730f;
+	background-color: #ED829D;
 } /*색변경*/
 #content .content_head h2 {
 	padding: 75px 0 70px;

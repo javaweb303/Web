@@ -4,7 +4,8 @@
 
 <style>
 /*헤더 색*/
-#head{background-color: #4b4992}/*색변경*/
+#head{background-color: #4B6E26}/*색변경*/
+#gnb li ul{border-top: 7px solid #6FA138;}/*색변경*/
 /*내용*/
 #content {
    height: 100%;
@@ -19,7 +20,7 @@
 /*테마 이름*/
 #content .content_head {
    height: 200px;
-   background-color: #504e9a;
+   background-color: #6FA138;
 }
 
 #content .content_head h2 {

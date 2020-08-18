@@ -21,10 +21,10 @@
             <ul id="slider_menu">
                <li><a>도서관 서비스</a>
                         <ul class="gnb_sub">
-                           <li><a href="./jsp/search.jsp">통합검색</a></li>
-                           <li><a href="#">신간도서</a></li>
-                           <li><a href="/popular">베스트 셀러</a></li>
-                           <li><a href="#">추천도서</a></li>
+                           <li><a href="./search">통합검색</a></li>
+                           <li><a href="./new">신간도서</a></li>
+                           <li><a href="./popular">베스트 셀러</a></li>
+                           <li><a href="./recomm">추천도서</a></li>
                         </ul>
                   </li>
                   <li><a>전자 도서관</a>
@@ -34,16 +34,16 @@
                   </li>
                   <li><a>열린공간</a>
                         <ul class="gnb_sub">
-                           <li><a href="/history">도서관 소개</a></li>
-                           <li><a href="/guide">도서관 이용</a></li>
-                           <li><a href="/status">도서관 현황</a></li>
-                           <li><a href="/location">오시는 길</a></li>
+                           <li><a href="./history">도서관 소개</a></li>
+                           <li><a href="./guide">도서관 이용</a></li>
+                           <li><a href="./status">도서관 현황</a></li>
+                           <li><a href="./location">오시는 길</a></li>
                         </ul>
                   </li>
                   <li><a>안내</a>
                         <ul class="gnb_sub">
-                           <li><a href="/bbs_list">공지사항</a></li>
-                           <li><a href="/faq">FAQ</a></li>
+                           <li><a href="./bbs_list">공지사항</a></li>
+                           <li><a href="./faq">FAQ</a></li>
                         </ul>
                   </li>
             </ul>

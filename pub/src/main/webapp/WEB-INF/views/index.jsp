@@ -27,19 +27,19 @@ $(function(){
          <div id="top_head">
             <div class="tnb">
           	<c:if test="${empty id}">
-            <a href="/login">Login</a>
-            <a href="/join">Join</a>
+            <a href="./login">Login</a>
+            <a href="./join">Join</a>
             </c:if>
             <c:if test="${!empty id}">
             <span>${id}님</span>&nbsp;
-            <a href="/logout">Logout</a>
-            <a href="/mypage">Mypage</a>
+            <a href="./logout">Logout</a>
+            <a href="./mypage">Mypage</a>
             </c:if>
             </div>
          </div>
          <div id="mid_head">
             <div class="logo">
-            <a href="/"><img alt="로고" src="resources/images/logo/logo.png"></a>
+            <a href="./"><img alt="로고" src="resources/images/logo/logo.png"></a>
             </div>
             <div class="search">
             <select name="searchField" class="search_ field">
@@ -52,12 +52,12 @@ $(function(){
             </div>
             <div class="lnb">
             <c:if test="${empty id}">
-            <a href="/login"><img src="resources/images/login.png"></a>
+            <a href="./login"><img src="resources/images/login.png"></a>
             <a href="#" id="slbtn"><img src="resources/images/menu_Main.png"></a>
             </c:if>
             <c:if test="${!empty id}">
-            <a href="/loginout"><img src="resources/images/login.png"></a>
-            <a href="/mypage"><img src="resources/images/myPage.png"></a>
+            <a href="./loginout"><img src="resources/images/login.png"></a>
+            <a href="./mypage"><img src="resources/images/myPage.png"></a>
             <a href="#" id="slbtn"><img src="resources/images/menu_Main.png"></a>
             </c:if>
             </div>
@@ -65,31 +65,31 @@ $(function(){
          <div id="bottom_head">
             <nav>
                <ul id="gnb">
-                  <li><a href="/search">도서관 서비스</a>
+                  <li><a href="./search">도서관 서비스</a>
                         <ul class="gnb_sub">
-                           <li><a href="/search">통합검색</a></li>
-                           <li><a href="/new">신간도서</a></li>
-                           <li><a href="/popular">인기도서</a></li>
-                           <li><a href="/recomm">추천도서</a></li>
+                           <li><a href="./search">통합검색</a></li>
+                           <li><a href="./new">신간도서</a></li>
+                           <li><a href="./popular">인기도서</a></li>
+                           <li><a href="./recomm">추천도서</a></li>
                         </ul>
                   </li>
-                  <li><a href="/eBook">전자 도서관</a>
+                  <li><a href="./eBook">전자 도서관</a>
                         <ul class="gnb_sub">
-                           <li><a href="/eBook">전자책</a></li>
+                           <li><a href="./eBook">전자책</a></li>
                         </ul>
                   </li>
-                  <li><a href="/history">도서관 안내</a>
+                  <li><a href="./history">도서관 안내</a>
                         <ul class="gnb_sub">
-                           <li><a href="/history">도서관 소개</a></li>
-                           <li><a href="/guid">도서관 이용</a></li>
-                           <li><a href="/status">도서관 현황</a></li>
-                           <li><a href="/location">오시는 길</a></li>
+                           <li><a href="./history">도서관 소개</a></li>
+                           <li><a href="./guid">도서관 이용</a></li>
+                           <li><a href="./status">도서관 현황</a></li>
+                           <li><a href="./location">오시는 길</a></li>
                         </ul>
                   </li>
-                  <li><a href="/bbs_list">열린공간</a>
+                  <li><a href="./bbs_list">열린공간</a>
                         <ul class="gnb_sub">
-                           <li><a href="/bbs_list">공지사항</a></li>
-                           <li><a href="/faq">FAQ</a></li>
+                           <li><a href="./bbs_list">공지사항</a></li>
+                           <li><a href="./faq">FAQ</a></li>
                         </ul>
                   </li>
                </ul>
@@ -114,7 +114,7 @@ $(function(){
 				border-top: 1px solid gray;">
 					<c:forEach items="${pubList}" var="list" step="1">
 						<li style="width: 200px; height: 275px; float:left; margin: 0 15px 0 15px;">
-						<a href="/bookcont?isbn=${list['isbn13']}">
+						<a href="./bookcont?isbn=${list['isbn13']}">
 						<img alt="책이미지" src="${list['bookImageURL']}" style="width: 200px; height: 250px;"></a>
 						<p style="width: 200px; height: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${list['bookname']}</p>
 						</li>

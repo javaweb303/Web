@@ -2,14 +2,14 @@
 <jsp:include page="../include/header.jsp"></jsp:include>
 <style>
 /*헤더 색*/
-#head{background-color: #8f2e41}/*색변경*/
+#head{background-color: #D4AF4A}/*색변경*/
 #gnb li ul{border-top: 7px solid #d34451;}/*색변경*/
 /*내용*/
 #content{ height: 100%;}
 #content .container{margin: 0 40px;height: 100%; padding-bottom: 80px;}
 
 /*테마 이름*/
-#content .content_head{height: 200px; background-color: #c23f59;}/*색변경*/
+#content .content_head{height: 200px; background-color: #EDC453;}/*색변경*/
 #content .content_head h2{padding: 75px 0 70px; text-align: center; color:white;}
 /*로컬주소*/
 #content .location{margin: 0 auto 23px; width: 100%;}
