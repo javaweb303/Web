@@ -245,7 +245,7 @@
 							<c:forEach items="${pubList}" var="list" step="1">
 								<li>
 									<div class="over">
-										<strong>${list['title']}</strong>
+										<strong>${list['title']}</strong><br>
 										<%-- <span>${list['author']}</span>--%>
 										<p>${list['publisher']}</p>
 										<p>${list['pubDate']}</p>
