@@ -95,12 +95,8 @@
 						<c:forEach items="${list}" var="book_info">
 							<li>
 								<div style="margin: 10px; border-bottom: 1px solid gray; padding:10px; width: auto; height: 250px;">
-								<a href="/ebookcont?ebook_no=${book_info.e_num}">
-								<c:forEach items="${book_info.file}" var="file">
-								<c:if test="${file.ext eq '.jpg' || file.ext eq '.png' || file.ext eq '.jpeg'}">
-								<img src="/file/${file.y}/${file.m}/${file.d}/img/${file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
-								</c:if>
-								</c:forEach>
+								<a href="/ebookcont?ebook_no=${book_info.e_no}&img=${book_info.img_file.file_no}&file=${book_info.file.file_no}">
+								<img src="/file/${book_info.img_file.y}/${book_info.img_file.m}/${book_info.img_file.d}/img/${book_info.img_file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
 								<div>
 								<p>제목 : ${book_info.e_title}</p>
 								<p>저자 : ${book_info.e_author}</p>

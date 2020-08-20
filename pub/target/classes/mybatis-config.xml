@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.pub.vo.MemberVO" alias="m" />
 		<typeAlias type="org.pub.vo.MailVO" alias="mail" />
 		<typeAlias type="org.pub.vo.FileVO" alias="file" />
+		<typeAlias type="org.pub.vo.FileListVO" alias="filelist" />
 		<typeAlias type="org.pub.vo.eBookVO" alias="ebook" />
 	</typeAliases>
 </configuration>

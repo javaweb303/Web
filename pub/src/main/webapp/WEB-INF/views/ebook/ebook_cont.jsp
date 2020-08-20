@@ -41,26 +41,54 @@
 
 </style>
 <script>
+$('document').ready(function(){
+	var re=${recommand};
+	if(re == 'null'){
+		$('#recommend').val('비추천');
+	}
+});
 $(function(){
 	/*if(${book.e_status} == '0'){//0이면 대출버튼 비활성화.
 		$('#book_loan_return').attr("disabled",true);
 	}else{
 		
 	}*/
+	
+	var eno=$('#e_no').val();
 	$('#recommend').on("click",function(){
-		alert('버튼클릭');
-		$.ajax({
-			type:'post',
-			url:'/recommend',
-			success:function(data){
-				if(data=='SUCCESS'){
-					alert('정상');
+		var state=$(this).val();
+		if(state=="추천"){
+			$.ajax({
+				type:'get',
+				url:'/recommend?ebook_no='+${book.e_no},
+				dataType:'text',
+				success:function(data){
+					if(data=='SUCCESS'){
+						alert('정상');
+						$('#recommend').val('비추천');
+					}
+					if(data=='noLogin'){
+						alert('로그인을 해주세요!');
+					}
 				}
-				if(data=='noLogin'){
-					alert('로그인을 해주세요!');
+			});
+		}else{
+			$.ajax({
+				type:'get',
+				url:'/non_recommend?ebook_no='+${book.e_no},
+				dataType:'text',
+				success:function(data){
+					if(data=='SUCCESS'){
+						alert('정상');
+						$('#recommend').val('추천');
+					}
+					if(data=='noLogin'){
+						alert('로그인을 해주세요!');
+					}
 				}
-			}
-		});
+			});
+		}
+		
 	});
 	$('#book_loan_return').on("click",function(){
 		alert('버튼클릭');
@@ -111,17 +139,11 @@ $(function(){
 					<br>
 					<div>
 						<div style="height: 250px;">
-						<div>
-							<c:forEach items="${book.file}" var="file">
-								<c:if
-									test="${file.ext eq '.jpg' || file.ext eq '.png' || file.ext eq '.jpeg'}">
-									<img
-										src="/file/${file.y}/${file.m}/${file.d}/img/${file.stored_file_name}"
-										style="float: left; width: 200PX; height: 250px; margin-right: 15px;">
-								</c:if>
-							</c:forEach>
-						</div>
-						<div>
+						<input type="hidden" value="${book.e_no}" id="e_no" />
+							<div>
+								<img src="/file/${book.img_file.y}/${book.img_file.m}/${book.img_file.d}/img/${book.img_file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
+							</div>
+							<div>
 							<p>제목 : ${book.e_title}</p>
 							<p>저자 : ${book.e_author}</p>
 							<p>출판사 : ${book.e_publisher}</p>
@@ -129,7 +151,7 @@ $(function(){
 							<p>도서현황 : 5/${book.e_status}</p>
 							<p>추천수 : ${book.e_recommend}</p>
 							<br> 
-							<input type="button" value="추천" class="btn" id="recommend" />
+							<input type="button" value="${recommand}" class="btn" id="recommend" />
 							<input type="button" value="대여" class="btn" id="book_loan_return" />
 							<p>
 						</div>

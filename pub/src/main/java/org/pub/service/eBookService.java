@@ -12,7 +12,15 @@ public interface eBookService {
 
 	eBookVO selectOne(int no);
 
-	void up_recommend();
+	int addBook(eBookVO book);
+
+	eBookVO getEbook(int e_no);
+
+	void recommand(String id, int e_no);
+
+	String getRecommand(String id, int e_no);
+
+	void non_recommand(String id, int e_no);
 
 
 }

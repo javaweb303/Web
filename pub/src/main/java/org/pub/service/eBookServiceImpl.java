@@ -27,9 +27,7 @@ public class eBookServiceImpl implements eBookService {
 		file_no=file_no.substring(0, file_no.lastIndexOf(","));
 		System.out.println(file_no);
 		book.setFile_no(file_no);
-		book.setBoardcd(board);
 		System.out.println("파일 번호 "+book.getFile_no());
-		System.out.println("게시판 "+book.getBoardcd());
 		eBookDAO.upload(book);
 	}
 
@@ -44,8 +42,28 @@ public class eBookServiceImpl implements eBookService {
 	}
 
 	@Override
-	public void up_recommend() {
-		eBookDAO.up_recommend();
+	public int addBook(eBookVO book) {//전자책 등록
+		return eBookDAO.addBook(book);
+	}
+
+	@Override
+	public eBookVO getEbook(int e_no) {//전자책 가져오기
+		return eBookDAO.getEbook(e_no);
+	}
+
+	@Override
+	public void recommand(String id, int e_no) {//전자책 추천
+		eBookDAO.recommand(id,e_no);
+	}
+
+	@Override
+	public String getRecommand(String id, int e_no) {
+		return eBookDAO.getRecommand(id,e_no);
+	}
+
+	@Override
+	public void non_recommand(String id, int e_no) {
+		eBookDAO.non_recommand(id,e_no);
 	}
 
 	
