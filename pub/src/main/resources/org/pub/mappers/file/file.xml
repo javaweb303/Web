@@ -3,11 +3,30 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="File">
-<insert id="in_file">
-insert into tbl_file values(file_no_seq.nextval,#{original_file_name},#{stored_file_name},#{file_size},#{boardcd})
+<!--  주석달린게 8월 19일자로 추가되는것들 없는거는 오래전꺼  -->
+<insert id="in_file"><!-- 파일업로드 -->
+insert into tbl_file values(file_no_seq.nextval,#{original_file_name},#{stored_file_name},#{file_size})
 </insert>
+<select id="getFile_no" resultType="int"><!-- 파일 번호 가져오기 -->
+select file_no from tbl_file where original_file_name=#{original_file_name} and stored_file_name=#{stored_file_name} and file_size=#{file_size}
+</select>
+<insert id="addFileList"><!-- 파일 리스트추가 -->
+insert into file_list values(#{file_no},#{boardcd},#{e_no})
+</insert>
+<select id="getALL_FileList" resultType="filelist">
+select * from file_list where boardcd=#{boardcd} order by e_no desc
+</select>
+<select id="getFile" resultType="file">
+select * from tbl_file where file_no=#{file_no} order by file_no desc
+</select>
+
+
+
+
+
+
 <select id="get_fileupload" resultType="int">
-select file_no from tbl_file where boardcd=#{boardcd} and original_file_name=#{original_file_name} and stored_file_name=#{stored_file_name}
+select file_no from tbl_file where original_file_name=#{original_file_name} and stored_file_name=#{stored_file_name}
 </select>
 <select id="get_file" resultType="file">
 select file_no,original_file_name,stored_file_name,file_size,boardcd from tbl_file where file_no=#{i}

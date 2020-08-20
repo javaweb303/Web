@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.pub.dao.FileDAO;
+import org.pub.vo.FileListVO;
 import org.pub.vo.FileVO;
 import org.springframework.beans.ExtendedBeanInfoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,66 @@ public class FileServiceImpl implements FileService {
 
 	private static final String PATH = "C:/upload";
 	//private static final String PREFIX_URL = "/upload/";
+	
+	@Override
+	public List<Integer> upload(List<MultipartFile> files) {
+		List<FileVO> list=new ArrayList<>();
+		List<Integer> file_no=new ArrayList<Integer>();
+		try {
+			for(MultipartFile file:files) {
+				FileVO v=new FileVO();
+				String filename=file.getOriginalFilename();
+				String extname=filename.substring(filename.lastIndexOf("."), filename.length());
+				Long filesize = file.getSize();
+				v.setOriginal_file_name(filename);
+				v.setExt(extname);
+				v.setFile_size(filesize);
+				v.setFile(file);
+				list.add(v);
+			} //for
+			
+			list = genSaveFileName(list);
+			writeFile(list);
+			for(FileVO v:list) {
+				System.out.println("파일 번호 :"+v.getFile_no());
+				System.out.println("파일 원본이름 :"+v.getOriginal_file_name());
+				System.out.println("파일 저장이름 :"+v.getStored_file_name());
+				System.out.println("파일 파일크기 :"+v.getFile_size());
+				System.out.println("게시판이름 :"+v.getBoardcd());
+				System.out.println("파일형식 :"+v.getExt());
+				System.out.println("파일 :"+v.getFile());
+				System.out.println("\n-------------------------------------");
+			}
+			fileDAO.in_file(list);//파일 업로드한 파일정보를 db에 저장하는 쿼리문
+			file_no=fileDAO.getfile_no(list);//파일 번호값 가져오는 쿼리문
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return file_no;
+	}
+	
+	@Override
+	public void addFiles(int bookno, List<Integer> file_no, String board) {
+		fileDAO.addFiles(bookno,file_no,board);
+	}
 
+	@Override
+	public List<FileListVO> getALL_FileList(String boardcd) {
+		return fileDAO.getALL_FileList(boardcd);
+	}
+	
+	@Override
+	public FileVO getFile(int file_no) {//파일 번호 값으로 가져오는
+		return fileDAO.getFile(file_no);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Integer> upload(List<MultipartFile> files,String board) {
 		//파일리스트로 받고 파일 업로드를 요청한 곳에 뭔가를 받아온다. 그걸 저장하고 업로드를 다 처리하고 db에다가 처리한다.
@@ -158,4 +218,5 @@ public class FileServiceImpl implements FileService {
 		return fileDAO.getFile(file_no);
 	}
 
+	
 }

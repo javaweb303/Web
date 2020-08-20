@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.pub.vo.FileListVO;
 import org.pub.vo.FileVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,5 +42,41 @@ public class FileDAOImpl implements FileDAO {
 			list.add(v);
 		}
 		return list;
+	}
+
+	
+	
+	
+	
+	
+	@Override
+	public List<Integer> getfile_no(List<FileVO> list) {
+		List<Integer> file_no=new ArrayList<Integer>();
+		for(FileVO v:list) {
+			file_no.add(sqlSession.selectOne("getFile_no", v));
+		}
+		return file_no;
+	}
+
+	@Override
+	public void addFiles(int bookno, List<Integer> file_no, String board) {
+		List<FileListVO> list=new ArrayList<FileListVO>();
+		for(int no:file_no) {
+			FileListVO vo=new FileListVO();
+			vo.setE_no(bookno);
+			vo.setFile_no(no);
+			vo.setBoardcd(board);
+			sqlSession.insert("addFileList",vo);
+		}
+	}
+
+	@Override
+	public List<FileListVO> getALL_FileList(String boardcd) {
+		return sqlSession.selectList("getALL_FileList",boardcd);
+	}
+
+	@Override
+	public FileVO getFile(int file_no) {
+		return sqlSession.selectOne("getFile", file_no);
 	}
 }
