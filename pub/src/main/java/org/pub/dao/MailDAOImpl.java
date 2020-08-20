@@ -20,4 +20,10 @@ public class MailDAOImpl implements MailDAO {
 	public String code(String email) {
 		return this.sqlSession.selectOne("code", email);
 	}
+
+	@Override
+	public void del_code(String email) {
+		sqlSession.delete("del_code", email);
+		
+	}
 }

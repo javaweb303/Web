@@ -127,11 +127,10 @@ class rest_member {
 		try{
 			MemberVO vo=memberService.getMember(m.get("id").toString());
 			if(vo != null) {
-				
+				entity=new ResponseEntity<String>("FAIL",HttpStatus.OK);
 			}else {
-				
+				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 			}
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.BAD_REQUEST);
 		}catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);

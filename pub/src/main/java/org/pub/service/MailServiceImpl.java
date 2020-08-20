@@ -21,5 +21,11 @@ public class MailServiceImpl implements MailService {
 		return this.mailDAO.code(email);
 	}
 
+	@Override
+	public void del_code(String email) {
+		mailDAO.del_code(email);
+		
+	}
+
 
 }

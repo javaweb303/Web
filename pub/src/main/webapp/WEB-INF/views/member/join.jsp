@@ -62,10 +62,10 @@ function goPage() { location.href="/"; }
 					data : JSON.stringify(obj),
 					success : function(data) {
 						if(data=='SUCCESS'){
-							$('#iderrbox').text('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
+							$('#iderrbox').append('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
 						}
 						if(data=='FAIL'){
-							$('#iderrbox').text('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
+							$('#iderrbox').append('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
 						}
 					},
 					error : function(errorThrown) {
@@ -129,10 +129,15 @@ function goPage() { location.href="/"; }
 		});
 	});
 	function codecheck(){
+		var id=$.trim($('#id').val());
+		var pwd=$.trim($('#pw').val());
+		var name=$.trim($('#name').val());
+		var gender=$.trim($('#gender').val());
+		var birth=$.trim($('#birth').val());
 		var email = $.trim($('#emailbox').val());
 		var code = $.trim($('#chk_code').val());
 		var obj = {"email":email,"code":code};
-		if(code != ""){
+		if(code != "" && id != "" && pwd != "" && name != "" && gender != "" && birth != ""){
 			$.ajax({
 				type:"post",
 				url:"/chk",
@@ -141,23 +146,21 @@ function goPage() { location.href="/"; }
 				data : JSON.stringify(obj),
 				success : function(data) {
 					if(data=='SUCCESS'){
-						return true;
 					}
 					if(data=='FAIL'){
 						alert('인증코드가 다르다.');
 						$('#chk_code').val("").focus();
 						return false;
 					}
-					return false;
 				},
 				error : function(errorThrown) {
 					alert(errorThrown.statusText);
 				}
 			});
 		}else{
+			alert('빈칸이 있다.');
 			return false;
 		}
-		return false;
 	}
 </script>
 <div id="join">
@@ -191,12 +194,12 @@ function goPage() { location.href="/"; }
 		<label>생년월일</label>
 		<div id="birth_box" class="box">
 			<input type="date" name="birth" placeholder="년(4자)"
-				class="inputbox">
+				class="inputbox" id="birth">
 		</div>
 
 		<label>성별</label>
 		<div id="gender_box" class="box">
-			<select name="gender" class="box">
+			<select name="gender" class="box" id="gender">
 				<option>성별</option>
 				<option>여성</option>
 				<option>남성</option>

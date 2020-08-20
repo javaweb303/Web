@@ -56,6 +56,7 @@ public class MailController {
 			System.out.println("넘겨받은 code = "+code);
 			System.out.println(dbcode);
 			if(code.equals(dbcode)) {
+				mailService.del_code(email);
 				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 			}else {
 				entity=new ResponseEntity<String>("FAIL",HttpStatus.OK);
