@@ -20,6 +20,8 @@
 * Tomcat - Apache Tomcat 9.0.30
 * Oracle - OracleXE184_Win64
 * STS - Spring Tools 3 (Standalone Edition) 3.9.11.RELEASE
+* Lombok 1.18.12
+
 
 ## Installing
 ### 1. Oracle 18c 사용자 생성 (cnd 콘솔창에서)
