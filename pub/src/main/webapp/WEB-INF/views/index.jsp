@@ -47,8 +47,9 @@ $(function(){
                <option value="CONT_NAME">서명</option>
                <option value="CONT_AUTHOR">저자</option>
                <option value="Publisher">출판사</option>
-            </select> <input type="text" class="search_ inputbox">
-            <button type="button" onclick="alert('확인');" class="search_ searchbtn">검색</button>
+            </select> 				
+            <input type="text" class="search_ inputbox">
+            <input type="image" class="btn" src="resources/images/main/btnSrchM.png" alt="검색" title="검색" onclick="javascript:$('#searchFrm').submit();">
             </div>
             <div class="lnb">
             <c:if test="${empty id}">

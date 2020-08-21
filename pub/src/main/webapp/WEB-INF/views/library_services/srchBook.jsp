@@ -49,14 +49,12 @@
 	position: absolute;
 	width: 250px;
 	height: 100%;
-	border: 1px solid black;
 	padding-bottom: 30px;
 }
 
 #content .container .cont_lnb h2 {
 	padding: 35px 10px 20px;
-	text-align: center;
-	border-bottom: 1px solid red;
+	border-bottom: 1px solid gray;
 }
 
 #content .container .cont_lnb {
@@ -65,7 +63,7 @@
 
 #content .container .cont_lnb .cont_lnb_sub li {
 	padding: 15px 0;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #e6e6e6;
 }
 
 /*메인 내용*/
@@ -240,10 +238,10 @@
 			<div class="cont_lnb">
 				<h2>통합 검색</h2>
 				<ul class="cont_lnb_sub">
-					<li><a href="/controller/search">통합검색</a></li>
-					<li><a href="/controller/new">신간도서</a></li>
-					<li><a href="/controller/popular">인기도서</a></li>
-					<li><a href="/controller/recomm">추천도서</a></li>
+					<li><a href="/search">통합검색</a></li>
+					<li><a href="/new">신간도서</a></li>
+					<li><a href="/popular">인기도서</a></li>
+					<li><a href="/recomm">추천도서</a></li>
 				</ul>
 			</div>
 			<!-- 좌측 카테고리 끝 -->
