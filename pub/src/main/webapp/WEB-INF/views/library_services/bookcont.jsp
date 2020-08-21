@@ -42,7 +42,7 @@
    <ul class="">
    <li>인기도서</li>
    <li>도서관서비스 > </li>
-   <li><a href="/controller">Home</a> > </li>
+   <li><a href="/">Home</a> > </li>
    </ul>
    </div>
    <div class="container"><!-- 몸체 -->
@@ -50,6 +50,7 @@
       <div class="cont_lnb"><!-- 카테고리 부분 몸체 좌측-->
          <h2>도서관 서비스</h2>
             <ul class="cont_lnb_sub">
+
                <li><a href="/search">전체도서</a></li>
                <li><a href="/new">신간도서</a></li>
                <li><a href="/popular">인기도서</a></li>

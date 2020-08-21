@@ -19,7 +19,7 @@ a{text-decoration: none; color:black;}
    border:0; border-bottom: 3px solid black;box-sizing:border-box; margin: 1px; padding: 5px;}
 #mid_head .search .field{height: 50px;font-size: 20px;}
 #mid_head .search .inputbox{height: 50px; width: 400px; font-size: 20px;}
-#mid_head .search .searchbtn{height: 50px; width: 60px;}
+#mid_head .search  input[type="image"]{position:absolute;right:9px;top:6px;width:30px;height:30px;}
 /*lnb 메뉴*/
 #mid_head .lnb{position:absolute; height: 30px;float: right; right: 1%; top:10%; display: none; }
 #mid_head .lnb a{padding: 5px;}

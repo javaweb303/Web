@@ -42,11 +42,11 @@ public class LibraryController {
 				
 		
 		//XML 데이터를 호출할 URL
-		String url = "http://book.interpark.com/api/search.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&query="+query+"&inputEncoding=utf-8";
+		String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType=Keyword&MaxResults=40&start=1&SearchTarget=Book&output=xml&Version=20070901";
 
-		System.out.println(url);
+		//System.out.println(url);
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","publisher","pubDate","coverLargeUrl","isbn"};
+		String[] fieldNames ={"title","publisher","pubDate","cover","isbn"};
 		
 		String itemsname="item";
 
@@ -55,6 +55,7 @@ public class LibraryController {
 
 		ModelAndView model=new ModelAndView();
 		model.addObject("pubList", pubList);
+		
 		System.out.println(pubList);
 		model.setViewName("library_services/detailBook");
 		return model;
@@ -125,7 +126,7 @@ public class LibraryController {
 	@RequestMapping("/recomm")
 	public ModelAndView recomm() {
 
-		//XML 데이터를 호출할 URL
+		//XML 데이터를 호출할 URL => 파싱할 URL
 		String url = "http://book.interpark.com/api/recommend.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
 
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
@@ -143,21 +144,47 @@ public class LibraryController {
 	}
 
 
-
+	/*
+	// tag값의 정보를 가져오는 메소드
+	public String getTagValue(String tag, Element eElement) {
+		NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+		Node nValue = (Node)nlList.item(0);
+		if(nValue == null) return null;
+		return nValue.getNodeValue();
+	}
+	*/
 	public ArrayList<Map> xmlp(String url,String[] fieldNames,String itemsname) {
 		ArrayList<Map> pubList= new ArrayList<Map>();
 		try {
-			//XML파싱 준비
+			//XML파싱 준비 => 페이지에 접근해줄 Document 객체 생성
+			//여기서 생성한 document 객체를 통해 파싱할 url의 요소를 읽어들인다.
 			DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 			DocumentBuilder b = f.newDocumentBuilder();
 			//위에서 구성한 URL을 통해 XMl 파싱 시작
+			//System.out.println(url);
 			Document doc = b.parse(url);
-			doc.getDocumentElement().normalize();
 			
-			//서버에서 응답한 XML데이터를 publication(발행문서 1개 해당)태그로 각각 나눔(파라미터로 요청한 size항목의 수만큼)
+			//root tag
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); //Root element : result
+			
+			//서버에서 응답한 XML데이터를 (발행문서 1개 해당)태그로 각각 나눔(파라미터로 요청한 size항목의 수만큼)
+			//파싱할 정보가 있는 tag에 접근
 			NodeList items = doc.getElementsByTagName(itemsname);
-			System.out.println(url);
+			//System.out.println("파싱할 리스트 수: "+items.getLength());//파싱할 리스트수
 			System.out.println(itemsname);
+			
+			/* list에 담긴 데이터 출력하기
+			for(int temp=0; temp<items.getLength(); temp++) {
+				Node nNode = items.item(temp);
+				if(nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					System.out.println("#################");
+					System.out.println(eElement.getTextContent()); //전체 정보
+					System.out.println("제목 : "+getTagValue("title", eElement)); //입력한 tag 정보 출력
+				}
+			}
+			*/
 			//for 루프시작
 			for (int i = 0; i < items.getLength(); i++) {
 				//i번째 publication 태그를 가져와서
@@ -173,10 +200,10 @@ public class LibraryController {
 					//fieldNames에 해당하는 값을 XML 노드에서 가져옴
 					NodeList titleList = e.getElementsByTagName(name);
 					Element titleElem = (Element) titleList.item(0);
-
+					System.out.println(titleElem);
 					Node titleNode = titleElem.getChildNodes().item(0);
 					// 가져온 XML 값을 맵에 엘리먼트 이름 - 값 쌍으로 넣음
-					//System.out.println(titleNode.getNodeValue());
+					
 					pub.put(name, titleNode.getNodeValue());
 				}
 				//데이터가 전부 들어간 맵을 리스트에 넣고 화면에 뿌릴 준비.

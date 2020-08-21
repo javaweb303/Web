@@ -229,10 +229,10 @@
 				<!-- 카테고리 부분 몸체 좌측-->
 				<h2>도서관 서비스</h2>
 				<ul class="cont_lnb_sub">
-					<li><a href="/controller/search">전체도서</a></li>
-					<li><a href="/controller/new">신간도서</a></li>
-					<li><a href="/controller/popular">인기도서</a></li>
-					<li><a href="/controller/recomm">추천도서</a></li>
+					<li><a href="/search">전체도서</a></li>
+					<li><a href="/new">신간도서</a></li>
+					<li><a href="/popular">인기도서</a></li>
+					<li><a href="/recomm">추천도서</a></li>
 				</ul>
 			</div>
 			<div class="cont_box">
@@ -244,12 +244,13 @@
 						<ul class="list_img">
 							<c:forEach items="${pubList}" var="list" step="1">
 								<li>
+								<a href="/bookcont?isbn=${list['isbn']}">
 									<div class="over">
 										<strong>${list['title']}</strong>
 										<%-- <span>${list['author']}</span>--%>
 										<p>${list['publisher']}</p>
 										<p>${list['pubDate']}</p>
-									</div> <a href="#"><img src="${list['coverLargeUrl']}"
+									</div> <img src="${list['cover']}"
 										class="img-responsive thumImg"></a>
 								</li>
 							</c:forEach>
