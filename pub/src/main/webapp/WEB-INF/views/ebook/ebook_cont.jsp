@@ -42,9 +42,15 @@
 </style>
 <script>
 $('document').ready(function(){
-	var re=${recommand};
-	if(re == 'null'){
-		$('#recommend').val('비추천');
+	<%
+	String id=(String)request.getSession().getAttribute("id");
+	%>
+	if(<%=id%> == null){
+		$('#reply_cont').attr("disabled",true);
+		$('#reply_okbtn').attr("disabled",true);
+		$('#reply_box').on("click",function(){
+			alert('로그인이 필요한 서비스 입니다.');
+		});
 	}
 });
 $(function(){
@@ -53,7 +59,7 @@ $(function(){
 	}else{
 		
 	}*/
-	
+	getAllList();
 	var eno=$('#e_no').val();
 	$('#recommend').on("click",function(){
 		var state=$(this).val();
@@ -105,6 +111,55 @@ $(function(){
 			}
 		});
 	});
+	$('#reply_okbtn').on("click",function(){
+		var cont=$('#reply_cont').val();
+		if(!cont==''){
+			$.ajax({//jQuery 비동기식 아작스 함수
+				  type : 'post',//메서드 보내는 방식이 post
+				  url : '/reply_add', //매핑주소
+				  headers :{
+					  "Content-Type" : "application/json",
+					  "X-HTTP-Method-Override" : "POST",
+				  }, //HTTP 헤더에 추가되는 컨텐트 타입형식이 json이고,메서드방식이
+				  //POST
+				  dataType : 'text',//자료형식이 문자열
+				  data: JSON.stringify({
+					  e_no:e_no,//오른쪽에 있는 게시판번호값이 좌측변수 bno에 할당
+					  id:<%=id%>,//댓글 작성자
+					  replycont:replycont,//댓글내용
+		//좌측변수 bno,replyer,replytext가 JSON 의 키이름이고,이것이 ReplyVO빈클래
+		//스의 변수명이 된다.
+				  }),//보내는 데이터가 JSON문자열=>JSON데이터
+				  success : function(result){
+					  //비동기식으로 가져오는 것이 성공시 호출되는 콜백함수,가져온 문자열은
+					  //result매개변수에 저장
+					  if(result == 'SUCCESS'){
+						  alert('댓글이 등록되었습니다!');
+						  getAllList();//댓글목록함수를 호출
+					  }
+				  }
+			  });
+		}
+	});
+	function getAllList(){
+		   $.getJSON("/reply_getlist/"+${book.e_no},function(data){
+	/* $.getJSON(매핑주소경로,아작스로 읽어오는 것이 성공시 호출되는 콜백함수.읽어온자료
+			는  data매개변수에 저장됨.)=>get방식으로 JSON데이터를 비동기식 아작스로 읽
+			어는 jQuery ajax함수이다.
+	*/		
+	        var str="";//var 변수정의 자바스크립트 예약어로 str변수를 정의
+	        $(data).each(function(){
+	//jQuery each()함수로 반복
+	        str += "<li data-e_no='"+this.e_no+"' class='replyLi'><div>"
+	        +"<div><span>"+this.id+"</span></div>"//아이디
+	        +"<div>"+this.reply_cont+"</div>"//내용
+	        +"<div><span>"+this.regdate+"</span></div>"//날짜
+	        +"</div></li><br/>"
+	        });
+	        $('#reply_list').html(str);//ul 아이디영역에 jQuery html()함수로
+	        //읽어온 문자와 태그를 함께 변경적용
+		   });
+	   }//댓글목록함수
 });
 </script>
 <div id="content">
@@ -151,7 +206,7 @@ $(function(){
 							<p>도서현황 : 5/${book.e_status}</p>
 							<p>추천수 : ${book.e_recommend}</p>
 							<br> 
-							<input type="button" value="${recommand}" class="btn" id="recommend" />
+							<input type="button" value="<c:if test="${!empty recommand}"><c:if test="${recommand eq '추천'}">추천</c:if><c:if test="${recommand eq '비추천'}">비추천</c:if></c:if><c:if test="${empty recommand}">추천</c:if>" class="btn" id="recommend" />
 							<input type="button" value="대여" class="btn" id="book_loan_return" />
 							<p>
 						</div>
@@ -160,9 +215,17 @@ $(function(){
 						<br><p style="margin-bottom: 7px; font-weight: 800;">책소개</p><hr><div style="margin: 7px 0 7px 0;">${book.e_introduce}</div>
 						</div>
 					</div>
+					<div id="reply_listbox"><!-- 댓글 박스 목록 -->
+					<ul id="reply_list">
+						
+					</ul>
+					</div>
 					<!-- 댓글 창? -->
-					<div>
-					
+					<div id="reply_box">
+						<div style="text-align: center;">
+						<textarea rows="4" cols="" id="reply_cont" style="width: 80%; vertical-align: middle;" ></textarea>
+						<input type="button" value="확인" id="reply_okbtn" style="width: 65px; height: 65px; vertical-align: middle;" />
+						</div>
 					</div>
 				</div>
 			</div>

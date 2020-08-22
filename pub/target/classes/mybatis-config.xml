@@ -11,5 +11,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.pub.vo.FileVO" alias="file" />
 		<typeAlias type="org.pub.vo.FileListVO" alias="filelist" />
 		<typeAlias type="org.pub.vo.eBookVO" alias="ebook" />
+		<typeAlias type="org.pub.vo.ReplyVO" alias="reply" />
 	</typeAliases>
 </configuration>

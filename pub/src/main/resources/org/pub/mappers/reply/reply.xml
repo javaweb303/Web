@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reply">
+<insert id="reply_add"><!-- 나중에 댓글을 다른 게시판에서 사용할때 게시판 테이블 참조 하고, 번호값 받아서 사용해야함. -->
+insert into reply (reply_no,reply_cont,regdate,id,e_no) values(reply_no_seq.nextval,#{reply_cont},sysdate,#{id},#{e_no})
+</insert>
+<select id="reply_getList" resultType="reply"><!-- 나중에 다른 게시판에서 사용할떄 게시판 테이블 참조 하고 번호값 받아서 사용 -->
+select * from reply order by reply_no desc
+</select>
+</mapper>

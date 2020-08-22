@@ -41,12 +41,18 @@ public class ManagerController {
 		book.setE_publication_year(Integer.parseInt(publication_year));
 		book.setE_introduce(introduce);
 		book.setE_group(group);
+		System.out.println(book.getE_title());
+		int bookno=ebookService.addBook(book);//전자책 등록
 		
 		List<MultipartFile> files=new ArrayList<>();
 		files.add(img);files.add(file);
-		List<Integer> files_no=fileService.upload(files,"ebook");
-		ebookService.upload(book,"ebook",files_no);
+		List<Integer> file_no=fileService.upload(files);
 		
-		return "/eBook";
+		fileService.addFiles(bookno,file_no,"ebook");//bookno에 해당하는 파일번호,게시판코드를 디비에 저장하는
+		
+		//List<Integer> files_no=fileService.upload(files,"ebook");
+		//ebookService.upload(book,"ebook",files_no);
+		
+		return "/ebook";
 	}
 }

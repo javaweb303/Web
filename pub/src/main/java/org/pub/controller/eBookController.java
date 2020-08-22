@@ -8,16 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.pub.service.FileService;
+import org.pub.service.ReplyService;
 import org.pub.service.eBookService;
 import org.pub.vo.FileListVO;
 import org.pub.vo.FileVO;
+import org.pub.vo.ReplyVO;
 import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -107,6 +111,8 @@ public class eBookController {
 class Rest{
 	@Autowired
 	private eBookService eBookService;
+	@Autowired
+	private ReplyService replyService;
 	
 	@RequestMapping("/recommend")//전자책 번호, 세션에 담긴 아이디 필요 -완-
 	public ResponseEntity<String> Recommend(@RequestParam("ebook_no") int e_no, HttpServletRequest request,HttpSession session){
@@ -162,6 +168,31 @@ class Rest{
 			}
 		}
 		
+		return entity;
+	}
+	
+	@RequestMapping("/reply_add")
+	public ResponseEntity<String> reply_add(@RequestParam ReplyVO vo){
+		ResponseEntity<String> entity=null;
+		try {
+			replyService.reply_add(vo);
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value ="/reply_getlist/{e_no}",method=RequestMethod.GET)
+	public ResponseEntity<List<ReplyVO>> reply_getlist(@PathVariable("e_no") int e_no){
+		ResponseEntity<List<ReplyVO>> entity=null;
+		try {
+			entity = new ResponseEntity<List<ReplyVO>>(replyService.reply_getlist(e_no),HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return entity;
 	}
 }
