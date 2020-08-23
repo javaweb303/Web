@@ -10,4 +10,6 @@ public interface ReplyDAO {
 
 	List<ReplyVO> reply_getlist(int e_no);
 
+	void reply_del(ReplyVO vo);
+
 }

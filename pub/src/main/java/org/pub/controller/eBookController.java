@@ -195,6 +195,19 @@ class Rest{
 		}
 		return entity;
 	}
+	
+	@RequestMapping("/reply_del")
+	public ResponseEntity<String> reply_del(@RequestParam ReplyVO vo){
+		ResponseEntity<String> entity=null;
+		try {
+			replyService.reply_del(vo);
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }
 
 

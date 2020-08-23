@@ -124,11 +124,10 @@ $(function(){
 				  //POST
 				  dataType : 'text',//자료형식이 문자열
 				  data: JSON.stringify({
-					  e_no:e_no,//오른쪽에 있는 게시판번호값이 좌측변수 bno에 할당
+					  e_no:e_no,//오른쪽에 있는 값이 좌측변수에 할당
 					  id:<%=id%>,//댓글 작성자
 					  replycont:replycont,//댓글내용
-		//좌측변수 bno,replyer,replytext가 JSON 의 키이름이고,이것이 ReplyVO빈클래
-		//스의 변수명이 된다.
+		//이것이 ReplyVO빈클래스의 변수명이 된다.
 				  }),//보내는 데이터가 JSON문자열=>JSON데이터
 				  success : function(result){
 					  //비동기식으로 가져오는 것이 성공시 호출되는 콜백함수,가져온 문자열은
@@ -141,26 +140,44 @@ $(function(){
 			  });
 		}
 	});
+	$('.reply_idlike').on("click",function(){
+		 var reply=$('.replyLi').val();
+		 alert(reply);
+		 /*$.ajax({
+			type:"post",
+			url:"/reply_del",
+			headers:{
+				 "Content-Type" : "application/json",
+				 "X-HTTP-Method-Override" : "POST",
+			},
+			datatype:"text",
+			data:JSON.stringify({
+				reply_no:,
+				id:,
+			}),
+			success : function(result){
+				if(result=='SUCCESS'){
+					alert('댓글이 삭제 되었습니다.');
+				}
+			}
+			});*/
+	 });
 	function getAllList(){
 		   $.getJSON("/reply_getlist/"+${book.e_no},function(data){
-	/* $.getJSON(매핑주소경로,아작스로 읽어오는 것이 성공시 호출되는 콜백함수.읽어온자료
-			는  data매개변수에 저장됨.)=>get방식으로 JSON데이터를 비동기식 아작스로 읽
-			어는 jQuery ajax함수이다.
-	*/		
-	        var str="";//var 변수정의 자바스크립트 예약어로 str변수를 정의
-	        $(data).each(function(){
-	//jQuery each()함수로 반복
-	        str += "<li data-e_no='"+this.e_no+"' class='replyLi'><div>"
-	        +"<div><span>"+this.id+"</span></div>"//아이디
+	        var str="";
+	        $(data).each(function(){//jQuery each()함수로 반복
+	        str += "<li data-reply_no='"+this.reply_no+"' class='replyLi'><div>"
+	        +"<div><span>"+this.id+"</span><input type='button' value='삭제' class='reply_idlike' ></div>"//아이디
 	        +"<div>"+this.reply_cont+"</div>"//내용
 	        +"<div><span>"+this.regdate+"</span></div>"//날짜
 	        +"</div></li><br/>"
 	        });
-	        $('#reply_list').html(str);//ul 아이디영역에 jQuery html()함수로
-	        //읽어온 문자와 태그를 함께 변경적용
+	        $('#reply_list').html(str);//ul 아이디영역에 jQuery html()함수로 읽어온 문자와 태그를 함께 변경적용
 		   });
 	   }//댓글목록함수
-});
+	 
+	   
+	 });//function();
 </script>
 <div id="content">
 	<div class="content_head">

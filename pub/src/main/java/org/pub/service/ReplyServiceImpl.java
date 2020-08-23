@@ -22,4 +22,9 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyVO> reply_getlist(int e_no) {
 		return replyDAO.reply_getlist(e_no);
 	}
+
+	@Override
+	public void reply_del(ReplyVO vo) {
+		replyDAO.reply_del(vo);
+	}
 }

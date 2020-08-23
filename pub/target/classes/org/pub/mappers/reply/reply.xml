@@ -9,4 +9,7 @@ insert into reply (reply_no,reply_cont,regdate,id,e_no) values(reply_no_seq.next
 <select id="reply_getList" resultType="reply"><!-- 나중에 다른 게시판에서 사용할떄 게시판 테이블 참조 하고 번호값 받아서 사용 -->
 select * from reply order by reply_no desc
 </select>
+<delete id="reply_del">
+delete from reply where reply_no=#{reply_no} and e_no=#{e_no} and id=#{id}
+</delete>
 </mapper>
