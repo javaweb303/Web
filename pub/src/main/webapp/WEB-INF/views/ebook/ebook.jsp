@@ -81,10 +81,10 @@
 						<option value="1212">어린이</option>
 						<option value="1213">어린이영어</option>
 					</select> <select name="Category_no3" class="Category_no3 Category_box">
-               <option value="ALL" selected>전체</option>
-               <option value="Book_Name">책제목</option>
-               <option value="Cont_Author">저자</option>
-               <option value="Publisher">출판사</option>
+               <option value="all" selected>전체</option>
+               <option value="e_title">책제목</option>
+               <option value="e_author">저자</option>
+               <option value="e_publisher">출판사</option>
                </select>
                <input class="inputbox">
                <input type="button" value="검색" class="searchbtn">

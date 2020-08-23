@@ -20,10 +20,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class eBookController {
@@ -205,6 +208,24 @@ class Rest{
 		}catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping("/search_ebook")
+	public ResponseEntity<List<eBookVO>> search_ebook(@RequestBody String json){
+		ResponseEntity<List<eBookVO>> entity=null;
+		JSONObject obj = JSONObject.fromObject(json);
+		String search_text=obj.getString("search_text");//넘겨준 검색값 해당변수에 넣기
+		String search_group=obj.getString("search_group");
+		String search_option=obj.getString("search_option");
+		//맵으로 값넘겨서 해당 값에 해당하는 파일을 가져오는걸루.
+		try {
+			//eBookService.getsearch_ebook();
+			entity=new ResponseEntity<>(HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
