@@ -219,7 +219,7 @@
 		<ul class="">
 			<li>신간도서</li>
 			<li>도서관서비스 ></li>
-			<li><a href="../index.jsp">Home</a> ></li>
+			<li><a href="/">Home</a> ></li>
 		</ul>
 	</div>
 	<div class="container">
