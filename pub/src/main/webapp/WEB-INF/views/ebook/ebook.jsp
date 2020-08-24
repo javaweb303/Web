@@ -56,39 +56,61 @@
             <div><!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
                <h3>전자책 리스트</h3>
                <div id="ebookform">
-               <form>
-               <select name="Category_no1" class="Category_no1 Category_box">
-               	<option value="" selected>전체</option>
-               	<option value="ad">일반 자료</option>
-               	<option value="children">어린이 자료</option>
-               </select> <select name="Category_no2" class="Category_no2 Category_box">
-						<option value="1111">소설</option>
-						<option value="1112">시/에세이/기행</option>
-						<option value="1113">문학</option>
-						<option value="1114">인문</option>
-						<option value="1115">역사/지리/인물</option>
-						<option value="1116">예술/대중문화</option>
-						<option value="1117">사회/정치/법</option>
-						<option value="1118">경영/경제</option>
-						<option value="1119">건강/의학</option>
-						<option value="1120">자연과학/공학</option>
-						<option value="1121">컴퓨터/인터넷</option>
-						<option value="1122">가족/생활/요리</option>
-						<option value="1123">여행/취미</option>
-						<option value="1124">외국어</option>
-						<option value="1126">청소년</option>
-						<option value="1211">유아</option>
-						<option value="1212">어린이</option>
-						<option value="1213">어린이영어</option>
-					</select> <select name="Category_no3" class="Category_no3 Category_box">
-               <option value="all" selected>전체</option>
-               <option value="e_title">책제목</option>
-               <option value="e_author">저자</option>
-               <option value="e_publisher">출판사</option>
-               </select>
-               <input class="inputbox">
-               <input type="button" value="검색" class="searchbtn">
-               </form>
+               <script>
+               $(function(){
+            	   $('.searchbtn').on("click",function(){
+	            	   var inputbox_text_= $.trim($('#inputbox').val());
+	            	   var send =JSON.stringify({
+	            			   theme:$('#theme').val(),
+         					   search_menu:$('#search_menu').val(),
+         					   inputbox_text:inputbox_text_,
+	            	   });
+	            	   alert(send);
+	            	   if(inputbox_text_ != ''){
+	          				$.ajax({
+	          					type:'POST',
+	          					url:'/search_ebook',
+	          					headers :{
+	          					  "Content-Type" : "application/json",
+	          					  "X-HTTP-Method-Override" : "POST",
+	          				 	},
+	          				  	dataType : 'text',//자료형식이 문자열
+	          				  	data: send,
+	          				  	success : function(result){
+	          					 	if(result!=null){
+	          					 		alert('ad');
+	          					 	}
+	          				  	}
+	          				});
+	            	   }else{
+	            		   alert('검색어를 입력하세요.');
+	            	   }
+            	   });
+               });
+               </script>
+               		<select name="theme" class="theme Category_box" id="theme">
+               			<option value="0" selected>전체</option>
+						<option value="1">컴퓨터/IT</option>
+						<option value="2">교양/심리</option>
+						<option value="3">철학/종교</option>
+						<option value="4">사회</option>
+						<option value="5">자연/기술과학</option>
+						<option value="6">문화/예술</option>
+						<option value="7">가정/생활</option>
+						<option value="8">취미/여행</option>
+						<option value="9">언어/외국어</option>
+						<option value="10">문학</option>
+						<option value="11">역사</option>
+						<option value="12">유아/어린이</option>
+					</select>
+					<select name="search_menu" class="search_menu Category_box" id="search_menu">
+		               <option value="all" selected>전체</option>
+		               <option value="e_title">책제목</option>
+		               <option value="e_author">저자</option>
+		               <option value="e_publisher">출판사</option>
+               		</select>
+               <input class="inputbox" id="inputbox" />
+               <input type="button" value="검색" class="searchbtn" />
                </div>
                <div><!-- 리스트  -->
 					<ul>

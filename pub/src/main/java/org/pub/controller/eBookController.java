@@ -60,16 +60,12 @@ public class eBookController {
 				fileVO.setM(d_m);
 				fileVO.setD(d_d);
 				ebook.setImg_file(fileVO);
-				System.out.println("원본 : "+ebook);
 				list.add(ebook);
 				count++;
 			}else {
 				ebook=(eBookVO)list.get(count-1);
 				ebook.setFile(fileVO);
-				System.out.println(ebook);
 			}
-			
-			System.out.println(list.size());
 		}
 		
 		m.addAttribute("list", list);//책정보
@@ -217,9 +213,12 @@ class Rest{
 		ResponseEntity<List<eBookVO>> entity=null;
 		JSONObject obj = JSONObject.fromObject(json);
 		String search_text=obj.getString("search_text");//넘겨준 검색값 해당변수에 넣기
-		String search_group=obj.getString("search_group");
-		String search_option=obj.getString("search_option");
+		String search_group=obj.getString("theme");
+		String search_option=obj.getString("search_menu");
 		//맵으로 값넘겨서 해당 값에 해당하는 파일을 가져오는걸루.
+		System.out.println(search_text);
+		System.out.println(search_group);
+		System.out.println(search_option);
 		try {
 			//eBookService.getsearch_ebook();
 			entity=new ResponseEntity<>(HttpStatus.OK);
