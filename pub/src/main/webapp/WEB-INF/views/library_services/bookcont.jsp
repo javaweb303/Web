@@ -255,22 +255,22 @@ div {
 								<!-- 도서 기본 정보-->
 								<div class="resultViewDetail">
 									<div class="tit">
-										<h4>${list['bookname']}</h4>
+										<h4>${list['title']}</h4>
 									</div>
 									<div class="resultBookInfo">
 										<div class="thumb">
 											<div class="cover">
-												<span class="img"><img src="${list['bookImageURL']}"
+												<span class="img"><img src="${list['cover']}"
 													alt="책이미지"
 													onerror="javascript:fnErrorBookImgFile(this); return false;"></span>
 											</div>
 										</div>
 										<div class="bookDataWrap">
 											<ul class="sdot-list">
-												<li>저자 : ${list['authors']}</li>
+												<li>저자 : ${list['author']}</li>
 												<li>출판사 : ${list['publisher']}</li>
-												<li>발행연도 : ${list['publication_year']}</li>
-												<li>ISBN : ${list['isbn']}</li>
+												<li>발행연도 : ${list['pubDate']}</li>
+												<li>ISBN : ${list['isbn13']}</li>
 											</ul>
 										</div>
 									</div>

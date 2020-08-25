@@ -98,21 +98,6 @@
 	margin-bottom: 30px;
 }
 
-/*ebook검색창*/
-#ebookform {
-	width: 100%;
-	height: 50px;
-	background-color: gray;
-	border-radius: 10px;
-	text-align: center;
-	margin: 15px 0;
-}
-
-#ebookform form {
-	margin: 0 auto;
-	padding: 4.5px;
-}
-
 /*책 이미지*/
 .imgList_wrap {
 	position: relative;
@@ -130,8 +115,9 @@
 	box-sizing: border-box;
 	cursor: pointer;
 	float: left;
-	margin: 0;
+	margin: 0 2.5% 30px 0;
 	width: 18%;
+	border: 1px solid #d7d7d7
 }
 
 .imgList_wrap .list_img li:last-child, .imgList_wrap .list_img li:nth-child(5),
@@ -141,9 +127,8 @@
 }
 
 .imgList_wrap .list_img .thumImg {
-	width: 80%;
-	height: 250px;
-	margin : 20px;
+	width: 100%;
+	height: 308px
 }
 
 .imgList_wrap .list_img li .over {
@@ -158,7 +143,8 @@
 	text-align: center;
 	background: rgba(0, 0, 0, .7);
 	font-size: 12px;
-	display: none
+	display: none;
+	z-index: 1;
 }
 
 .imgList_wrap .list_img li:hover .over {
@@ -214,6 +200,138 @@
 	width: 27px;
 	height: 1px;
 	background: #fff
+}
+
+@media screen and (max-width:1200px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 235px
+	}
+	.imgList_wrap .list_img li .over>span {
+		font-size: 1.1em
+	}
+	.imgList_wrap .list_img li .over>em {
+		bottom: 54px
+	}
+	.imgList_wrap .list_img li .over>em:before {
+		margin: 10px 0 0 -13px
+	}
+}
+
+@media screen and (max-width:993px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 195px
+	}
+	.imgList_wrap .list_img li {
+		border: 0 solid #d7d7d7
+	}
+	.imgList_wrap .list_img li .over>span {
+		font-size: .75em
+	}
+	.imgList_wrap .list_img li .over>p {
+		font-size: 1em
+	}
+	.imgList_wrap .list_img li:hover .over {
+		display: none
+	}
+}
+
+@media screen and (max-width:768px) {
+	.imgList_wrap .list_img li {
+		position: relative;
+		display: block;
+		box-sizing: border-box;
+		cursor: pointer;
+		float: left;
+		margin: 0 4% 30px 0;
+		width: 22%;
+		border: 0 solid #d7d7d7
+	}
+	.imgList_wrap .list_img li:nth-child(5), .imgList_wrap .list_img li:nth-child(10),
+		.imgList_wrap .list_img li:nth-child(15) {
+		margin: 0 4% 30px 0
+	}
+	.imgList_wrap .list_img li:nth-child(4), .imgList_wrap .list_img li:nth-child(8),
+		.imgList_wrap .list_img li:nth-child(12), .imgList_wrap .list_img li:nth-child(16)
+		{
+		margin: 0 0 30px 0
+	}
+	.imgList_wrap .list_img .thumImg {
+		height: 225px
+	}
+	.imgList_wrap .btns {
+		position: absolute;
+		bottom: 18px;
+		left: 0;
+		right: 0;
+		padding: 0 10%;
+		text-align: center;
+		margin: 10px 0 0
+	}
+}
+
+@media screen and (max-width:640px) {
+	.imgList_wrap .list_img li {
+		position: relative;
+		display: block;
+		box-sizing: border-box;
+		cursor: pointer;
+		float: left;
+		margin: 0 2% 30px 0;
+		width: 32%;
+		border: 0 solid #d7d7d7
+	}
+	.imgList_wrap .list_img li:nth-child(4), .imgList_wrap .list_img li:nth-child(5),
+		.imgList_wrap .list_img li:nth-child(8), .imgList_wrap .list_img li:nth-child(10),
+		.imgList_wrap .list_img li:nth-child(15), .imgList_wrap .list_img li:nth-child(16)
+		{
+		margin: 0 2% 30px 0
+	}
+	.imgList_wrap .list_img li:nth-child(3), .imgList_wrap .list_img li:nth-child(6),
+		.imgList_wrap .list_img li:nth-child(9), .imgList_wrap .list_img li:nth-child(12),
+		.imgList_wrap .list_img li:nth-child(15), .imgList_wrap .list_img li:nth-child(18)
+		{
+		margin: 0 0 30px 0
+	}
+	.imgList_wrap .list_img .thumImg {
+		height: 235px
+	}
+}
+
+@media screen and (max-width:560px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 210px
+	}
+}
+
+@media screen and (max-width:480px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 185px
+	}
+}
+
+@media screen and (max-width:414px) {
+	.imgList_wrap .list_img li .over {
+		display: none
+	}
+}
+
+@media screen and (max-width:375px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 165px
+	}
+}
+
+a {
+	cursor: pointer;
+}
+
+.img-responsive {
+	max-width: 100%;
+}
+
+img {
+	border: 0 none;
+	vertical-align: top;
 }
 </style>
 <div id="content">
@@ -288,9 +406,8 @@
 						<ul class="list_img">
 							<c:forEach items="${pubList}" var="list" step="1">
 								<li>
-									<!-- <div class="book"> --> <a
-									href="/bookcont?isbn=${list['isbn13']}">
-										<div class="over">
+									<!-- <div class="book"> -->
+										<div class="over" onclick="location.href='/bookcont?isbn=${list['isbn13']}';">
 											<strong>${list['bookname']}</strong><br> <span>${list['authors']}</span>
 											<p>${list['publisher']}</p>
 											<p>${list['publication_year']}</p>
@@ -306,7 +423,6 @@
 							<p>아아아아아아아아kkkkkkkkkkkkkkkkkkkkkkk</p>
 							</div> -->
 										<!-- 책 내용에 대한 정보가 들어갈 공간. 3 숫자는 z-index번호-->
-								</a>
 								</li>
 							</c:forEach>
 						</ul>

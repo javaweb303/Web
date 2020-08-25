@@ -1,5 +1,8 @@
+<%@page import="java.util.Map"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="../include/header.jsp" />
+
 <style>
 /*헤더 색*/
 #head {
@@ -24,7 +27,6 @@
 	height: 200px;
 	background-color: #ED829D;
 } /*색변경*/
-
 #content .content_head h2 {
 	padding: 75px 0 70px;
 	text-align: center;
@@ -160,62 +162,327 @@
 	text-indent: -9999em;
 }
 
-.categorySearchForm {
-	margin-bottom: 15px;
-	padding: 15px 25px;
-	border-radius: 5px;
-	background-color: #f1f3f6
-}
-
-.categorySearchForm.pageCategory {
-	text-align: left
-}
-
-.categorySearchForm .field {
-	overflow: hidden
-}
-
-.categorySearchForm .field+.field {
-	margin-top: 8px
-}
-
-.categorySearchForm .field .block {
-	display: inline-block;
-	float: left;
+/* keyword search form */
+.keywordSearchForm {
 	position: relative;
-	width: 50%;
-	padding-left: 80px;
-	box-sizing: border-box
+	height: 38px;
+	line-height: 38px;
+	border-radius: 5px;
+	border: 3px solid #464646;
+	
 }
 
-.categorySearchForm.typeTotal .field .block {
-	width: 40%
-}
-
-.categorySearchForm.typeTotal .field .block+.block {
-	width: 60%
-}
-
-.categorySearchForm .field .block .tit {
+.keywordSearchForm .field {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 80px;
-	font-weight: normal;
-	line-height: 32px;
-	text-align: left
+	height: 38px;
+	margin: 0;
+	padding: 0;
+	float : left;
+}
+.keywordSearchForm .field select {
+	width: 100%;
+	height: 38px;
+	line-height: 38px;
+	padding: 0 15px 0 5px;
+	vertical-align: top;
+	border: 0;
+	background-color: transparent
 }
 
-.categorySearchForm .field .block select {
+.keywordSearchForm .searchSelect {
+	position: absolute;
+	top: 0;
+	left: 85px;
+	width: 80px;
+	height: 38px;
+	margin: 0;
+	padding: 0;
+	float: left;
+	
+	
+}
+
+.keywordSearchForm .searchSelect select {
+	width: 100%;
+	height: 38px;
+	line-height: 38px;
+	padding: 0 15px 0 5px;
+	vertical-align: top;
+	border: 0;
+	background-color: transparent
+}
+
+.keywordSearchForm .keywordInput {
+	position: relative;
+	margin: 0 175px;
+}
+
+.keywordSearchForm .keywordInput input {
+	display: block;
+	width: 100%;
+	height: 38px;
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	box-sizing: border-box
+}
+
+.keywordSearchForm .btnSubmit {
+	position: absolute;
+	top: 0;
+	right: 0
+}
+
+.keywordSearchForm .btnSubmit a {
+	display: block;
+	width: 55px;
+	padding-left: 20px;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 38px;
+	color: #fff;
+	text-align: center;
+	background: #464646 url(/include/image/common/ico_srch.png) 10px 50%
+		no-repeat
+}
+
+/* 책 정보 */
+.imgList_wrap {
+	position: relative;
+	padding: 10px 0
+}
+
+.imgList_wrap .list_img {
+	display: inline-block;
 	width: 100%
 }
 
-.categorySearchForm .field .block select.short {
-	max-width: 150px
+.imgList_wrap .list_img li {
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	cursor: pointer;
+	float: left;
+	margin: 0 2.5% 30px 0;
+	width: 18%;
+	border: 1px solid #d7d7d7
 }
 
-.categorySearchForm .field select.inpTextShort {
-	width: 100px
+.imgList_wrap .list_img li:last-child, .imgList_wrap .list_img li:nth-child(5),
+	.imgList_wrap .list_img li:nth-child(10), .imgList_wrap .list_img li:nth-child(15)
+	{
+	margin: 0 0 30px 0
+}
+
+.imgList_wrap .list_img .thumImg {
+	width: 100%;
+	height: 308px
+}
+
+.imgList_wrap .list_img li .over {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	padding: 20% 0 0;
+	width: 100%;
+	line-height: 28px;
+	color: #fff;
+	text-align: center;
+	background: rgba(0, 0, 0, .7);
+	font-size: 12px;
+	display: none;
+	z-index: 1;
+}
+
+.imgList_wrap .list_img li:hover .over {
+	display: block
+}
+
+.imgList_wrap .list_img li .over>strong {
+	padding: 0 10px;
+	font-weight: lighter;
+	font-size: 1.5em !important;
+	color: #ff7200;
+	display: -webkit-box;
+	-webkit-line-clamp: 2
+}
+
+.imgList_wrap .list_img li .over>span, .over>strong {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word
+}
+
+.imgList_wrap .list_img li .over>span {
+	display: -webkit-box;
+	-webkit-line-clamp: 1
+}
+
+.imgList_wrap .list_img li .over>p, .imgList_wrap .list_img li .over>span
+	{
+	margin: 5% 0 0;
+	padding: 0 10px;
+	color: #fff;
+	font-size: 1.25em
+}
+
+.imgList_wrap .list_img li .over>em {
+	position: absolute;
+	bottom: 72px;
+	left: 0;
+	right: 0;
+	padding-top: 10px;
+	font-size: 1.1em;
+	text-align: center
+}
+
+.imgList_wrap .list_img li .over>em:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin: 0 0 0 -13px;
+	display: inline-block;
+	width: 27px;
+	height: 1px;
+	background: #fff
+}
+
+@media screen and (max-width:1200px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 235px
+	}
+	.imgList_wrap .list_img li .over>span {
+		font-size: 1.1em
+	}
+	.imgList_wrap .list_img li .over>em {
+		bottom: 54px
+	}
+	.imgList_wrap .list_img li .over>em:before {
+		margin: 10px 0 0 -13px
+	}
+}
+
+@media screen and (max-width:993px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 195px
+	}
+	.imgList_wrap .list_img li {
+		border: 0 solid #d7d7d7
+	}
+	.imgList_wrap .list_img li .over>span {
+		font-size: .75em
+	}
+	.imgList_wrap .list_img li .over>p {
+		font-size: 1em
+	}
+	.imgList_wrap .list_img li:hover .over {
+		display: none
+	}
+}
+
+@media screen and (max-width:768px) {
+	.imgList_wrap .list_img li {
+		position: relative;
+		display: block;
+		box-sizing: border-box;
+		cursor: pointer;
+		float: left;
+		margin: 0 4% 30px 0;
+		width: 22%;
+		border: 0 solid #d7d7d7
+	}
+	.imgList_wrap .list_img li:nth-child(5), .imgList_wrap .list_img li:nth-child(10),
+		.imgList_wrap .list_img li:nth-child(15) {
+		margin: 0 4% 30px 0
+	}
+	.imgList_wrap .list_img li:nth-child(4), .imgList_wrap .list_img li:nth-child(8),
+		.imgList_wrap .list_img li:nth-child(12), .imgList_wrap .list_img li:nth-child(16)
+		{
+		margin: 0 0 30px 0
+	}
+	.imgList_wrap .list_img .thumImg {
+		height: 225px
+	}
+	.imgList_wrap .btns {
+		position: absolute;
+		bottom: 18px;
+		left: 0;
+		right: 0;
+		padding: 0 10%;
+		text-align: center;
+		margin: 10px 0 0
+	}
+}
+
+@media screen and (max-width:640px) {
+	.imgList_wrap .list_img li {
+		position: relative;
+		display: block;
+		box-sizing: border-box;
+		cursor: pointer;
+		float: left;
+		margin: 0 2% 30px 0;
+		width: 32%;
+		border: 0 solid #d7d7d7
+	}
+	.imgList_wrap .list_img li:nth-child(4), .imgList_wrap .list_img li:nth-child(5),
+		.imgList_wrap .list_img li:nth-child(8), .imgList_wrap .list_img li:nth-child(10),
+		.imgList_wrap .list_img li:nth-child(15), .imgList_wrap .list_img li:nth-child(16)
+		{
+		margin: 0 2% 30px 0
+	}
+	.imgList_wrap .list_img li:nth-child(3), .imgList_wrap .list_img li:nth-child(6),
+		.imgList_wrap .list_img li:nth-child(9), .imgList_wrap .list_img li:nth-child(12),
+		.imgList_wrap .list_img li:nth-child(15), .imgList_wrap .list_img li:nth-child(18)
+		{
+		margin: 0 0 30px 0
+	}
+	.imgList_wrap .list_img .thumImg {
+		height: 235px
+	}
+}
+
+@media screen and (max-width:560px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 210px
+	}
+}
+
+@media screen and (max-width:480px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 185px
+	}
+}
+
+@media screen and (max-width:414px) {
+	.imgList_wrap .list_img li .over {
+		display: none
+	}
+}
+
+@media screen and (max-width:375px) {
+	.imgList_wrap .list_img .thumImg {
+		height: 165px
+	}
+}
+
+a {
+	cursor: pointer;
+}
+
+.img-responsive {
+	max-width: 100%;
+}
+
+img {
+	border: 0 none;
+	vertical-align: top;
 }
 </style>
 <div id="content">
@@ -251,7 +518,7 @@
 				<h2>통합 검색</h2>
 				<div>
 					<!-- 우측 메뉴 창 -->
-					<form name="searchForm" id="searchForm" method="post" action = "/detail">
+					<form name="searchForm" id="searchForm">
 						<div class="contentcore">
 							<div class="nav">
 								<h3>통합검색</h3>
@@ -260,32 +527,32 @@
 							<div class="contents" id="contents">
 								<!-- 검색 폼 -->
 
-								<!-- 검색 카테고리 선택 -->
-								<div id="categorySearch">
-									<div class="field">
-										<span class="block"> <label for="#">카테고리</label> <select
-											name="searchCa" class="searchCa">
-												<option value="100" selected="selected">국내도서</option>
-												<option value="200">외국도서</option>
-												<option value="300">음반</option>
-												<option value="400">DVD</option>
-										</select>
-										</span>
-									</div>
-								</div>
-								<!-- 검색 카테고리 선택 끝 -->
+
 
 								<!-- 검색창 -->
 								<div class="keywordSearchForm">
+									<div class="field">
+										<label for="searchCa" class="blind">전체</label> <select
+											name="searchCa" class="searchCa">
+											<option value="0" selected="selected">전체</option>
+											<option value="1">소설/시/희곡</option>
+											<option value="656">인문학</option>
+											<option value="987">과학</option>
+											<option value="798">사회과학</option>
+											<option value="74">역사</option>
+											<option value="517">예술/대중문화</option>
+											<option value="1322">외국어</option>
+											<option value="1237">종교/역학</option>
+										</select>
+									</div>
 									<div class="searchSelect">
+
 										<label for="searchCondition" class="blind">전체</label> <select
 											id="searchCondition" name="searchCondition" title="검색 선택">
-											<option value="all" selected="selected">전체</option>
-											<option value="title">제목</option>
-											<option value="author">저자</option>
-											<option value="publisher">출판사</option>
-											<option value="isbn">isbn</option>
-											<option value="productNumber">상품번호</option>
+											<option value="Keyword" selected="selected">전체</option>
+											<option value="Title">제목</option>
+											<option value="Author">저자</option>
+											<option value="Publisher">출판사</option>
 										</select>
 									</div>
 									<div class="keywordInput">
@@ -302,12 +569,26 @@
 							</div>
 						</div>
 					</form>
-					<!-- 우측 메뉴 끝 -->
-					<br>
-					<br>
+					<br> <br>
 					<hr>
-					<br>
-					<br>
+					<br> <br>
+					<div class="imgList_wrap">
+						<ul class="list_img">
+							<c:forEach items="${pubList}" var="list" step="1">
+								<li>
+									<div class="over"
+										onclick="location.href='/bookcont?isbn=${list['isbn13']}';">
+										<strong>${list['title']}</strong>
+										<%-- <span>${list['author']}</span>--%>
+										<p>${list['publisher']}</p>
+										<p>${list['pubDate']}</p>
+									</div> <img src="${list['cover']}" class="img-responsive thumImg">
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+
+					<!-- 우측 메뉴 끝 -->
 				</div>
 			</div>
 			<!-- 여기까지가 몸체우측 -->
