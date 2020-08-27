@@ -89,68 +89,6 @@
 }
 
 /* 검색창 */
-.keywordSearchForm {
-	position: relative;
-	height: 38px;
-	line-height: 38px;
-	border-radius: 5px;
-	border: 3px solid #464646;
-}
-
-.keywordSearchForm .searchSelect {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 80px;
-	height: 38px;
-	margin: 0;
-	padding: 0;
-}
-
-.keywordSearchForm .searchSelect select {
-	width: 100%;
-	height: 38px;
-	line-height: 38px;
-	padding: 0 15px 0 5px;
-	vertical-align: top;
-	border: 0;
-	background-color: transparent;
-}
-
-.keywordSearchForm .keywordInput {
-	position: relative;
-	margin: 0 85px;
-}
-
-.keywordSearchForm .keywordInput input {
-	display: block;
-	width: 100%;
-	height: 38px;
-	margin: 0;
-	padding: 0;
-	border: 0 none;
-	box-sizing: border-box;
-}
-
-.keywordSearchForm .btnSubmit {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-.keywordSearchForm .btnSubmit a {
-	display: block;
-	width: 55px;
-	padding-left: 20px;
-	font-weight: 600;
-	font-size: 16px;
-	line-height: 38px;
-	color: #fff;
-	text-align: center;
-	background: #464646 url(../images/keywordSearchBtn.png) 10px 50%
-		no-repeat;
-}
-
 .blind {
 	overflow: hidden;
 	position: absolute;
@@ -162,14 +100,12 @@
 	text-indent: -9999em;
 }
 
-/* keyword search form */
 .keywordSearchForm {
 	position: relative;
 	height: 38px;
 	line-height: 38px;
 	border-radius: 5px;
 	border: 3px solid #464646;
-	
 }
 
 .keywordSearchForm .field {
@@ -180,8 +116,9 @@
 	height: 38px;
 	margin: 0;
 	padding: 0;
-	float : left;
+	float: left;
 }
+
 .keywordSearchForm .field select {
 	width: 100%;
 	height: 38px;
@@ -201,8 +138,6 @@
 	margin: 0;
 	padding: 0;
 	float: left;
-	
-	
 }
 
 .keywordSearchForm .searchSelect select {
@@ -249,240 +184,132 @@
 		no-repeat
 }
 
-/* 책 정보 */
-.imgList_wrap {
-	position: relative;
-	padding: 10px 0
-}
-
-.imgList_wrap .list_img {
-	display: inline-block;
-	width: 100%
-}
-
-.imgList_wrap .list_img li {
-	position: relative;
+/* 검색 버튼 */
+.keywordSearchForm .btnSubmit input {
 	display: block;
-	box-sizing: border-box;
-	cursor: pointer;
-	float: left;
-	margin: 0 2.5% 30px 0;
-	width: 18%;
-	border: 1px solid #d7d7d7
-}
-
-.imgList_wrap .list_img li:last-child, .imgList_wrap .list_img li:nth-child(5),
-	.imgList_wrap .list_img li:nth-child(10), .imgList_wrap .list_img li:nth-child(15)
-	{
-	margin: 0 0 30px 0
-}
-
-.imgList_wrap .list_img .thumImg {
-	width: 100%;
-	height: 308px
-}
-
-.imgList_wrap .list_img li .over {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	padding: 20% 0 0;
-	width: 100%;
-	line-height: 28px;
+	width: 70px;
+	padding-left: 20px;
+	font-weight: 600;
+	line-height: 36px;
 	color: #fff;
 	text-align: center;
-	background: rgba(0, 0, 0, .7);
-	font-size: 12px;
-	display: none;
-	z-index: 1;
+	background: #464646 url(/resources/images/library_img/ico_srch.png) 10px
+		50% no-repeat;
 }
 
-.imgList_wrap .list_img li:hover .over {
-	display: block
+/* 검색 결과 리스트 */
+.bookDataWrap {
+	font-size: 0.928em
 }
 
-.imgList_wrap .list_img li .over>strong {
-	padding: 0 10px;
-	font-weight: lighter;
-	font-size: 1.5em !important;
-	color: #ff7200;
-	display: -webkit-box;
-	-webkit-line-clamp: 2
+.bookDataWrap .tit {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 1.154em;
+	color: #333
 }
 
-.imgList_wrap .list_img li .over>span, .over>strong {
+.bookDataWrap .tit a:hover, .bookDataWrap .tit a:focus, a.writer:hover,
+	a.writer:focus, a.publisher:hover, a.publisher:focus {
+	text-decoration: underline
+}
+
+.bookDataWrap a.btnState:hover, .bookDataWrap a.btnState:focus {
+	box-shadow: inset 0 0 5px 2px rgba(255, 255, 255, .9)
+}
+
+.bookDataWrap .txt span {
+	margin-right: 7px;
+	padding-right: 8px;
+	background: url(/include/image/common/bg_slit.png) 100% 52% no-repeat
+}
+
+.bookDataWrap .txt span:last-child {
+	margin-right: 0;
+	padding-right: 0;
+	background: none
+}
+
+.resultList {
+	border-top: 2px solid #464646
+}
+
+.resultFilter ~ .resultList {
+	border-top: 0
+}
+
+.resultList>li {
 	overflow: hidden;
-	text-overflow: ellipsis;
-	-webkit-box-orient: vertical;
-	word-wrap: break-word
+	position: relative;
+	padding: 15px 0;
+	border-bottom: 1px solid #c5c5c5
 }
 
-.imgList_wrap .list_img li .over>span {
-	display: -webkit-box;
-	-webkit-line-clamp: 1
+.resultList>li.emptyNote {
+	line-height: 135px
 }
 
-.imgList_wrap .list_img li .over>p, .imgList_wrap .list_img li .over>span
-	{
-	margin: 5% 0 0;
-	padding: 0 10px;
-	color: #fff;
-	font-size: 1.25em
-}
-
-.imgList_wrap .list_img li .over>em {
-	position: absolute;
-	bottom: 72px;
-	left: 0;
-	right: 0;
-	padding-top: 10px;
-	font-size: 1.1em;
-	text-align: center
-}
-
-.imgList_wrap .list_img li .over>em:before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 50%;
-	margin: 0 0 0 -13px;
+.resultList .thumb .cover {
 	display: inline-block;
-	width: 27px;
-	height: 1px;
-	background: #fff
+	max-width: 110px;
+	height: 150px;
+	padding-top: 4px;
+	background: url(/resources/images/library_img/bg_book.png) 0 0 no-repeat;
+	background-size: 100% 4px
 }
 
-@media screen and (max-width:1200px) {
-	.imgList_wrap .list_img .thumImg {
-		height: 235px
-	}
-	.imgList_wrap .list_img li .over>span {
-		font-size: 1.1em
-	}
-	.imgList_wrap .list_img li .over>em {
-		bottom: 54px
-	}
-	.imgList_wrap .list_img li .over>em:before {
-		margin: 10px 0 0 -13px
-	}
-}
-
-@media screen and (max-width:993px) {
-	.imgList_wrap .list_img .thumImg {
-		height: 195px
-	}
-	.imgList_wrap .list_img li {
-		border: 0 solid #d7d7d7
-	}
-	.imgList_wrap .list_img li .over>span {
-		font-size: .75em
-	}
-	.imgList_wrap .list_img li .over>p {
-		font-size: 1em
-	}
-	.imgList_wrap .list_img li:hover .over {
-		display: none
-	}
-}
-
-@media screen and (max-width:768px) {
-	.imgList_wrap .list_img li {
-		position: relative;
-		display: block;
-		box-sizing: border-box;
-		cursor: pointer;
-		float: left;
-		margin: 0 4% 30px 0;
-		width: 22%;
-		border: 0 solid #d7d7d7
-	}
-	.imgList_wrap .list_img li:nth-child(5), .imgList_wrap .list_img li:nth-child(10),
-		.imgList_wrap .list_img li:nth-child(15) {
-		margin: 0 4% 30px 0
-	}
-	.imgList_wrap .list_img li:nth-child(4), .imgList_wrap .list_img li:nth-child(8),
-		.imgList_wrap .list_img li:nth-child(12), .imgList_wrap .list_img li:nth-child(16)
-		{
-		margin: 0 0 30px 0
-	}
-	.imgList_wrap .list_img .thumImg {
-		height: 225px
-	}
-	.imgList_wrap .btns {
-		position: absolute;
-		bottom: 18px;
-		left: 0;
-		right: 0;
-		padding: 0 10%;
-		text-align: center;
-		margin: 10px 0 0
-	}
-}
-
-@media screen and (max-width:640px) {
-	.imgList_wrap .list_img li {
-		position: relative;
-		display: block;
-		box-sizing: border-box;
-		cursor: pointer;
-		float: left;
-		margin: 0 2% 30px 0;
-		width: 32%;
-		border: 0 solid #d7d7d7
-	}
-	.imgList_wrap .list_img li:nth-child(4), .imgList_wrap .list_img li:nth-child(5),
-		.imgList_wrap .list_img li:nth-child(8), .imgList_wrap .list_img li:nth-child(10),
-		.imgList_wrap .list_img li:nth-child(15), .imgList_wrap .list_img li:nth-child(16)
-		{
-		margin: 0 2% 30px 0
-	}
-	.imgList_wrap .list_img li:nth-child(3), .imgList_wrap .list_img li:nth-child(6),
-		.imgList_wrap .list_img li:nth-child(9), .imgList_wrap .list_img li:nth-child(12),
-		.imgList_wrap .list_img li:nth-child(15), .imgList_wrap .list_img li:nth-child(18)
-		{
-		margin: 0 0 30px 0
-	}
-	.imgList_wrap .list_img .thumImg {
-		height: 235px
-	}
-}
-
-@media screen and (max-width:560px) {
-	.imgList_wrap .list_img .thumImg {
-		height: 210px
-	}
-}
-
-@media screen and (max-width:480px) {
-	.imgList_wrap .list_img .thumImg {
-		height: 185px
-	}
-}
-
-@media screen and (max-width:414px) {
-	.imgList_wrap .list_img li .over {
-		display: none
-	}
-}
-
-@media screen and (max-width:375px) {
-	.imgList_wrap .list_img .thumImg {
-		height: 165px
-	}
-}
-
-a {
-	cursor: pointer;
-}
-
-.img-responsive {
+.resultList .thumb .cover img {
+	display: block;
 	max-width: 100%;
+	height: 100%;
+	border: 1px solid #969696;
+	box-sizing: border-box
 }
 
-img {
-	border: 0 none;
-	vertical-align: top;
+.resultList.descType>li {
+	min-height: 154px
+}
+
+.resultList.descType .thumb {
+	position: absolute;
+	top: 15px;
+	left: 0
+}
+
+.resultList.descType .thumb a {
+	position: relative
+}
+
+.resultList.descType .bookDataWrap {
+	margin-left: 125px
+}
+
+.resultList.descType .bookDataWrap li {
+	margin-bottom: 6px
+}
+
+.resultList.descType .desc {
+	overflow: hidden;
+	height: 40px;
+	line-height: 20px;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical
+}
+
+.resultList.dataType>li {
+	padding: 0
+}
+
+/*책 제목 색*/
+.themeFC {
+	color: #0066b3 !important;
+}
+
+/*책정보- 저자, 출판사 등*/
+.sdot-ist>li {
+	padding-left: 6px;
 }
 </style>
 <div id="content">
@@ -493,7 +320,7 @@ img {
 		<ul class="">
 			<li>통합 검색</li>
 			<li>도서관 서비스 ></li>
-			<li><a href="../index.jsp">Home</a> ></li>
+			<li><a href="/">Home</a> ></li>
 		</ul>
 	</div>
 
@@ -518,18 +345,16 @@ img {
 				<h2>통합 검색</h2>
 				<div>
 					<!-- 우측 메뉴 창 -->
+					<!-- 검색 폼(검색 버튼 클릭하면 검색 키워드가 컨트롤러에 전송) -->
 					<form name="searchForm" id="searchForm">
 						<div class="contentcore">
 							<div class="nav">
 								<h3>통합검색</h3>
 								<br>
 							</div>
+							<!-- 검색창 -->
 							<div class="contents" id="contents">
-								<!-- 검색 폼 -->
-
-
-
-								<!-- 검색창 -->
+								<!-- 검색 카테고리(kdc분류) -->
 								<div class="keywordSearchForm">
 									<div class="field">
 										<label for="searchCa" class="blind">전체</label> <select
@@ -545,8 +370,8 @@ img {
 											<option value="1237">종교/역학</option>
 										</select>
 									</div>
+									<!-- 검색 키워드 분류 카테고리(전체 or 제목 or 저자 or 출판사) -->
 									<div class="searchSelect">
-
 										<label for="searchCondition" class="blind">전체</label> <select
 											id="searchCondition" name="searchCondition" title="검색 선택">
 											<option value="Keyword" selected="selected">전체</option>
@@ -555,44 +380,57 @@ img {
 											<option value="Publisher">출판사</option>
 										</select>
 									</div>
+									<!-- 검색어 입력 -->
 									<div class="keywordInput">
 										<input type="text" id="searchKeyword" name="searchKeyword"
 											title="검색어를 입력하세요" placeholder="검색어를 입력하세요"
 											autocomplete="off" class="ac_input">
 									</div>
+									<!-- 버튼으로 검색 결과 컨트롤러에 전송 -->
 									<div class="btnSubmit">
-										<!-- <a href="/controller/detail" onclick="">검색</a> -->
 										<input type="submit" value="검색">
 									</div>
 								</div>
-								<!-- 검색창 끝 -->
 							</div>
 						</div>
 					</form>
+					<!-- 검색창 끝 -->
 					<br> <br>
-					<hr>
-					<br> <br>
-					<div class="imgList_wrap">
-						<ul class="list_img">
-							<c:forEach items="${pubList}" var="list" step="1">
-								<li>
-									<div class="over"
-										onclick="location.href='/bookcont?isbn=${list['isbn13']}';">
-										<strong>${list['title']}</strong>
-										<%-- <span>${list['author']}</span>--%>
-										<p>${list['publisher']}</p>
-										<p>${list['pubDate']}</p>
-									</div> <img src="${list['cover']}" class="img-responsive thumImg">
-								</li>
-							</c:forEach>
-						</ul>
-					</div>
-
-					<!-- 우측 메뉴 끝 -->
+					<!-- 검색 결과 리스트 출력 -->
+					<ul class="resultList descType">
+					<!-- 반복문을 통해 검색 결과 리스트 출력 -->
+						<c:forEach items="${pubList}" var="list" step="1">
+							<li>
+								<!-- 검색한 책 이미지 출력(isbn을 통해 도서 상세 페이지로 이동) -->
+								<div class="thumb">
+									<a href="/bookcont?isbn=${list['isbn13']}" class="cover"> <img
+										src="${list['cover']}">
+									</a>
+								</div>
+								<!-- 검색한 책 제목, 정보 출력(isbn을 통해 책 제목을 클릭하면 도서 상세 페이지로 이동) -->
+								<div class="bookDataWrap">
+									<strong class="tit"> <a
+										href="bookcont?isbn=${list['isbn13']}"> <span
+											class="seachKwd themeFC">${list['title']}</span>
+									</a>
+									</strong>
+									<!-- 검색한 책 정보 출력(저자, 출판사, 발행연도, isbn) -->
+									<ul class="sdot-list">
+										<li>저자 : ${list['author']}</li>
+										<li>출판사 : ${list['publisher']}</li>
+										<li>발행연도 : ${list['pubDate']}</li>
+										<li>ISBN : ${list['isbn13']}</li>
+									</ul>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
 				</div>
+
+				<!-- 우측 메뉴 끝 -->
 			</div>
-			<!-- 여기까지가 몸체우측 -->
 		</div>
+		<!-- 여기까지가 몸체우측 -->
 	</div>
 </div>
 <jsp:include page="../include/footer.jsp" />

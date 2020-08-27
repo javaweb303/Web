@@ -11,7 +11,7 @@
 <style>
 /*헤더 색*/
 #head {
-	background-color:#D4748C
+	background-color: #D4748C
 } /*색변경*/
 #gnb li ul {
 	border-top: 7px solid #f18023;
@@ -352,7 +352,7 @@ img {
 		<ul class="">
 			<li>추천도서</li>
 			<li>도서관서비스 ></li>
-			<li><a href="../index.jsp">Home</a> ></li>
+			<li><a href="/">Home</a> ></li>
 		</ul>
 	</div>
 	<div class="container">
@@ -372,18 +372,37 @@ img {
 				<!-- 몸체 우측공간 -->
 				<h2>추천도서</h2>
 				<div>
-					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
+					<!-- <div class="librarySelect">
+						<div class="listSetting">
+							<div class="librarianSelectBox">
+								<select class="select" id="categoryId" name="categoryId" onclick="this.form.submit();" onchange="change()">
+									<option value="0">전체</option>
+									<option value="1" selected="selected">소설/시/희곡</option>
+									<option value="656">인문학</option>
+									<option value="987">과학</option>
+									<option value="798">사회과학</option>
+									<option value="74">역사</option>
+									<option value="517">예술/대중문화</option>
+									<option value="1322">외국어</option>
+									<option value="1237">종교/역학</option>
+								</select>
+							</div>
+						</div>
+					</div> -->
+					<!-- 추천 도서 api 출력 -->
 					<div class="imgList_wrap">
 						<ul class="list_img">
+							<!-- 반복문을 통해 api의 도서 정보 리스트 출력 -->
 							<c:forEach items="${pubList}" var="list" step="1">
 								<li>
-									<div class="over" onclick="location.href='/bookcont?isbn=${list['isbn']}';">
-										<strong>${list['title']}</strong> 
-										<span>${list['author']}</span>
+									<!-- 도서 정보 hover로 보여짐 -->
+									<div class="over"
+										onclick="location.href='/bookcont?isbn=${list['isbn13']}';">
+										<strong>${list['title']}</strong> <span>${list['author']}</span>
 										<p>${list['publisher']}</p>
 										<p>${list['pubDate']}</p>
-									</div> <img src="${list['coverLargeUrl']}"
-										class="img-responsive thumImg">
+									</div> <!-- 도서 이미지 --> <img src="${list['cover']}"
+									class="img-responsive thumImg">
 								</li>
 							</c:forEach>
 						</ul>

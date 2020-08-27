@@ -352,7 +352,7 @@ img {
 		<ul class="">
 			<li>신간도서</li>
 			<li>도서관서비스 ></li>
-			<li><a href="../index.jsp">Home</a> ></li>
+			<li><a href="/">Home</a> ></li>
 		</ul>
 	</div>
 	<div class="container">
@@ -372,18 +372,20 @@ img {
 				<!-- 몸체 우측공간 -->
 				<h2>신간도서</h2>
 				<div>
-					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
+					<!-- 신간도서 api 출력 -->
 					<div class="imgList_wrap">
 						<ul class="list_img">
+							<!-- 반복문을 통해 api의 도서 정보 리스트 출력 -->
 							<c:forEach items="${pubList}" var="list" step="1">
 								<li>
-									<div class="over" onclick="location.href='/bookcont?isbn=${list['isbn']}';">
-										<strong>${list['title']}</strong><br>
-										<%-- <span>${list['author']}</span>--%>
+									<!-- 도서 정보 hover로 보여짐 -->
+									<div class="over"
+										onclick="location.href='/bookcont?isbn=${list['isbn13']}';">
+										<strong>${list['title']}</strong><br> <span>${list['author']}</span>
 										<p>${list['publisher']}</p>
 										<p>${list['pubDate']}</p>
-									</div> 
-									<img src="${list['coverLargeUrl']}" class="img-responsive thumImg">
+									</div> <!-- 도서 이미지 --> <img src="${list['cover']}"
+									class="img-responsive thumImg">
 								</li>
 							</c:forEach>
 						</ul>

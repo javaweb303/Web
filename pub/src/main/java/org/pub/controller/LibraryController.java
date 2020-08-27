@@ -31,6 +31,8 @@ public class LibraryController {
 	public ModelAndView search(@RequestParam(required=false)String searchKeyword,HttpServletRequest request) {
 
 		ModelAndView model=new ModelAndView();
+		
+		//검색어가 있으면 책 정보 리스트를 가져옴..
 		if(searchKeyword != null) {
 		String query = request.getParameter("searchKeyword");
 		System.out.println(query);
@@ -43,7 +45,7 @@ public class LibraryController {
 
 		//System.out.println(url);
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","publisher","pubDate","cover","isbn13"};
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
 
 		String itemsname="item";
 
@@ -52,13 +54,11 @@ public class LibraryController {
 
 		
 		model.addObject("pubList", pubList);
-		model.addObject("request", request);
 
 		//System.out.println(pubList);
 		}
 		model.setViewName("library_services/srchBook");
 		return model;
-		//return "library_services/srchBook";
 
 	}
 
@@ -66,10 +66,10 @@ public class LibraryController {
 	public ModelAndView newBook() {
 
 		//XML 데이터를 호출할 URL
-		String url = "http://book.interpark.com/api/newBook.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
+		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
 
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","publisher","pubDate","coverLargeUrl","isbn"};
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
 
 		String itemsname="item";
 
@@ -123,13 +123,15 @@ public class LibraryController {
 	}
 
 	@RequestMapping("/recomm")
-	public ModelAndView recomm() {
+	public ModelAndView recomm(HttpServletRequest request) {
 
+		//String categoryId = request.getParameter("categoryId");
+		//System.out.println(categoryId);
 		//XML 데이터를 호출할 URL => 파싱할 URL
-		String url = "http://book.interpark.com/api/recommend.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
+		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemEditorChoice&CategoryId=1230&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
 
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","author","publisher","pubDate","coverLargeUrl","isbn"};
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
 
 		String itemsname="item";
 
@@ -199,7 +201,7 @@ public class LibraryController {
 					//fieldNames에 해당하는 값을 XML 노드에서 가져옴
 					NodeList titleList = e.getElementsByTagName(name);
 					Element titleElem = (Element) titleList.item(0);
-					System.out.println(titleElem);
+					//System.out.println(titleElem);
 					Node titleNode = titleElem.getChildNodes().item(0);
 					// 가져온 XML 값을 맵에 엘리먼트 이름 - 값 쌍으로 넣음
 

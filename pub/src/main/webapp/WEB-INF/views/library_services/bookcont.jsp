@@ -115,7 +115,7 @@ div {
 	}
 }
 
-/* search result view */
+/* 검색 결과 책 정보 */
 .searchViewWrap .htitle {
 	margin: 20px 0 0;
 	padding-bottom: 10px
@@ -136,7 +136,7 @@ div {
 	font-weight: 600;
 	font-size: 1.154em;
 	line-height: 1.3;
-	background-color: #f4f4f4
+	background-color: #f4f4f4;
 }
 
 .resultViewDetail .resultBookInfo {
@@ -254,17 +254,20 @@ div {
 							<div class="searchViewWrap">
 								<!-- 도서 기본 정보-->
 								<div class="resultViewDetail">
+								<!-- 책 제목 -->
 									<div class="tit">
 										<h4>${list['title']}</h4>
 									</div>
+									<!-- 책 상세 정보 -->
 									<div class="resultBookInfo">
 										<div class="thumb">
+										<!-- 책 이미지 -->
 											<div class="cover">
 												<span class="img"><img src="${list['cover']}"
-													alt="책이미지"
-													onerror="javascript:fnErrorBookImgFile(this); return false;"></span>
+													alt="책이미지"></span>
 											</div>
 										</div>
+										<!-- 책 저자, 출판사, 발행연도, isbn -->
 										<div class="bookDataWrap">
 											<ul class="sdot-list">
 												<li>저자 : ${list['author']}</li>
