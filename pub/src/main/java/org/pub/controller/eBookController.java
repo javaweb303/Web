@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -171,8 +172,11 @@ class Rest{
 	}
 	
 	@RequestMapping("/reply_add")
-	public ResponseEntity<String> reply_add(@RequestParam ReplyVO vo){
+	public ResponseEntity<String> reply_add(@RequestBody ReplyVO vo){
 		ResponseEntity<String> entity=null;
+		System.out.println(vo.getE_no());
+		System.out.println(vo.getReply_cont());
+		System.out.println(vo.getId());
 		try {
 			replyService.reply_add(vo);
 			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
@@ -195,11 +199,36 @@ class Rest{
 		return entity;
 	}
 	
-	@RequestMapping("/reply_del")
-	public ResponseEntity<String> reply_del(@RequestParam ReplyVO vo){
+	@RequestMapping("/reply_get")
+	public ResponseEntity<ReplyVO> reply_get(@RequestParam("r_no") int r_no){
+		ResponseEntity<ReplyVO> entity=null;
+		try {
+			entity=new ResponseEntity<ReplyVO>(replyService.reply_get(r_no),HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<ReplyVO>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping("/reply_edit")
+	public ResponseEntity<String> reply_edit(@RequestBody ReplyVO vo){
 		ResponseEntity<String> entity=null;
 		try {
-			replyService.reply_del(vo);
+			replyService.reply_edit(vo);
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/reply_del/{r_no}",method=RequestMethod.GET)
+	public ResponseEntity<String> reply_del(@PathVariable("r_no") int r_no){
+		ResponseEntity<String> entity=null;
+		try {
+			replyService.reply_del(r_no);
 			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch (Exception e) {
 			e.printStackTrace();

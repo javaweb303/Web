@@ -10,6 +10,10 @@ public interface ReplyService {
 
 	List<ReplyVO> reply_getlist(int e_no);
 
-	void reply_del(ReplyVO vo);
+	void reply_del(int r_no);
+
+	ReplyVO reply_get(int r_no);
+
+	void reply_edit(ReplyVO vo);
 
 }

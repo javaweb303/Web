@@ -23,7 +23,17 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public void reply_del(ReplyVO vo) {
-		sqlSession.delete("reply_del", vo);
+	public void reply_del(int r_no) {
+		sqlSession.delete("reply_del", r_no);
+	}
+
+	@Override
+	public ReplyVO reply_get(int r_no) {
+		return sqlSession.selectOne("reply_get", r_no);
+	}
+
+	@Override
+	public void reply_edit(ReplyVO vo) {
+		sqlSession.update("reply_edit", vo);
 	}
 }

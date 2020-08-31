@@ -59,7 +59,6 @@ public class eBookDAOImpl implements eBookDAO {
 		Map<String,Object> map=new HashMap<>();
 		map.put("id", id);
 		map.put("e_no", e_no);
-		System.out.println(id+"     "+e_no);
 		return sqlSession.selectOne("getrecommand", map);
 	}
 

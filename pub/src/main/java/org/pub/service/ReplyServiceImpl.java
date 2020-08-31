@@ -24,7 +24,17 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void reply_del(ReplyVO vo) {
-		replyDAO.reply_del(vo);
+	public void reply_del(int r_no) {
+		replyDAO.reply_del(r_no);
+	}
+
+	@Override
+	public ReplyVO reply_get(int r_no) {
+		return replyDAO.reply_get(r_no);
+	}
+
+	@Override
+	public void reply_edit(ReplyVO vo) {
+		replyDAO.reply_edit(vo);
 	}
 }

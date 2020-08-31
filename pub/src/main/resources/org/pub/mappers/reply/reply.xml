@@ -10,6 +10,12 @@ insert into reply (reply_no,reply_cont,regdate,id,e_no) values(reply_no_seq.next
 select * from reply order by reply_no desc
 </select>
 <delete id="reply_del">
-delete from reply where reply_no=#{reply_no} and e_no=#{e_no} and id=#{id}
+delete from reply where reply_no=#{r_no}
 </delete>
+<select id="reply_get" resultType="reply">
+select * from reply where reply_no=#{r_no}
+</select>
+<update id="reply_edit">
+update reply set reply_cont=#{reply_cont},editdate=sysdate where reply_no=#{reply_no}
+</update>
 </mapper>
