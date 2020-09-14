@@ -18,4 +18,14 @@ select * from reply where reply_no=#{r_no}
 <update id="reply_edit">
 update reply set reply_cont=#{reply_cont},editdate=sysdate where reply_no=#{reply_no}
 </update>
+<select id="count" resultType="long">
+select count(reply_no) from reply where e_no=#{no}
+</select>
+<select id="reply_getlist" resultType="reply">
+select * from (select rowNum rNum,reply_no,reply_cont,regdate,editdate,id,e_no from reply where e_no=#{e_no} order by reply_no desc) where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
+<!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->     
+</select>
+<select id="replyCount" parameterType="int" resultType="int">
+select count(reply_no) from reply where e_no=#{e_no}
+</select>
 </mapper>

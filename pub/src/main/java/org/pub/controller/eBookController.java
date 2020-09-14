@@ -1,7 +1,9 @@
 package org.pub.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,41 +37,110 @@ public class eBookController {
 	private eBookService eBookService;
 	@Autowired
 	private FileService fileService;
-	
+	@Autowired
+	private ReplyService replyService;
+
+	public String themechk(String themeval) {
+		String theme = null;
+		switch (themeval) {
+		case "1":
+			theme="";//컴퓨터/IT
+		case "2":
+			theme="";//교양/심리
+		case "3":
+			theme="";//철학/종교
+		case "4":
+			theme="";//사회
+		case "5":
+			theme="";//자연/기술과학
+		case "6":
+			theme="";//문화/예술
+		case "7":
+			theme="";//가정/생활
+		case "8":
+			theme="";//취미/여행
+		case "9":
+			theme="";//언어/외국어
+		case "10":
+			theme="";//문학
+		case "11":
+			theme="";//역사
+		case "12":
+			theme="";//유아/어린이
+		default:
+			theme=null;
+		}
+		return theme;
+	}
 	@RequestMapping("/eBook")
-	public String eBook(Model m) {
+	public String eBook(Model m,HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") int pageNum,@ModelAttribute eBookVO vo) {
 		List<eBookVO> list=new ArrayList<>();
 		eBookVO ebook=null;
-		//List<Integer> file_no=null;
-		List<FileListVO> filelist=fileService.getALL_FileList("ebook");//게시판코드에 해당하는 파일 리스트를 불러옴
-		int file_no,e_no;
-		int count=0;
-		String boardcd,ext,filename;
-		//System.out.println(filelist);
-		for(FileListVO vo:filelist) {
-			file_no=vo.getFile_no();
-			FileVO fileVO=fileService.getFile(file_no);
-			filename=fileVO.getStored_file_name();
-			ext=filename.substring(filename.lastIndexOf('.'),filename.length());
-			if(ext.equals(".jpg") || ext.equals(".png") || ext.equals(".jpeg")) {
-				e_no=vo.getE_no();
-				ebook=eBookService.getEbook(e_no);
-				String d_y=filename.substring(0, 4);
-				String d_m=filename.substring(4, 6);
-				String d_d=filename.substring(6, 8);
-				fileVO.setY(d_y);
-				fileVO.setM(d_m);
-				fileVO.setD(d_d);
-				ebook.setImg_file(fileVO);
-				list.add(ebook);
-				count++;
-			}else {
-				ebook=(eBookVO)list.get(count-1);
-				ebook.setFile(fileVO);
-			}
+		//
+		int page=1;
+		int limit=10;//한페이지 보여지는 목록개수
+		if(request.getParameter("page") != null) {
+			page=Integer.parseInt(request.getParameter("page"));
+		}
+		String find_theme=request.getParameter("theme");//테마
+		String find_name=request.getParameter("inputbox");//검색어
+		String find_field=request.getParameter("search_menu");//검색필드
+		if(find_theme==null) {
+			find_theme="0";
 		}
 		
+		vo.setFind_field(find_field);
+	    vo.setFind_name("%"+find_name+"%");
+	    vo.setFind_theme(themechk(find_theme));
+		
+	    System.out.println("테마 : "+find_theme+"\n검색필드  : "+find_field+"\n검색어 :  "+find_name);
+	    
+		vo.setStartrow((page-1)*10+1);//시작행
+		vo.setEndrow(vo.getStartrow()+limit-1);//끝행
+		
+		List<eBookVO> eblist=eBookService.getebookList(vo);
+		
+		//System.out.println(eblist);
+		for(eBookVO book:eblist) {
+			int no=book.getE_no();
+			List<FileListVO> fileLists = fileService.get_e_no_file(no);
+			for(FileListVO filelistvo:fileLists) {
+				int file_no = filelistvo.getFile_no();
+				int book_no = filelistvo.getE_no();
+				if(no==book_no) {
+					FileVO file=fileService.get_Fileno(file_no);
+					String filename=file.getStored_file_name();
+					String ext=filename.substring(filename.lastIndexOf('.'),filename.length());
+					if(ext.equals(".jpg") || ext.equals(".png") || ext.equals(".jpeg")) {
+						String d_y=filename.substring(0, 4);
+						String d_m=filename.substring(4, 6);
+						String d_d=filename.substring(6, 8);
+						file.setY(d_y);
+						file.setM(d_m);
+						file.setD(d_d);
+						book.setImg_file(file);
+						list.add(book);
+					}else {
+						book.setFile(file);
+					}
+				}
+			}
+		}
+		int ebookcount=eBookService.getebookCount(vo);
+		
+		//총페이지수
+		int maxpage=(int)((double)ebookcount/limit+0.95);
+		//현재 페이지에 보여질 시작페이지 수(1,11,21)
+		int startpage=(((int)((double)page/10+0.9))-1)*10+1;
+		//현재 페이지에 보여줄 마지막 페이지 수(10,20,30)
+		int endpage=maxpage;
+		if(endpage > startpage+10-1) endpage=startpage+10-1;
+		
 		m.addAttribute("list", list);//책정보
+		m.addAttribute("page",page);//책갈피 기능때문에 쪽번호 저장
+		m.addAttribute("startpage",startpage);//시작페이지
+        m.addAttribute("endpage",endpage);//끝 페이지
+        m.addAttribute("maxpage",maxpage);//총페이지
 		return "ebook/ebook"; 
 	}
 	
@@ -183,77 +254,6 @@ class Rest{
 		}catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-	
-	@RequestMapping(value ="/reply_getlist/{e_no}",method=RequestMethod.GET)
-	public ResponseEntity<List<ReplyVO>> reply_getlist(@PathVariable("e_no") int e_no){
-		ResponseEntity<List<ReplyVO>> entity=null;
-		try {
-			entity = new ResponseEntity<List<ReplyVO>>(replyService.reply_getlist(e_no),HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-	
-	@RequestMapping("/reply_get")
-	public ResponseEntity<ReplyVO> reply_get(@RequestParam("r_no") int r_no){
-		ResponseEntity<ReplyVO> entity=null;
-		try {
-			entity=new ResponseEntity<ReplyVO>(replyService.reply_get(r_no),HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<ReplyVO>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-	
-	@RequestMapping("/reply_edit")
-	public ResponseEntity<String> reply_edit(@RequestBody ReplyVO vo){
-		ResponseEntity<String> entity=null;
-		try {
-			replyService.reply_edit(vo);
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-	
-	@RequestMapping(value="/reply_del/{r_no}",method=RequestMethod.GET)
-	public ResponseEntity<String> reply_del(@PathVariable("r_no") int r_no){
-		ResponseEntity<String> entity=null;
-		try {
-			replyService.reply_del(r_no);
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-	
-	@RequestMapping("/search_ebook")
-	public ResponseEntity<List<eBookVO>> search_ebook(@RequestBody String json){
-		ResponseEntity<List<eBookVO>> entity=null;
-		JSONObject obj = JSONObject.fromObject(json);
-		String search_text=obj.getString("search_text");//넘겨준 검색값 해당변수에 넣기
-		String search_group=obj.getString("theme");
-		String search_option=obj.getString("search_menu");
-		//맵으로 값넘겨서 해당 값에 해당하는 파일을 가져오는걸루.
-		System.out.println(search_text);
-		System.out.println(search_group);
-		System.out.println(search_option);
-		try {
-			//eBookService.getsearch_ebook();
-			entity=new ResponseEntity<>(HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

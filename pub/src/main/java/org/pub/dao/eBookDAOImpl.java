@@ -70,4 +70,19 @@ public class eBookDAOImpl implements eBookDAO {
 		sqlSession.delete("non_recommand", map);
 		sqlSession.update("e_recommand_down", map);
 	}
+
+	@Override
+	public Long count() {
+		return sqlSession.selectOne("ebookcount");
+	}
+
+	@Override
+	public int getebookCount(eBookVO vo) {
+		return sqlSession.selectOne("ebookCount", vo);
+	}
+
+	@Override
+	public List<eBookVO> getebookList(eBookVO vo) {
+		return sqlSession.selectList("getebookList", vo);
+	}
 }

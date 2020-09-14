@@ -22,5 +22,9 @@ public interface eBookService {
 
 	void non_recommand(String id, int e_no);
 
+	int getebookCount(eBookVO vo);
+
+	List<eBookVO> getebookList(eBookVO vo);
+
 
 }

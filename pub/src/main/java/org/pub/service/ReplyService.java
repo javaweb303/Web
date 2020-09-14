@@ -16,4 +16,8 @@ public interface ReplyService {
 
 	void reply_edit(ReplyVO vo);
 
+	List<ReplyVO> reply_getlist(ReplyVO replyVO);
+
+	int getReplyCount(Integer e_no);
+
 }

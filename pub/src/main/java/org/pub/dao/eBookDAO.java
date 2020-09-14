@@ -24,4 +24,10 @@ public interface eBookDAO {
 
 	void non_recommand(String id, int e_no);
 
+	Long count();
+
+	int getebookCount(eBookVO vo);
+
+	List<eBookVO> getebookList(eBookVO vo);
+
 }

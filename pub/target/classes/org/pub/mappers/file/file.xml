@@ -19,8 +19,12 @@ select * from file_list where boardcd=#{boardcd} order by e_no desc
 <select id="getFile" resultType="file">
 select * from tbl_file where file_no=#{file_no} order by file_no desc
 </select>
-
-
+<select id="e_noFileList" resultType="filelist">
+select * from file_list where e_no=#{no} order by file_no desc
+</select>
+<select id="get_file_no" resultType="file">
+select * from tbl_file where file_no=#{fileno}
+</select>
 
 
 
@@ -31,4 +35,5 @@ select file_no from tbl_file where original_file_name=#{original_file_name} and 
 <select id="get_file" resultType="file">
 select file_no,original_file_name,stored_file_name,file_size,boardcd from tbl_file where file_no=#{i}
 </select>
+
 </mapper>

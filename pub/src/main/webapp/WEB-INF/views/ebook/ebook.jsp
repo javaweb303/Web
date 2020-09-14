@@ -51,12 +51,14 @@
             <li><a href="/eBook">전자책</a></li>
          </ul>
       </div>
-         <div class="cont_box"><!-- 몸체 우측공간 -->
-            <h2>전자책</h2>
-            <div><!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
-               <h3>전자책 리스트</h3>
-               <div id="ebookform">
-               <script>
+			<div class="cont_box">
+				<!-- 몸체 우측공간 -->
+				<h2>전자책</h2>
+				<div>
+					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
+					<h3>전자책 리스트</h3>
+					<div id="ebookform">
+						<!-- <script>
                $(function(){
             	   $('.searchbtn').on("click",function(){
 	            	   var inputbox_text_= $.trim($('#inputbox').val());
@@ -87,56 +89,111 @@
 	            	   }
             	   });
                });
-               </script>
-               		<select name="theme" class="theme Category_box" id="theme">
-               			<option value="0" selected>전체</option>
-						<option value="1">컴퓨터/IT</option>
-						<option value="2">교양/심리</option>
-						<option value="3">철학/종교</option>
-						<option value="4">사회</option>
-						<option value="5">자연/기술과학</option>
-						<option value="6">문화/예술</option>
-						<option value="7">가정/생활</option>
-						<option value="8">취미/여행</option>
-						<option value="9">언어/외국어</option>
-						<option value="10">문학</option>
-						<option value="11">역사</option>
-						<option value="12">유아/어린이</option>
-					</select>
-					<select name="search_menu" class="search_menu Category_box" id="search_menu">
-		               <option value="all" selected>전체</option>
-		               <option value="e_title">책제목</option>
-		               <option value="e_author">저자</option>
-		               <option value="e_publisher">출판사</option>
-               		</select>
-               <input class="inputbox" id="inputbox" />
-               <input type="button" value="검색" class="searchbtn" />
-               </div>
-               <div><!-- 리스트  -->
-					<ul>
-						<c:forEach items="${list}" var="book_info">
-							<li>
-								<div style="margin: 10px; border-bottom: 1px solid gray; padding:10px; width: auto; height: 250px;">
-								<a href="/ebookcont?ebook_no=${book_info.e_no}&img=${book_info.img_file.file_no}&file=${book_info.file.file_no}">
-								<img src="/file/${book_info.img_file.y}/${book_info.img_file.m}/${book_info.img_file.d}/img/${book_info.img_file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
-								<div>
-								<p>제목 : ${book_info.e_title}</p>
-								<p>저자 : ${book_info.e_author}</p>
-								<p>출판사 : ${book_info.e_publisher}</p>
-								<p>출판연도 : ${book_info.e_publication_year}</p>
-								<p>도서현황 : 5/${book_info.e_status}</p>
-								<p>추천수 : ${book_info.e_recommend}</p>
-								<br>
-								<p>책소개<br>${book_info.e_introduce}</p>
-								</div>
-								</a>
-								</div>
-							</li>
-						</c:forEach>
-					</ul>               		
-               </div>
-            </div>
-         </div><!-- 여기까지가 몸체우측 -->
+               </script> -->
+               <form method="get" action="/eBook">
+						<select name="theme" class="theme Category_box" id="theme">
+							<option value="0" selected>전체</option>
+							<option value="1">컴퓨터/IT</option>
+							<option value="2">교양/심리</option>
+							<option value="3">철학/종교</option>
+							<option value="4">사회</option>
+							<option value="5">자연/기술과학</option>
+							<option value="6">문화/예술</option>
+							<option value="7">가정/생활</option>
+							<option value="8">취미/여행</option>
+							<option value="9">언어/외국어</option>
+							<option value="10">문학</option>
+							<option value="11">역사</option>
+							<option value="12">유아/어린이</option>
+						</select> <select name="search_menu" class="search_menu Category_box"
+							id="search_menu">
+							<option value="all" selected>전체</option>
+							<option value="e_title">책제목</option>
+							<option value="e_author">저자</option>
+							<option value="e_publisher">출판사</option>
+						</select> <input class="inputbox" id="inputbox" name="inputbox"/> <input type="submit"
+							value="검색" class="searchbtn" />
+					</form>
+					</div>
+					<div>
+						<!-- 리스트  -->
+						<ul>
+							<c:forEach items="${list}" var="book_info">
+								<li>
+									<div
+										style="margin: 10px; border-bottom: 1px solid gray; padding: 10px; width: auto; height: 250px;">
+										<a
+											href="/ebookcont?ebook_no=${book_info.e_no}&img=${book_info.img_file.file_no}&file=${book_info.file.file_no}">
+											<img
+											src="/file/${book_info.img_file.y}/${book_info.img_file.m}/${book_info.img_file.d}/img/${book_info.img_file.stored_file_name}"
+											style="float: left; width: 200PX; height: 250px; margin-right: 15px;">
+											<div>
+												<p>제목 : ${book_info.e_title}</p>
+												<p>저자 : ${book_info.e_author}</p>
+												<p>출판사 : ${book_info.e_publisher}</p>
+												<p>출판연도 : ${book_info.e_publication_year}</p>
+												<p>도서현황 : 5/${book_info.e_status}</p>
+												<p>추천수 : ${book_info.e_recommend}</p>
+												<br>
+												<p>
+													책소개<br>${book_info.e_introduce}</p>
+											</div>
+										</a>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+					<div id="bList_paging">
+						<%--검색전 페이징 --%>
+						<c:if test="${(empty find_field)&&(empty find_name)}">
+							<c:if test="${page <=1}">[이전]&nbsp;</c:if>
+							<c:if test="${page >1}">
+								<a href="eBook?page=${page-1}">[이전]</a>&nbsp;
+   							</c:if>
+
+							<%--쪽번호 출력부분 --%>
+							<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+								<c:if test="${a == page}"><${a}></c:if>
+								<%--현재 쪽번호가 선택된 경우 --%>
+
+								<c:if test="${a != page}">
+									<%--현재 쪽번호가 선택안된 경우 --%>
+									<a href="eBook?page=${a}">[${a}]</a>&nbsp;
+    							</c:if>
+							</c:forEach>
+
+							<c:if test="${page>=maxpage}">[다음]</c:if>
+							<c:if test="${page<maxpage}">
+								<a href="eBook?page=${page+1}">[다음]</a>
+							</c:if>
+						</c:if>
+
+						<%--검색후 페이징 --%>
+						<c:if test="${(!empty find_field) || (!empty find_name)}">
+							<c:if test="${page <=1}">[이전]&nbsp;</c:if>
+								<c:if test="${page >1}">
+									<a href="eBook?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
+								</c:if>
+
+							<%--쪽번호 출력부분 --%>
+							<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+								<c:if test="${a == page}"><${a}></c:if>
+									<c:if test="${a != page}">
+										<a href="eBook?page=${a}&find_field=${find_field}&find_name=${find_name}">[${a}]</a>&nbsp;
+									</c:if>
+							</c:forEach>
+
+							<c:if test="${page>=maxpage}">[다음]</c:if>
+								<c:if test="${page<maxpage}">
+									<a href="eBook?page=${page+1}&find_field=${find_field}&find_name=${find_name}">[다음]</a>
+								</c:if>
+						</c:if>
+
+					</div>
+				</div>
+			</div>
+			<!-- 여기까지가 몸체우측 -->
       </div>
    </div>
 </div>

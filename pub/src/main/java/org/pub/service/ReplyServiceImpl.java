@@ -37,4 +37,14 @@ public class ReplyServiceImpl implements ReplyService {
 	public void reply_edit(ReplyVO vo) {
 		replyDAO.reply_edit(vo);
 	}
+
+	@Override
+	public List<ReplyVO> reply_getlist(ReplyVO replyVO) {
+		return replyDAO.reply_getlist(replyVO);
+	}
+
+	@Override
+	public int getReplyCount(Integer e_no) {
+		return replyDAO.getReplyCount(e_no);
+	}
 }

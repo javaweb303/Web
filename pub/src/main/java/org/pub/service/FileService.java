@@ -21,5 +21,9 @@ public interface FileService {
 
 	FileVO getFile(int file_no);
 
+	List<FileListVO> get_e_no_file(int no);
+
+	FileVO get_Fileno(int file_no);
+
 
 }

@@ -66,5 +66,15 @@ public class eBookServiceImpl implements eBookService {
 		eBookDAO.non_recommand(id,e_no);
 	}
 
+	@Override
+	public int getebookCount(eBookVO vo) {
+		return eBookDAO.getebookCount(vo);
+	}
+
+	@Override
+	public List<eBookVO> getebookList(eBookVO vo) {
+		return eBookDAO.getebookList(vo);
+	}
+
 	
 }

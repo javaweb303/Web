@@ -19,4 +19,12 @@ public class eBookVO {
 	
 	private FileVO img_file;
 	private FileVO file;
+	
+	private int startrow;//시작행번호
+	private int endrow;//끝행번호
+	
+	//검색기능
+    private String find_name;//검색어
+    private String find_field;//검색필드
+    private String find_theme;//검색 테마.
 }

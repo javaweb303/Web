@@ -36,4 +36,19 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public void reply_edit(ReplyVO vo) {
 		sqlSession.update("reply_edit", vo);
 	}
+
+	@Override
+	public Long count(int no) {
+		return sqlSession.selectOne("count", no);
+	}
+
+	@Override
+	public List<ReplyVO> reply_getlist(ReplyVO replyVO) {
+		return sqlSession.selectList("reply_getlist", replyVO);
+	}
+
+	@Override
+	public int getReplyCount(Integer e_no) {
+		return sqlSession.selectOne("replyCount", e_no);
+	}
 }

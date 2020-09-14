@@ -9,5 +9,9 @@ public class ReplyVO {
 	private String regdate;//등록시간
 	private String editdate;//수정시간
 	private String id;//아이디
-	private String e_no;//전자책번호
+	private int e_no;//전자책번호
+	
+	
+	private int startrow;//시작행번호
+	private int endrow;//끝행번호
 }

@@ -40,4 +40,36 @@ delete from recommand where id=#{id} and e_no=#{e_no}
 <update id="e_recommand_down" parameterType="java.util.Map"><!-- 해당 번호의 전자책 추천 횟수 감소 -->
 update ebook set e_recommend=e_recommend-1 where e_no=#{e_no}
 </update>
+<select id="ebookcount" resultType="long"><!-- 다른페이징할때 쓸라구했던.. -->
+select count(e_no) from ebook
+</select>
+<select id="ebookCount" resultType="int"><!--  강사님꺼 참고해서 -->
+select count(e_no) from ebook
+</select>
+<select id="getebookList" resultType="ebook">
+select * from 
+     (select rowNum rNum,e_no,e_title,e_author,e_publisher,e_publication_year,e_introduce,e_recommend,e_status,e_group
+     from (select * from ebook
+     <where>
+     <if test="find_field == ''">
+      <!-- 검색조건이 없어서 총레코드 개수 -->
+     </if>
+     <if test="find_field == 'e_title'">
+      <!-- 검색 조건이 제목인 경우 -->
+      e_title like #{find_name} <!-- like는 오라클 검색
+      연산자 -->
+     </if>
+     <if test="find_field == 'e_author'">
+      e_author like #{find_name}
+     </if>
+     <if test="find_field == 'e_publisher'">
+      e_publisher like #{find_name}
+     </if>
+     <if test="find_theme != null">AND e_group = #{find_theme} </if>
+     </where>
+      order by e_no desc))
+     where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
+<!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->     
+</select>
+
 </mapper>

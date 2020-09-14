@@ -218,5 +218,15 @@ public class FileServiceImpl implements FileService {
 		return fileDAO.getFile(file_no);
 	}
 
+	@Override
+	public List<FileListVO> get_e_no_file(int no) {//새롭게만든
+		return fileDAO.get_e_no_file(no);
+	}
+
+	@Override
+	public FileVO get_Fileno(int file_no) {
+		return fileDAO.get_Fileno(file_no);
+	}
+
 	
 }

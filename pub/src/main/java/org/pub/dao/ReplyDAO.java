@@ -16,4 +16,10 @@ public interface ReplyDAO {
 
 	void reply_edit(ReplyVO vo);
 
+	Long count(int no);
+
+	List<ReplyVO> reply_getlist(ReplyVO replyVO);
+
+	int getReplyCount(Integer e_no);
+
 }

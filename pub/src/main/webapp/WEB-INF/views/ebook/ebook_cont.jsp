@@ -61,7 +61,7 @@ $(function(){
 	}else{
 		
 	}*/
-	getAllList();
+	var page='1';
 	var e_no=$('#e_no').val();
 	var id=$('#id').val();
 	if(id == 'null'){
@@ -158,122 +158,21 @@ $(function(){
 		 $(this).addClass('active');//클릭한 태그에 엑티브 클래스 추가
 		 $('div.tab_body').hide();//클래스 태그_바디를 숨긴다
 		 $('#'+$(this).data('target')).show();//현재 선택된 data값을 가져와 그 data에 해당하는 id를 보여준다.
-	  });
-
-	  $('#reply_list').on("click",".reply_menu",function(){
-		  var id_text=$($(this).parent()).children('.id__').text();//로그인 아이디와 댓글작성자(id)를 비교하기 위한값을 저장
-		  $('.reply_menu_list').html('');//다른사람의 댓글을 눌렀을때 지우기 위함.
-		  if(id_text==id){//아이디가 같으면 
-			  $(this).children('.reply_menu_list').html("<p id='reply_edit'>수정</p><p id='reply_del'>삭제</p>");
-			
-		  }else{//틀리면
-			  $(this).children('.reply_menu_list').html('<p>신고</p>');
-		  }
-	  });
-	$('#reply_list').on("click","#reply_edit",function(){//수정 버튼클릭시
-		var r_no=$(this).closest('.replyLi').data('reply_no');//해당 댓글번호 저장
-		$parent =$(this).closest('.replyLi');//이벤트가 발생한 부모요소저장
-		$parent.children('.list_item').hide();//해당이벤트가 클릭된 부모에 자식list_item을 숨김
-		$.ajax({//댓글 작성자,내용을 가져오는 아작스
-			type:'get',
-			url:'/reply_get?r_no='+r_no,
-			dataType:'text',
-			success:function(result){
-				console.log(result);
-				if(result != null){
-					var reply_edit_id=$(result).find('id').text();
-					var reply_edit_cont=$(result).find('reply_cont').text();
-					var st="<div id='reply_edit_box'><div><p id='reply_edit_id'>"+reply_edit_id+"</p><div><div><textarea id='reply_edit_cont' rows='4' style='width: 80%; vertical-align: middle;'>"+reply_edit_cont+"</textarea></div><div style=''><span id='reply_close'>취소</span><span id='reply_edit_ok'>수정</span></div></div>";
-					$parent.closest('.replyLi').append(st);//가져온것을 추가한다.
-				}
-			}
-		 });
-		//alert($(this).text());
-		/*$.ajax({
-			type:'post',
-			url:'reply_edit',
-			dataType:'text',
-			data:JSON.stringify({
-				r_no:r_no,
-				reply_cont:
-			}),
-			success:function(result){
-				if(result == 'SUCCESS'){
-					alert('댓글이 수정되었습니다.');
-					getAllList();
-				}
-			}
-		 });*/
-	});
-	$('#reply_list').on("click","#reply_close",function(){//댓글 메뉴 안에 닫기 버튼클릭시
-		$parent=$(this).closest('.replyLi');//부모요소저장
-		$('#reply_edit_box').remove();//수정박스 삭제
-		$('.reply_menu_list').html('');//댓글 메뉴 지우기
-		$parent.children('.list_item').show();//전에 숨긴 댓글을 보여줌
-	});
-	$('#reply_list').on("click","#reply_edit_ok",function(){//수정 버튼 클릭시
-		$parent=$(this).closest('.replyLi');
-		var r_no=$(this).closest('.replyLi').data('reply_no');
-		var edit_cont = $.trim($('#reply_edit_cont').val());
-		if(edit_cont!=''){
-			$.ajax({
-				type:'post',
-				url:'/reply_edit',
-				headers :{
-					  "Content-Type" : "application/json",
-					  "X-HTTP-Method-Override" : "POST",
-				},
-				dataType:'text',
-				data:JSON.stringify({
-					reply_no:r_no,
-					reply_cont:edit_cont
-				}),
-				success:function(result){
-					if(result=='SUCCESS'){
-						alert('댓글을 수정했습니다.');
-						getAllList();
-					}
-				}
-			});
-		}else{
-			alert('수정할 내용을 입력하세요.');
+		 if($(this).data('target')=="reply_"){
+			 alert($('iframe').text());
+			 if($('#reply____').find('iframe').text()==""){
+			 $($('#'+$(this).data('target')).find('#reply____')).append('<iframe src="/reply_getList?e_no=${book.e_no}" name="reply_box" id="reply_box" scrolling="no" style="width:100%; height:100%;" frameborder="0"  onload="autoResize(this)" >IFrame을 지원하지 않음.</iframe>');
+			 }
 		}
-	});
-	$('#reply_list').on("click","#reply_del",function(){//무슨이윤지 몰라도 아작스를 이용해서 하면 안되서 자식요소를 직접 지정해서 이벤트를 지정함.
-		 var r_no=$(this).closest('.replyLi').data('reply_no');//부모요소인 .replyLi를 찾아 data함수로 저장된 data인 reply_no를 가져와 저장.
-		 $.ajax({
-			type:'get',
-			url:'/reply_del/'+r_no,
-			dataType:'text',
-			success:function(result){
-				if(result == 'SUCCESS'){
-					alert('댓글이 삭제되었습니다.');
-					getAllList();
-				}
-			}
-		 });
-	});
-	function getAllList(){
-		   $.getJSON("/reply_getlist/"+${book.e_no},function(data){
-	        var str="";
-	        $(data).each(function(){//jQuery each()함수로 반복
-	        str += "<li data-reply_no='"+this.reply_no+"' class='replyLi'><div class='list_item'>"
-	        +"<div><span class='id__'>"+this.id+"</span><span class='reply_menu' style='float:right;'>∨<div class='reply_menu_list' style='position: absolute; width: 100px; right:2px; text-align: center;'></div></span></div>"//아이디
-	        +"<div>"+this.reply_cont+"</div>"//내용
-	        +"<div><span>"+this.regdate+"</span></div>"//날짜
-	        +"</div></li><br/>"
-	        });
-	        $('#reply_list').html(str);//ul 아이디영역에 jQuery html()함수로 읽어온 문자와 태그를 함께 변경적용
-		   });
-	   }//댓글목록함수
-	 function reply_menu(){
-		   var p=$(this).parent();
-		   var id_text=$(p).children('id__').text();
-		   alert(id_text);
-	   }
+	  });
 	 });//function();
+	 function autoResize(frame){//iframe 화면 높이 변경함수.
+	     var iframeHeight=frame.contentWindow.document.body.scrollHeight;
+	     frame.style.height=(iframeHeight + 28)+"px";
+	 }
 </script>
-<input type="hidden" value="<%=session.getAttribute("id")%>" id="id"/>
+<input type="hidden" value="<%=session.getAttribute("id")%>" id="id" name="id"/>
+<input type="hidden" value="${book.e_no}" id="e_no"/>
 <div id="content">
 	<div class="content_head">
 		<h2>도서관 서비스</h2>
@@ -306,7 +205,6 @@ $(function(){
 					<br>
 					<div>
 						<div style="height: 250px;" id="book_info_box">
-						<input type="hidden" value="${book.e_no}" id="e_no" />
 							<div>
 								<img src="/file/${book.img_file.y}/${book.img_file.m}/${book.img_file.d}/img/${book.img_file.stored_file_name}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
 							</div>
@@ -338,6 +236,9 @@ $(function(){
 					<ul id="reply_list">
 						
 					</ul>
+					</div>
+					<div id="reply____" style="width: 100%; height: 100%;">
+
 					</div>
 					<!-- 댓글 창? -->
 					<div id="reply_box">
