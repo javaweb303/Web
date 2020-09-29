@@ -1,37 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="../include/header.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	//FAQ에서 질문열림 처리 함수 sendview() 이건 컨텐츠에서 호출되는 함수
-	var prevViewNum = 0;
-
-	window.sendview = function(value) {
-		if (prevViewNum != "") {
-			document.getElementById("answer_" + prevViewNum).style.display = "none";
-		}
-		document.getElementById("answer_" + value).style.display = "";
-		prevViewNum = value;
-	}
 	
-	//검색
-	function fnSearch() {
-		var form = document.searchForm;
-		form.action = "/cyber/bbs/bmk002/common/bbsPostList.do";
-		form.submit();
-	}
-	//페이지받아서 리스트 출력
-	function fnList(page) {
-		var form = document.paramForm;
-		form.currentPageNo.value = page;
-		form.action = "/cyber/bbs/bmk002/common/bbsPostList.do";
-		form.submit();
-	}
+	
+
+$(document).ready(function() {
+
+  $(".a").hide();
+
+  //content 클래스를 가진 div를 표시/숨김(토글)
+
+  $(".q").click(function()
+
+  {
+
+    $(this).next(".a").slideToggle(500);
+
+    $("i", this).toggleClass("fa-chevron-down fa-chevron-up");
+
+  });
+
+});
+
+
 </script>
 
 <style>
 /*헤더 색*/
-#head{background-color: #4B6E26}/*색변경*/
-#gnb li ul{border-top: 7px solid #6FA138;}/*색변경*/
+#head {
+	background-color: #4B6E26
+} /*색변경*/
+#gnb li ul {
+	border-top: 7px solid #6FA138;
+} /*색변경*/
 /*내용*/
 #content {
 	height: 100%;
@@ -73,17 +76,23 @@
 	position: absolute;
 	width: 250px;
 	height: 100%;
-	background-color:#fcfcfc;
+	background-color: #fcfcfc;
 	padding-bottom: 30px;
 }
 
-#content .container .cont_lnb h2{padding: 35px 10px 20px; border-bottom: 1px solid gray;}
+#content .container .cont_lnb h2 {
+	padding: 35px 10px 20px;
+	border-bottom: 1px solid gray;
+}
 
 #content .container .cont_lnb {
 	padding: 0 10px;
 }
 
-#content .container .cont_lnb .cont_lnb_sub li{padding: 15px 0; border-bottom: 1px solid #e6e6e6;}
+#content .container .cont_lnb .cont_lnb_sub li {
+	padding: 15px 0;
+	border-bottom: 1px solid #e6e6e6;
+}
 
 /*메인 내용*/
 #content .container .cont_box {
@@ -102,6 +111,7 @@ div, form, label, span {
 	padding: 0;
 	border: 0;
 }
+
 a {
 	text-decoration: none;
 	color: inherit;
@@ -188,7 +198,7 @@ a {
 	line-height: 25px;
 	color: #fff;
 	border-radius: 25px;
-	background: #0066b3 url(../images/ico_faq.png) 0 0 no-repeat
+	background: #0066b3 url(../../resources/images/ico_faq.png) 0 0 no-repeat
 }
 
 .faqList .q .ico {
@@ -199,7 +209,9 @@ a {
 	background-position: 0 -25px
 }
 
-.themeColor {background-color:#888 !important}
+.themeColor {
+	background-color: #888 !important
+}
 
 /*hidden*/
 .blind {
@@ -212,8 +224,6 @@ a {
 	line-height: 1px;
 	text-indent: -9999em
 }
-
-
 
 /* paging */
 .pagingWrap {
@@ -288,10 +298,12 @@ a {
 }
 
 .paging span.tp {
-	background-color: #555 !important; 
+	background-color: #555 !important;
 }
 </style>
-
+<form name="paramForm" id="paramForm" method="get">
+	<input type="hidden" name="displayCd" value="100">
+</form>
 <div id="content">
 	<div class="content_head">
 		<h2>열린공간</h2>
@@ -302,7 +314,7 @@ a {
 		<ul class="">
 			<li>공지사항</li>
 			<li>열린공간 ></li>
-			<li><a href="/controller">Home</a> ></li>
+			<li><a href="/">Home</a> ></li>
 		</ul>
 	</div>
 	<div class="container">
@@ -312,8 +324,8 @@ a {
 				<!-- 카테고리 부분 몸체 좌측-->
 				<h2>열린공간</h2>
 				<ul class="cont_lnb_sub">
-					<li><a href="/controller/bbs_list">공지사항</a></li>
-					<li><a href="/controller/faq">자주 묻는 질문</a></li>
+					<li><a href="/bbs_list">공지사항</a></li>
+					<li><a href="/faq">자주 묻는 질문</a></li>
 				</ul>
 			</div>
 			<div class="cont_box">
@@ -322,105 +334,106 @@ a {
 				<div class="body_contents">
 					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
 					<form name="searchForm" id="searchForm" method="get">
+						<h4 class="faqTitle">홈페이지</h4>
 
 						<div class="pageCategory">
 							<label for="typeSelect" class="tit">분류 선택</label> <select
-								name="displayCd" id="displayCd" title="분류 선택" class="ta_c">
-								<option value="">전체</option>
+								id="displayCd" name="displayCd" title="분류 선택" class="ta_c">
+								<option value="100" <c:if test="${chkCId==100}">selected</c:if>>홈페이지</option>
 
-								<option value="home">홈페이지</option>
+								<option value="200" <c:if test="${chkCId==200}">selected</c:if>>전자도서관</option>
 
-								<option value="serv">도서관 서비스</option>
 
-								<option value="lib">전자도서관</option>
+								<option value="300" <c:if test="${chkCId==300}">selected</c:if>>도서관
+									서비스</option>
 
-								<option value="board">열린공간</option>
+								<option value="400" <c:if test="${chkCId==400}">selected</c:if>>열린공간</option>
 
-							</select> <a href="#search" onclick="javascript:fnSearch(); return false;"
-								class="btn input themeBtn">확인</a>
+
+							</select>
+							<!--  <a href="#search" onclick="javascript:fnSearch(); return false;" class="btn input themeBtn">확인</a>-->
+							<input type="submit" value="검색">
 						</div>
 
 					</form>
+
 					<ul class="faqList">
 
 
-						<li>
-							<div class="q">
-								<span class="ico themeColor"><span class="blind">Q
-										질문</span></span> <a href="#java"
-									onclick="javascript:sendview('11687'); return false;">'도서관 서비스'가 무엇인가요? </a>
-							</div>
-							<div class="a" id="answer_11687" style="display: none">
-								<span class="ico"><span class="blind">A 답변</span></span> 
-								'도서관 서비스'는 도서관의 도서목록을 검색할 수 있는 메뉴입니다. 해당 메뉴를 통해 도서 통합 검색, 신간도서, 베스트 셀러, 추천도서 등을
-								확인할 수 있습니다.
-								
-							</div>
-						</li>
+						<c:if test="${!empty flist}">
 
-						<li>
-							<div class="q">
-								<span class="ico themeColor"><span class="blind">Q
-										질문</span></span> <a href="#java"
-									onclick="javascript:sendview('11636'); return false;">'전자 도서관'이 무엇인가요?</a>
-							</div>
-							<div class="a" id="answer_11636" style="display: none">
-								<span class="ico"><span class="blind">A 답변</span></span> 
-								'전자 도서관'은 전자책을 대출할 수 있는 메뉴입니다. 문아공간 회원만 전자책 대출이 가능하며, 해당 메뉴를 이용하고자 할 시  로그인 된 상태이어야 합니다.
-								또한 대출 기간은 최대 7일로 대출 후 해당 서비스를 이용할 수 있습니다.
-							</div>
-						</li>
+							<c:forEach var="f" items="${flist}">
 
-						<li>
-							<div class="q">
-								<span class="ico themeColor"><span class="blind">Q
-										질문</span></span> <a href="#java"
-									onclick="javascript:sendview('10847'); return false;">'열린 공간'이 무엇인가요?</a>
-							</div>
-							<div class="a" id="answer_10847" style="display: none">
-								<span class="ico"><span class="blind">A 답변</span></span>
-								'열린 공간'은 공지사항과 자주 묻는 질문에 대한 서비스를 제공하는 메뉴입니다.
-							</div>
-						</li>
+								<li class="qa_li">
 
-						<li>
-							<div class="q">
-								<span class="ico themeColor"><span class="blind">Q
-										질문</span></span> <a href="#java"
-									onclick="javascript:sendview('10474'); return false;">문아공간도서관을 이용하려면 회원가입을 해야 하나요?</a>
-							</div>
-							<div class="a" id="answer_10474" style="display: none">
-								<span class="ico"><span class="blind">A 답변</span></span>
-								회원이 아니더라도 검색 기능과 자료 열람은 가능하므로 이용 범위에 따라 필수는 아닙니다. 문아공간도서관 회원가입 시 전자도서관, 마이페이지 등 
-								다양한 개인화 서비스 이용이 가능합니다.
-							</div>
-						</li>
-
-						<li>
-							<div class="q">
-								<span class="ico themeColor"><span class="blind">Q
-										질문</span></span> <a href="#java"
-									onclick="javascript:sendview('10224'); return false;">회원가입은 어떻게 하나요?</a>
-							</div>
-							<div class="a" id="answer_10224" style="display: none">
-								<span class="ico"><span class="blind">A 답변</span></span> 
-								
-								오른쪽 상단에서 자물쇠 아이콘을 선택하면 로그인 화면이 나옵니다. 해당 화면 맨 하단에 있는 '회원가입'을 선택하면 가입화면이 표시됩니다.
-								
+									<div class="q">
 
 
-							</div>
-						</li>
+
+										<span class="ico themeColor"><span class="blind"
+											style="display: block">질문 </span></span> ${f.question}
+
+									</div>
+
+
+
+									<div class="a">
+
+										<span class="ico"><span class="blind">A 답변</span></span>
+
+										${f.answer}
+
+									</div>
+
+								</li>
+
+							</c:forEach>
+
+						</c:if>
+
+						<c:if test="${empty flist}">
+
+							<div class="heading">없습니다.</div>
+
+
+
+							<div class="content">없습니다.</div>
+
+						</c:if>
 
 					</ul>
 					<div class="pagingWrap">
 
 						<p class="paging">
-							<span class="tp">1</span>&nbsp;<a href="#"
-								onclick="fnList(2); return false;">2</a>&nbsp;<a href="#"
-								onclick="fnList(3); return false;">3</a>&nbsp;<a href="#"
-								onclick="fnList(4); return false;">4</a>&nbsp;<a href="#"
-								onclick="fnList(5); return false;">5</a>&nbsp;
+
+
+
+
+
+							<%--쪽번호 --%>
+
+							<c:forEach var="a" begin="${startpage}" end="${endpage}" step="1">
+								<%-- 시작페이지부터 끝페이지까지 1씩증가하면서 쪽번호가 출력 --%>
+
+								<c:if test="${a == page}">
+									<%--현재 쪽번호가 선택된 경우 --%>
+
+									<span> ${a} </span>
+
+								</c:if>
+
+								<c:if test="${a != page}">
+									<%--현재 쪽번호가 선택안된 경우 --%>
+
+									<a href="/controller/faq?page=${a}">${a}</a>
+
+								</c:if>
+
+							</c:forEach>
+
+
+
+
 						</p>
 
 					</div>

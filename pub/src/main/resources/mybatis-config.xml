@@ -10,5 +10,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.pub.vo.MailVO" alias="mail" />
 		<typeAlias type="org.pub.vo.FileVO" alias="file" />
 		<typeAlias type="org.pub.vo.eBookVO" alias="ebook" />
+		<typeAlias type="org.pub.vo.GongjiVO" alias="gongji" />
+		<typeAlias type="org.pub.vo.FaqCategoryVO" alias="fcg"/>
+		<typeAlias type="org.pub.vo.FaqContentVO" alias="fct"/>
 	</typeAliases>
 </configuration>

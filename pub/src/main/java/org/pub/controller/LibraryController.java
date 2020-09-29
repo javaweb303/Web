@@ -54,9 +54,12 @@ public class LibraryController {
 
 		
 		model.addObject("pubList", pubList);
-
+		model.addObject("query", query);
+		model.addObject("queryType", queryType);
+		model.addObject("categoryId", categoryId);
 		//System.out.println(pubList);
 		}
+		
 		model.setViewName("library_services/srchBook");
 		return model;
 
@@ -111,7 +114,7 @@ public class LibraryController {
 	public ModelAndView bookcont(HttpServletRequest request) {
 		String isbn=request.getParameter("isbn");
 		isbn=isbn.trim();
-		String url="http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbmys628111103001&itemIdType=ISBN13&ItemId="+isbn+"&output=xml&Cover=Big";
+		String url="http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbmys628111103001&itemIdType=ISBN13&ItemId="+isbn+"&output=xml&Cover=Big&Version=20131101";
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열 
 		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
 		String itemsname="item";

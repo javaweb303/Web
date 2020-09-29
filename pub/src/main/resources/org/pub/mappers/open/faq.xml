@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Faq">
+	<select id="f_count" resultType="int">
+		select count(*) from faqContent,faqCategory where
+		faqContent.cId=faqCategory.categoryId and cid=#{chkCId}
+	</select>
+
+	<select id="f_list" resultType="fct">
+		select * from (
+		select rowNum, faqNo,question,answer,cId,chkCId from
+		(select * from faqContent,faqCategory where
+		faqContent.cId=faqCategory.categoryId order by faqContent.faqNo)
+		) where rowNum&gt;=#{startrow} and rowNum&lt;=#{endrow} and
+		cid=#{chkCId}
+	</select>
+</mapper>
