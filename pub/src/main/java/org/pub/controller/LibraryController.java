@@ -8,16 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,48 +28,51 @@ import org.w3c.dom.NodeList;
 public class LibraryController {
 
 	@RequestMapping("/search")
-	public String search() {
+	public ModelAndView search(@RequestParam(required=false)String searchKeyword,HttpServletRequest request) {
 
-		return "library_services/srchBook";
-
-	}
-	@RequestMapping("/detail")
-	public ModelAndView detail(HttpServletRequest request) {
-
+		ModelAndView model=new ModelAndView();
+		
+		//검색어가 있으면 책 정보 리스트를 가져옴..
+		if(searchKeyword != null) {
 		String query = request.getParameter("searchKeyword");
 		System.out.println(query);
-				
-		
-		//XML 데이터를 호출할 URL
-		String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType=Keyword&MaxResults=40&start=1&SearchTarget=Book&output=xml&Version=20070901";
+		String queryType =request.getParameter("searchCondition");
+		System.out.println(queryType);
+		String categoryId = request.getParameter("searchCa");
+		System.out.println(categoryId);
+		//XML 데이터를 호출할 URL => 알라딘 api 사용
+		String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType="+queryType+"&CategoryId="+categoryId+"&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20070901&Cover=Big";
 
 		//System.out.println(url);
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","publisher","pubDate","cover","isbn"};
-		
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
+
 		String itemsname="item";
 
 		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
 		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
 
-		ModelAndView model=new ModelAndView();
-		model.addObject("pubList", pubList);
 		
-		System.out.println(pubList);
-		model.setViewName("library_services/detailBook");
+		model.addObject("pubList", pubList);
+		model.addObject("query", query);
+		model.addObject("queryType", queryType);
+		model.addObject("categoryId", categoryId);
+		//System.out.println(pubList);
+		}
+		
+		model.setViewName("library_services/srchBook");
 		return model;
 
 	}
-	
 
 	@RequestMapping("/new")
 	public ModelAndView newBook() {
 
 		//XML 데이터를 호출할 URL
-		String url = "http://book.interpark.com/api/newBook.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
+		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
 
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","publisher","pubDate","coverLargeUrl","isbn"};
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
 
 		String itemsname="item";
 
@@ -112,10 +114,10 @@ public class LibraryController {
 	public ModelAndView bookcont(HttpServletRequest request) {
 		String isbn=request.getParameter("isbn");
 		isbn=isbn.trim();
-		String url="http://data4library.kr/api/srchDtlList?authKey=60ae2adbf5c860435596c14ca52a122889124505a03ee28c41a829ea7185fce0&isbn13="+isbn+"&loaninfoYN=Y&displayInfo=age";
+		String url="http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbmys628111103001&itemIdType=ISBN13&ItemId="+isbn+"&output=xml&Cover=Big&Version=20131101";
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열 
-		String[] fieldNames ={"bookname","authors","publisher","publication_year","bookImageURL","isbn","description"};
-		String itemsname="book";
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
+		String itemsname="item";
 		ArrayList<Map> pubList=xmlp(url, fieldNames,itemsname);
 		ModelAndView model=new ModelAndView();
 		model.setViewName("library_services/bookcont");
@@ -124,13 +126,15 @@ public class LibraryController {
 	}
 
 	@RequestMapping("/recomm")
-	public ModelAndView recomm() {
+	public ModelAndView recomm(HttpServletRequest request) {
 
+		//String categoryId = request.getParameter("categoryId");
+		//System.out.println(categoryId);
 		//XML 데이터를 호출할 URL => 파싱할 URL
-		String url = "http://book.interpark.com/api/recommend.api?key=775CEC07D96BC2F595FF0721F61795ED217DE9FE1D0B1B223D27C3289CDB65E1&categoryId=100&output=xml";
+		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemEditorChoice&CategoryId=1230&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
 
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","author","publisher","pubDate","coverLargeUrl","isbn"};
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
 
 		String itemsname="item";
 
@@ -152,7 +156,7 @@ public class LibraryController {
 		if(nValue == null) return null;
 		return nValue.getNodeValue();
 	}
-	*/
+	 */
 	public ArrayList<Map> xmlp(String url,String[] fieldNames,String itemsname) {
 		ArrayList<Map> pubList= new ArrayList<Map>();
 		try {
@@ -163,17 +167,17 @@ public class LibraryController {
 			//위에서 구성한 URL을 통해 XMl 파싱 시작
 			//System.out.println(url);
 			Document doc = b.parse(url);
-			
+
 			//root tag
 			doc.getDocumentElement().normalize();
 			System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); //Root element : result
-			
+
 			//서버에서 응답한 XML데이터를 (발행문서 1개 해당)태그로 각각 나눔(파라미터로 요청한 size항목의 수만큼)
 			//파싱할 정보가 있는 tag에 접근
 			NodeList items = doc.getElementsByTagName(itemsname);
 			//System.out.println("파싱할 리스트 수: "+items.getLength());//파싱할 리스트수
 			System.out.println(itemsname);
-			
+
 			/* list에 담긴 데이터 출력하기
 			for(int temp=0; temp<items.getLength(); temp++) {
 				Node nNode = items.item(temp);
@@ -184,7 +188,7 @@ public class LibraryController {
 					System.out.println("제목 : "+getTagValue("title", eElement)); //입력한 tag 정보 출력
 				}
 			}
-			*/
+			 */
 			//for 루프시작
 			for (int i = 0; i < items.getLength(); i++) {
 				//i번째 publication 태그를 가져와서
@@ -200,10 +204,10 @@ public class LibraryController {
 					//fieldNames에 해당하는 값을 XML 노드에서 가져옴
 					NodeList titleList = e.getElementsByTagName(name);
 					Element titleElem = (Element) titleList.item(0);
-					System.out.println(titleElem);
+					//System.out.println(titleElem);
 					Node titleNode = titleElem.getChildNodes().item(0);
 					// 가져온 XML 값을 맵에 엘리먼트 이름 - 값 쌍으로 넣음
-					
+
 					pub.put(name, titleNode.getNodeValue());
 				}
 				//데이터가 전부 들어간 맵을 리스트에 넣고 화면에 뿌릴 준비.

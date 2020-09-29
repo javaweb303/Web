@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+
+<select id="ad_list" resultType="m">
+select * from member
+</select>
+
+<select id="ad_info" resultType="m">
+select * from member where id=#{id}
+</select>
+
+<update id="ad_edit">
+update member set email=#{email} where id=#{id}
+</update>
+
+<delete id="ad_del">
+delete from member where id=#{id}
+</delete>
+<!-- 공지사항 sql -->
+<select id="adBbs_list" resultType="gongji">
+select * from gongji order by gongji_no desc
+</select>
+
+<select id="adBbs_count" resultType="int">
+select count(gongji_no) from gongji
+</select>
+
+<select id="adBbs_cont" resultType="gongji">
+select * from gongji where gongji_no=#{no}
+</select>
+
+<update id="adBbs_edit">
+update gongji set gongji_title=#{gongji_title}, gongji_cont=#{gongji_cont} where gongji_no=#{gongji_no}
+</update>
+
+<delete id="adBbs_del">
+delete from gongji where gongji_no=#{no}
+</delete>
+
+<insert id="ad_join">
+<!-- 1은 가입회원 2는 탈퇴회원 -->
+insert into member (id, pw, name, gender, birth, zipNo, roadAddrPart1, roadAddrPart2, addrDetail, mem_phone01, mem_phone02, mem_phone03, email, emailDomain, regdate, state)
+values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAddrPart2},#{addrDetail},#{mem_phone01},#{mem_phone02},#{mem_phone03},#{email},#{emailDomain},sysdate,1)
+</insert>
+
+<select id="adFaq_count" resultType="int">
+select count(faqNo) from faqContent
+</select>
+
+<select id="adFaq_list" resultType="fct">
+select * from faqContent order by faqNo desc
+</select>
+
+<select id="adFaq_cont" resultType="fct">
+select * from faqContent where faqNo=#{no}
+</select>
+
+<update id="adFaq_edit">
+update faqContent set question=#{question}, answer=#{answer} where faqNo=#{faqNo}
+</update>
+
+</mapper>
+
