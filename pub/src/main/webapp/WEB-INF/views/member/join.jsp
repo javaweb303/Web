@@ -4,64 +4,6 @@
 </style>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<<<<<<< HEAD
-<script>
-function goPage() { location.href="/"; }
-	$(function() {
-		$('#chk_code').hide();
-		$msg = '<font color="red" size="0.6"><b>필수 입력 값입니다.</b></font>';
-		$('#id').blur(function() {
-			if ($.trim($(this).val()) == "") {
-				$('#iderrbox').text('');
-				$('#iderrbox').append($msg);
-			} else {
-				$('#iderrbox').text('');
-				var obj = {"id":$.trim($(this).val())};
-				$.ajax({
-					type : "post",
-					url : "/idcheck",
-					dataType : "text",
-					contentType : "application/json",
-					data : JSON.stringify(obj),
-					success : function(data) {
-						if(data=='SUCCESS'){
-							$('#iderrbox').append('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
-						}
-						if(data=='FAIL'){
-							$('#iderrbox').append('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
-						}
-					},
-					error : function(errorThrown) {
-						alert(errorThrown.statusText);
-					}
-				});
-			}
-		});
-		$('#pw').blur(function() {
-			if ($.trim($(this).val()) == "") {
-				$('#pwderrbox').text('');
-				$('#pwderrbox').append($msg);
-			} else {
-				$('#pwderrbox').text('');
-			}
-		});
-		$('#pwdCheck').blur(function() {
-			if ($.trim($(this).val()) == "") {
-				$('#pwdchkerrbox').text('');
-				$('#pwdchkerrbox').append($msg);
-			} else {
-				$pwd=$('#pw').val();
-				$pwdchk=$('#pwdCheck').val();
-				$pwdmsg='<font color="red" size="0.6"><b>입력하신 비밀번호 값이 다릅니다.</b></font>';
-				if($pwd == $pwdchk){
-					$('#pwdchkerrbox').text('');
-				}else{
-					$('#pwdchkerrbox').text('');
-					$('#pwdchkerrbox').append($pwdmsg);
-				}
-			}
-		});
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/member.js"></script>
@@ -74,79 +16,11 @@ function goPage() { location.href="/"; }
 /*로컬주소*/
 #content .location{margin: 0 auto 23px; width: 100%;}
 #content .location ul li{float: right; list-style: none; right: 4%;}
->>>>>>> refs/remotes/origin/영선
-
 <<<<<<< HEAD
-		$('#name').blur(function() {
-			if ($.trim($(this).val()) == "") {
-				$('#nameerrbox').text('');
-				$('#nameerrbox').append($msg);
-			} else {
-				$('#nameerrbox').text('');
-			}
-		});
-		$('#chkBtn').on("click", function() {
-			var email = $('#emailbox').val();
-			var obj = {"email":email};
-			$('#chk_code').css("display","block");
-			$.ajax({
-				type : "post",
-				url : "/sendmail",
-				dataType : "text",
-				contentType : "application/json",
-				data : JSON.stringify(obj),
-				success : function(data) {
-					if(data=='SUCCESS'){
-						alert('인증메일이 발송되었습니다.');
-					}
-				},
-				error : function(errorThrown) {
-					alert(errorThrown.statusText);
-				}
-			});
-		});
-	});
-	function codecheck(){
-		var email = $.trim($('#emailbox').val());
-		var code = $.trim($('#chk_code').val());
-		var obj = {"email":email,"code":code};
-		if(code != ""){
-			$.ajax({
-				type:"post",
-				url:"/chk",
-				dataType:"text",
-				contentType : "application/json",
-				data : JSON.stringify(obj),
-				success : function(data) {
-					if(data=='SUCCESS'){
-						
-					}
-					if(data=='FAIL'){
-						alert('인증코드가 다르다.');
-						$('#chk_code').val("").focus();
-						return false;
-					}
-					return false;
-				},
-				error : function(errorThrown) {
-					alert(errorThrown.statusText);
-				}
-			});
-		}else{
-			return false;
-		}
-	}
-</script>
-<div id="join">
-	<div id="su_img" onclick="goPage();"></div>
-	<form id="joinbox" method="post" action="join_ok"
-		onsubmit="return codecheck();">
-		<label>아이디</label>
-		<div id="idBox" class="box">
-			<input type="text" id="id" name="id" class="inputbox"> <span
-				id="iderrbox"></span>
-		</div>
+>>>>>>> refs/remotes/origin/영선
 =======
+>>>>>>> refs/heads/영선
+
 #login {padding: 20px;margin-bottom: 20px;text-align: center;}
 #form {	font-size: 1.3em;width: 100%;display: inline-block; /*content/text 크기만큼만 점유하고 동일 라인에 붙는 성질*/}
 #inputbox {width: 100%;text-align:center;}
@@ -154,7 +28,10 @@ function goPage() { location.href="/"; }
 #inputbox .submit{background-color: #2d5188;}
 #inputbox p{font-size: 15px;}
 th{width: 30%;}
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/영선
+=======
+>>>>>>> refs/heads/영선
 
 #joinbox label {font-weight: 700;}
 #joinbox .box {width: 100%;}

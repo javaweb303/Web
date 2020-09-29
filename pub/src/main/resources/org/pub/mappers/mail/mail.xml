@@ -7,9 +7,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 insert into chk_email (email,code) values(#{email},#{code})
 </insert>
 <select id="code" resultType="String">
-select code from chk_email where email=#{email}
+select code from chk_email
 </select>
-<delete id="code_del">
-delete from chk_email where email=#{email}
-</delete>
 </mapper>

@@ -5,8 +5,9 @@
 
 <style>
 /*헤더 색*/
-#head{background-color: #5F78D4;}/*색변경*/
+#head{background-color: #5F78D4}/*색변경*/
 /*헤더 색*/
+#head{background-color: #da690e}/*색변경*/
 #gnb li ul{border-top: 7px solid #f18023;}/*색변경*/
 /*내용*/
 #content{ height: 100%;}

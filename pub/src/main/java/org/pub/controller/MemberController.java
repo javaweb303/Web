@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.pub.service.MailService;
 import org.pub.service.MemberService;
 import org.pub.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MemberController {
 	@Autowired//자동 의존성
 	private MemberService memberService;
-	@Autowired
-	private MailService mailService;
 	
 	
 	@RequestMapping("/join")
@@ -48,8 +45,6 @@ public class MemberController {
 		System.out.println(m.getEmail());
 		
 		memberService.join(m);
-		System.out.println(m.getEmail());
-		mailService.del_code(m.getEmail());
 		out.println("<script>");
 		out.println("alert('회원가입 완료!')");
 		out.println("location='/login'");
@@ -127,16 +122,16 @@ class rest_member {
 	private MemberService memberService;
 	
 	@RequestMapping("/idcheck")
-	public ResponseEntity<String> id_check(@RequestBody Map<String,String> m){
+	public ResponseEntity<String> id_check(@RequestBody Map<String,Object> m){
 		ResponseEntity<String> entity=null;
-		MemberVO vo=new MemberVO();
 		try{
-			String id=m.get("id");
-			if(memberService.getMember(id)==null) {
-				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			MemberVO vo=memberService.getMember(m.get("id").toString());
+			if(vo != null) {
+				
 			}else {
-				entity=new ResponseEntity<String>("FAIL",HttpStatus.OK);
+				
 			}
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.BAD_REQUEST);
 		}catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);

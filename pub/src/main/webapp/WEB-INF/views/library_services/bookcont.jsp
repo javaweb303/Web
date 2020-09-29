@@ -218,30 +218,6 @@ div {
 
 
 <div id="content">
-<<<<<<< HEAD
-   <div class="content_head"><h2>도서관 서비스</h2></div><!-- 이거 바꾸고 -->
-   <div class="location"><!-- 이것도 이건 상단에 home>열린공간 >오시는길 이거 표시하는 부분? -->
-   <ul class="">
-   <li>인기도서</li>
-   <li>도서관서비스 > </li>
-   <li><a href="/">Home</a> > </li>
-   </ul>
-   </div>
-   <div class="container"><!-- 몸체 -->
-   <div class="cont_wrap">
-      <div class="cont_lnb"><!-- 카테고리 부분 몸체 좌측-->
-         <h2>도서관 서비스</h2>
-            <ul class="cont_lnb_sub">
-
-               <li><a href="/search">전체도서</a></li>
-               <li><a href="/new">신간도서</a></li>
-               <li><a href="/popular">인기도서</a></li>
-               <li><a href="/recomm">추천도서</a></li>
-            </ul>
-      </div>
-         <div class="cont_box"><!-- 몸체 우측공간 -->
-            <h2>도서</h2>
-=======
 	<div class="content_head">
 		<h2>도서관 서비스</h2>
 	</div>
@@ -270,7 +246,10 @@ div {
 			<div class="cont_box">
 				<!-- 몸체 우측공간 -->
 				<h2>도서 상세 정보</h2>
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/영선
+=======
+>>>>>>> refs/heads/영선
 				<div>
 					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
 					<div class="contents" id="contents">

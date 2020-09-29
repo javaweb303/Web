@@ -28,7 +28,7 @@
 							<ul class="gnb_sub">
 								<li><a href="/search">통합검색</a></li>
 								<li><a href="/new">신간도서</a></li>
-								<li><a href="/popular">인기도서</a></li>
+								<li><a href="/popular">베스트 셀러</a></li>
 								<li><a href="/recomm">추천도서</a></li>
 							</ul></li>
 						<li class="gnb_menu"><a href="/eBook">전자 도서관</a>
@@ -51,7 +51,7 @@
 				</nav>
 				<div class="lnb">
 					<!--<a href="#"><img alt="로고" src="../images/searchBtn.png"></a>-->
-					<a href="/login"><img alt="로고" src="resources/images/sllogin.png"></a>
+					<a href="/join"><img alt="로고" src="resources/images/sllogin.png"></a>
 					<!-- href를 안쓰는 이유 쓰면 상단을 이동됨. 아니면 #'아무문자나 입력' --> 
 					<a id="slbtn"><img alt="로고" src="resources/images/menu.png"></a>
 				</div>
