@@ -41,7 +41,7 @@ $(function(){
             <div class="logo">
             <a href="/"><img alt="로고" src="resources/images/logo/logo.png"></a>
             </div>
-            <div class="search">
+            <!-- <div class="search">
             <select name="searchField" class="search_ field">
                <option value="ALL" selected>전체</option>
                <option value="CONT_NAME">서명</option>
@@ -49,7 +49,7 @@ $(function(){
                <option value="Publisher">출판사</option>
             </select> <input type="text" class="search_ inputbox">
             <button type="button" onclick="alert('확인');" class="search_ searchbtn">검색</button>
-            </div>
+            </div> -->
             <div class="lnb">
             <c:if test="${empty id}">
             <a href="/login"><img src="resources/images/login.png"></a>
@@ -66,31 +66,31 @@ $(function(){
             <nav>
                <ul id="gnb">
                   <li><a href="/search">도서관 서비스</a>
-                        <ul class="gnb_sub">
+                        <!-- <ul class="gnb_sub">
                            <li><a href="/search">통합검색</a></li>
                            <li><a href="/new">신간도서</a></li>
                            <li><a href="/popular">인기도서</a></li>
                            <li><a href="/recomm">추천도서</a></li>
-                        </ul>
+                        </ul> -->
                   </li>
                   <li><a href="/eBook">전자 도서관</a>
-                        <ul class="gnb_sub">
+                        <!-- <ul class="gnb_sub">
                            <li><a href="/eBook">전자책</a></li>
-                        </ul>
+                        </ul> -->
                   </li>
                   <li><a href="/history">도서관 안내</a>
-                        <ul class="gnb_sub">
+                        <!-- <ul class="gnb_sub">
                            <li><a href="/history">도서관 소개</a></li>
                            <li><a href="/guid">도서관 이용</a></li>
                            <li><a href="/status">도서관 현황</a></li>
                            <li><a href="/location">오시는 길</a></li>
-                        </ul>
+                        </ul> -->
                   </li>
                   <li><a href="/bbs_list">열린공간</a>
-                        <ul class="gnb_sub">
+                        <!-- <ul class="gnb_sub">
                            <li><a href="/bbs_list">공지사항</a></li>
                            <li><a href="/faq">FAQ</a></li>
-                        </ul>
+                        </ul> -->
                   </li>
                </ul>
             </nav>

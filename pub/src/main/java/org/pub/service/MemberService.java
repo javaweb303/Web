@@ -9,4 +9,8 @@ public interface MemberService {
 
 	MemberVO getMember(String id);
 
+	String getoverdue(String id);
+
+	void setOverDue(String id, int days);
+
 }

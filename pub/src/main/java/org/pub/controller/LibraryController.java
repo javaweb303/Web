@@ -107,7 +107,7 @@ public class LibraryController {
 		return model;
 	}
 
-	@GetMapping("/bookcont")
+	/*@GetMapping("/bookcont")
 	public ModelAndView bookcont(HttpServletRequest request) {
 		String isbn=request.getParameter("isbn");
 		isbn=isbn.trim();
@@ -120,7 +120,7 @@ public class LibraryController {
 		model.setViewName("library_services/bookcont");
 		model.addObject("pubList", pubList);
 		return model;
-	}
+	}*/
 
 	@RequestMapping("/recomm")
 	public ModelAndView recomm() {

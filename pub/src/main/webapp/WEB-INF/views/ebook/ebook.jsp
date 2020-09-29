@@ -58,63 +58,57 @@
 					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
 					<h3>전자책 리스트</h3>
 					<div id="ebookform">
-						<!-- <script>
-               $(function(){
-            	   $('.searchbtn').on("click",function(){
-	            	   var inputbox_text_= $.trim($('#inputbox').val());
-	            	   var send =JSON.stringify({
-	            			   theme:$('#theme').val(),
-         					   search_menu:$('#search_menu').val(),
-         					   inputbox_text:inputbox_text_,
-	            	   });
-	            	   alert(send);
-	            	   if(inputbox_text_ != ''){
-	          				$.ajax({
-	          					type:'POST',
-	          					url:'/search_ebook',
-	          					headers :{
-	          					  "Content-Type" : "application/json",
-	          					  "X-HTTP-Method-Override" : "POST",
-	          				 	},
-	          				  	dataType : 'text',//자료형식이 문자열
-	          				  	data: send,
-	          				  	success : function(result){
-	          					 	if(result!=null){
-	          					 		alert('ad');
-	          					 	}
-	          				  	}
-	          				});
-	            	   }else{
-	            		   alert('검색어를 입력하세요.');
-	            	   }
-            	   });
-               });
-               </script> -->
-               <form method="get" action="/eBook">
+						 <script>
+						
+              				function find(){
+              					if($.trim($('#inputbox').val()) == ""){
+              						alert('검색어를 입력하세요!');
+              						$('#inputbox').focus();
+              						return false;
+              					}
+              				}
+              				$(function(){
+              					var findname="<c:out value='${find_name}'/>";
+              					var findfield="<c:out value='${find_field}'/>";
+              					var findtheme="<c:out value='${find_theme}'/>";
+              					if(findname !="" || findfield!="" || findtheme!=""){
+              						$("#search_menu").val(findfield).prop("selected", true);
+              						$("#theme").val(findtheme).prop("selected", true);
+              						$("#inputbox").val(findname);
+              					}else{
+	              					
+              					}
+              				});
+               			</script> 
+               <form method="post" onsubmit="return find();" action="/eBook">
 						<select name="theme" class="theme Category_box" id="theme">
-							<option value="0" selected>전체</option>
-							<option value="1">컴퓨터/IT</option>
-							<option value="2">교양/심리</option>
-							<option value="3">철학/종교</option>
-							<option value="4">사회</option>
-							<option value="5">자연/기술과학</option>
-							<option value="6">문화/예술</option>
-							<option value="7">가정/생활</option>
-							<option value="8">취미/여행</option>
-							<option value="9">언어/외국어</option>
-							<option value="10">문학</option>
-							<option value="11">역사</option>
-							<option value="12">유아/어린이</option>
+							<option value="전체">전체</option>
+							<option value="컴퓨터/IT">컴퓨터/IT</option>
+							<option value="교양/심리">교양/심리</option>
+							<option value="철학/종교">철학/종교</option>
+							<option value="사회">사회</option>
+							<option value="자연/기술과학">자연/기술과학</option>
+							<option value="문화/예술">문화/예술</option>
+							<option value="가정/생활">가정/생활</option>
+							<option value="취미/여행">취미/여행</option>
+							<option value="언어/외국어">언어/외국어</option>
+							<option value="문학">문학</option>
+							<option value="역사">역사</option>
+							<option value="유아/어린이">유아/어린이</option>
 						</select> <select name="search_menu" class="search_menu Category_box"
 							id="search_menu">
-							<option value="all" selected>전체</option>
+							<option value="all">전체</option>
 							<option value="e_title">책제목</option>
 							<option value="e_author">저자</option>
 							<option value="e_publisher">출판사</option>
-						</select> <input class="inputbox" id="inputbox" name="inputbox"/> <input type="submit"
-							value="검색" class="searchbtn" />
+						</select> <input class="inputbox" id="inputbox" name="inputbox"/> 
+						<input type="submit" value="검색" class="searchbtn" />
 					</form>
 					</div>
+					<c:if test="${empty list}">
+						<div><h2>전자책이 없습니다.</h2></div>
+					</c:if>
+					<c:if test="${!empty list}">
 					<div>
 						<!-- 리스트  -->
 						<ul>
@@ -123,9 +117,9 @@
 									<div
 										style="margin: 10px; border-bottom: 1px solid gray; padding: 10px; width: auto; height: 250px;">
 										<a
-											href="/ebookcont?ebook_no=${book_info.e_no}&img=${book_info.img_file.file_no}&file=${book_info.file.file_no}">
+											href="/ebookcont?ebook_no=${book_info.e_no}">
 											<img
-											src="/file/${book_info.img_file.y}/${book_info.img_file.m}/${book_info.img_file.d}/img/${book_info.img_file.stored_file_name}"
+											src="/file/book_img/${book_info.e_no}_/${book_info.e_title}.png"
 											style="float: left; width: 200PX; height: 250px; margin-right: 15px;">
 											<div>
 												<p>제목 : ${book_info.e_title}</p>
@@ -136,7 +130,7 @@
 												<p>추천수 : ${book_info.e_recommend}</p>
 												<br>
 												<p>
-													책소개<br>${book_info.e_introduce}</p>
+													책소개<br>${book_info.book_introduce}</p>
 											</div>
 										</a>
 									</div>
@@ -146,7 +140,7 @@
 					</div>
 					<div id="bList_paging">
 						<%--검색전 페이징 --%>
-						<c:if test="${(empty find_field)&&(empty find_name)}">
+						<c:if test="${(empty find_field)&&(empty find_name)&&(empty find_theme)}">
 							<c:if test="${page <=1}">[이전]&nbsp;</c:if>
 							<c:if test="${page >1}">
 								<a href="eBook?page=${page-1}">[이전]</a>&nbsp;
@@ -170,7 +164,7 @@
 						</c:if>
 
 						<%--검색후 페이징 --%>
-						<c:if test="${(!empty find_field) || (!empty find_name)}">
+						<c:if test="${(!empty find_field) || (!empty find_name) || (!empty find_theme)}">
 							<c:if test="${page <=1}">[이전]&nbsp;</c:if>
 								<c:if test="${page >1}">
 									<a href="eBook?page=${page-1}&find_field=${find_field}&find_name=${find_name}">[이전]</a>&nbsp;
@@ -191,6 +185,7 @@
 						</c:if>
 
 					</div>
+					</c:if>
 				</div>
 			</div>
 			<!-- 여기까지가 몸체우측 -->

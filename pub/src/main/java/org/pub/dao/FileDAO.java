@@ -25,4 +25,8 @@ public interface FileDAO {
 
 	FileVO get_Fileno(int file_no);
 
+	List<FileListVO> get_enoFileList(int eno);
+
+	FileVO get_enoFile(int file_no);
+
 }

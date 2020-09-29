@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
 
-	List<Integer> upload(List<MultipartFile> files,String board);
+	/*List<Integer> upload(List<MultipartFile> files,String board);
 
 	List<FileVO> getFile(List<Integer> file_no);
 
@@ -24,6 +24,14 @@ public interface FileService {
 	List<FileListVO> get_e_no_file(int no);
 
 	FileVO get_Fileno(int file_no);
+
+	List<FileListVO> get_enoFileList(int eno);
+
+	FileVO get_enoFile(int file_no);
+*/
+	void eBookAddUI();
+
+	int Dir_filecount(eBookVO vo);
 
 
 }

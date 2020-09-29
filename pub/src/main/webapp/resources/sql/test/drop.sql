@@ -16,5 +16,10 @@ select * from tbl_file;
 select * from email_code;
 select * from recommand;
 select * from reply;
+select * from book_loan_return;
 
 delete from recommand where e_no=2;
+
+select * from ebook where isbn=9791158392239
+
+delete from ebook where isbn=9791158392239

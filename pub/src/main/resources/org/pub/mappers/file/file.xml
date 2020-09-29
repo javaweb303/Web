@@ -25,7 +25,12 @@ select * from file_list where e_no=#{no} order by file_no desc
 <select id="get_file_no" resultType="file">
 select * from tbl_file where file_no=#{fileno}
 </select>
-
+<select id="get_enoFileList" resultType="filelist">
+select * from file_list where e_no=#{e_no}
+</select>
+<select id="get_enoFile" resultType="file">
+select * from tbl_file where file_no=#{file_no}
+</select>
 
 
 

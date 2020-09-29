@@ -2,6 +2,7 @@ package org.pub.dao;
 
 import java.util.List;
 
+import org.pub.vo.LoanVO;
 import org.pub.vo.eBookVO;
 
 public interface eBookDAO {
@@ -29,5 +30,19 @@ public interface eBookDAO {
 	int getebookCount(eBookVO vo);
 
 	List<eBookVO> getebookList(eBookVO vo);
+
+	List<LoanVO> getLoanList(String id);
+
+	void book_Loan(LoanVO vo);
+
+	int getLoanCount(String id);
+
+	void book_Return(LoanVO vo);
+
+	String getReturnDate(LoanVO vo);
+
+	eBookVO getEbook(String isbn);
+
+	int addBook_isbn(eBookVO vo);
 
 }

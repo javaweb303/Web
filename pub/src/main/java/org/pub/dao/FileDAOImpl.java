@@ -89,4 +89,14 @@ public class FileDAOImpl implements FileDAO {
 	public FileVO get_Fileno(int fileno) {
 		return sqlSession.selectOne("get_file_no", fileno);
 	}
+
+	@Override
+	public List<FileListVO> get_enoFileList(int eno) {
+		return sqlSession.selectList("get_enoFileList", eno);
+	}
+
+	@Override
+	public FileVO get_enoFile(int file_no) {
+		return sqlSession.selectOne("get_enoFile", file_no);
+	}
 }

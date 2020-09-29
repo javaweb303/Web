@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,13 @@
 				</nav>
 				<div class="lnb">
 					<!--<a href="#"><img alt="로고" src="../images/searchBtn.png"></a>-->
-					<a href="/join"><img alt="로고" src="resources/images/sllogin.png"></a>
+					<c:if test="${empty id}">
+					<a href="/login"><img alt="로고" src="resources/images/sllogin.png"></a>
+					</c:if>
+					<c:if test="${!empty id}">
+					<a href="/logout"><img alt="로고" src="resources/images/sllogin.png"></a>
+					<a href="/mypage"><img src="resources/images/myPage.png"></a>
+					</c:if>
 					<!-- href를 안쓰는 이유 쓰면 상단을 이동됨. 아니면 #'아무문자나 입력' --> 
 					<a id="slbtn"><img alt="로고" src="resources/images/menu.png"></a>
 				</div>

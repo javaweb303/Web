@@ -39,7 +39,6 @@ public class ReplyController {
 		replyVO.setEndrow(replyVO.getStartrow()+limit-1);
 		
 		List<ReplyVO> list=replyService.reply_getlist(replyVO);
-		System.out.println(list);
 		int ReplyCount=replyService.getReplyCount(e_no);
 		
 		int maxpage=(int)((double)ReplyCount/limit+0.95);
@@ -68,7 +67,6 @@ class reply_Rest{
 	@RequestMapping("/replyDel")
 	public ResponseEntity<String> replydel(@RequestParam("r_no") int r_no){
 		ResponseEntity<String> entity=null;
-		System.out.println("r_no : "+r_no);
 		try {
 			replyService.reply_del(r_no);
 			entity=new ResponseEntity<String>("OK",HttpStatus.OK);
@@ -82,7 +80,6 @@ class reply_Rest{
 	@RequestMapping("/replyEdit")
 	public ResponseEntity<String> replyedit(@RequestBody ReplyVO vo){
 		ResponseEntity<String> entity=null;
-		System.out.println(vo.getReply_cont());
 		try {
 			replyService.reply_edit(vo);
 			entity=new ResponseEntity<String>("OK",HttpStatus.OK);
@@ -101,6 +98,19 @@ class reply_Rest{
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping("/reply_add")
+	public ResponseEntity<String> reply_add(@RequestBody ReplyVO vo){
+		ResponseEntity<String> entity=null;
+		try {
+			replyService.reply_add(vo);
+			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

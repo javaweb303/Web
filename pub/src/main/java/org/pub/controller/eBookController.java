@@ -1,6 +1,15 @@
 package org.pub.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,13 +17,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.io.FileUtils;
 import org.pub.service.FileService;
+import org.pub.service.MemberService;
 import org.pub.service.ReplyService;
 import org.pub.service.eBookService;
-import org.pub.vo.FileListVO;
-import org.pub.vo.FileVO;
-import org.pub.vo.ReplyVO;
+import org.pub.temp.PdfFile_Img;
+import org.pub.vo.LoanVO;
 import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,14 +34,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import net.sf.json.JSONObject;
+import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 @Controller
 public class eBookController {
@@ -40,42 +52,9 @@ public class eBookController {
 	@Autowired
 	private ReplyService replyService;
 
-	public String themechk(String themeval) {
-		String theme = null;
-		switch (themeval) {
-		case "1":
-			theme="";//컴퓨터/IT
-		case "2":
-			theme="";//교양/심리
-		case "3":
-			theme="";//철학/종교
-		case "4":
-			theme="";//사회
-		case "5":
-			theme="";//자연/기술과학
-		case "6":
-			theme="";//문화/예술
-		case "7":
-			theme="";//가정/생활
-		case "8":
-			theme="";//취미/여행
-		case "9":
-			theme="";//언어/외국어
-		case "10":
-			theme="";//문학
-		case "11":
-			theme="";//역사
-		case "12":
-			theme="";//유아/어린이
-		default:
-			theme=null;
-		}
-		return theme;
-	}
 	@RequestMapping("/eBook")
 	public String eBook(Model m,HttpServletRequest request,@RequestParam(value="page", defaultValue = "1") int pageNum,@ModelAttribute eBookVO vo) {
 		List<eBookVO> list=new ArrayList<>();
-		eBookVO ebook=null;
 		//
 		int page=1;
 		int limit=10;//한페이지 보여지는 목록개수
@@ -85,47 +64,17 @@ public class eBookController {
 		String find_theme=request.getParameter("theme");//테마
 		String find_name=request.getParameter("inputbox");//검색어
 		String find_field=request.getParameter("search_menu");//검색필드
-		if(find_theme==null) {
-			find_theme="0";
-		}
-		
-		vo.setFind_field(find_field);
+		/*vo.setFind_field(find_field);
 	    vo.setFind_name("%"+find_name+"%");
-	    vo.setFind_theme(themechk(find_theme));
+	    vo.setFind_theme(find_theme);*/
 		
 	    System.out.println("테마 : "+find_theme+"\n검색필드  : "+find_field+"\n검색어 :  "+find_name);
-	    
+	    System.out.println(vo);
 		vo.setStartrow((page-1)*10+1);//시작행
 		vo.setEndrow(vo.getStartrow()+limit-1);//끝행
 		
 		List<eBookVO> eblist=eBookService.getebookList(vo);
 		
-		//System.out.println(eblist);
-		for(eBookVO book:eblist) {
-			int no=book.getE_no();
-			List<FileListVO> fileLists = fileService.get_e_no_file(no);
-			for(FileListVO filelistvo:fileLists) {
-				int file_no = filelistvo.getFile_no();
-				int book_no = filelistvo.getE_no();
-				if(no==book_no) {
-					FileVO file=fileService.get_Fileno(file_no);
-					String filename=file.getStored_file_name();
-					String ext=filename.substring(filename.lastIndexOf('.'),filename.length());
-					if(ext.equals(".jpg") || ext.equals(".png") || ext.equals(".jpeg")) {
-						String d_y=filename.substring(0, 4);
-						String d_m=filename.substring(4, 6);
-						String d_d=filename.substring(6, 8);
-						file.setY(d_y);
-						file.setM(d_m);
-						file.setD(d_d);
-						book.setImg_file(file);
-						list.add(book);
-					}else {
-						book.setFile(file);
-					}
-				}
-			}
-		}
 		int ebookcount=eBookService.getebookCount(vo);
 		
 		//총페이지수
@@ -136,21 +85,31 @@ public class eBookController {
 		int endpage=maxpage;
 		if(endpage > startpage+10-1) endpage=startpage+10-1;
 		
-		m.addAttribute("list", list);//책정보
+		m.addAttribute("list", eblist);//책정보
 		m.addAttribute("page",page);//책갈피 기능때문에 쪽번호 저장
 		m.addAttribute("startpage",startpage);//시작페이지
         m.addAttribute("endpage",endpage);//끝 페이지
         m.addAttribute("maxpage",maxpage);//총페이지
+        m.addAttribute("find_theme",find_theme);//
+        m.addAttribute("find_name",find_name);//검색어
+        m.addAttribute("find_field",find_field);//
+
 		return "ebook/ebook"; 
 	}
 	
 	@RequestMapping("/ebookcont")//대출여부와 추천 여부를 확인할수 있는 무언가가 필요.
-	public String eBookCont(Model m,@RequestParam("ebook_no") int e_no,@RequestParam("img") int img_no,
-			@RequestParam("file") int file_no,HttpServletRequest request,HttpServletResponse response) {
+	public String eBookCont(Model m,@RequestParam("ebook_no") int e_no,HttpServletRequest request,HttpServletResponse response) {
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
+		String loan_status=null;
 		if(session.getAttribute("id") != null) {
 			String result=eBookService.getRecommand(id,e_no);
+			List<LoanVO> loanlist=eBookService.book_LoanList(id);
+			for(LoanVO loan:loanlist) {
+				if(loan.getE_no()==e_no) {
+					loan_status="대출중";
+				}
+			}
 			if(result==null) {
 				m.addAttribute("recommand", "추천");
 			}else {
@@ -158,30 +117,255 @@ public class eBookController {
 			}
 		}
 		eBookVO book=eBookService.getEbook(e_no);
-		FileVO imgfile=fileService.getFile(img_no);
-		
-		String filename=imgfile.getStored_file_name();
-		String d_y=filename.substring(0, 4);
-		String d_m=filename.substring(4, 6);
-		String d_d=filename.substring(6, 8);
-		imgfile.setY(d_y);
-		imgfile.setM(d_m);
-		imgfile.setD(d_d);
-		
-		book.setImg_file(imgfile);
-		book.setFile(fileService.getFile(file_no));
 
 		m.addAttribute("book", book);
+		m.addAttribute("loan_status", loan_status);
 		
 		return "ebook/ebook_cont"; 
 	}
-	 
+	
+	@RequestMapping("/mylib")//로그인이 되어있는지 확인
+	public ModelAndView MyLibraryCheck(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out=response.getWriter();
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		if(id!=null) {
+			out.println("<script>");
+			out.println("alert('내서재로 이동합니다.')");
+			out.println("location='/mylibrary'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('로그인이 필요한 서비스입니다.')");
+			out.println("location='/login'");
+			out.println("</script>");
+		}
+		
+		return null;
+	}
+	
+	@RequestMapping("/mylibrary")
+	public ModelAndView MyLibrary(HttpSession session) {
+		ModelAndView model=new ModelAndView();
+		String id=(String)session.getAttribute("id");
+		if(id==null) {
+			model.setViewName("member/login");
+		}else {
+			List<LoanVO> loanlist=eBookService.book_LoanList(id);//해당아이디에 해당하는 대출목록을 받아옴
+			List<eBookVO> myloanlist=new ArrayList<>();
+			//대출목록을 이용해서 파일 이미지를 가져옴 그리고 ebookVO에 해당 이미지 경로를 넣어줌.그리고 전자책 정보를 담아서 념김.
+			for(LoanVO loan:loanlist) {
+				int eno = loan.getE_no();//대출목록에있는 전자책번호를 저장.
+				eBookVO vo=eBookService.getEbook(eno);
+				vo.setLoan_date(loan.getLoan_date().substring(0, 10));
+				vo.setReturn_date(loan.getReturn_date().substring(0, 10));
+				myloanlist.add(vo);
+			}//forend
+			model.setViewName("redirect:mypage?tab_menu=lib");
+			model.addObject("myloanlist", myloanlist);
+			System.out.println(myloanlist);
+		}
+		return model;
+	}
+	
+	@RequestMapping("/read")
+	public ModelAndView BookRead(@RequestParam("e_no") int e_no) {
+		ModelAndView model=new ModelAndView();
+		eBookVO vo = eBookService.getEbook(e_no);
+		
+		int filecount=fileService.Dir_filecount(vo);
+		model.setViewName("ebook/viewer");
+		model.addObject("book", vo);
+		model.addObject("book_imgfile", filecount);
+		
+		//fileService.open(path);
+		return model;
+	}
+	//추가
+	
+	@RequestMapping("/searchEbook")
+	public ModelAndView searchEbook(@RequestParam(required=false)String searchKeyword,HttpServletRequest request) {
+
+		ModelAndView model=new ModelAndView();
+		eBookVO vo=new eBookVO();
+		//검색어가 있으면 책 정보 리스트를 가져옴..
+		if(searchKeyword != null) {
+		String query = request.getParameter("searchKeyword");
+		System.out.println(query);
+		vo.setSearchKeyword(query);
+		String queryType =request.getParameter("searchCondition");
+		System.out.println(queryType);
+		vo.setSearchCondition(queryType);
+		String categoryId = request.getParameter("searchCa");
+		System.out.println(categoryId);
+		vo.setSearchCa(categoryId);
+		//XML 데이터를 호출할 URL => 알라딘 api 사용
+		String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType="+queryType+"&CategoryId="+categoryId+"&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20070901&Cover=Big";
+
+		//System.out.println(url);
+		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
+
+		String itemsname="item";
+
+		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
+		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
+
+		
+		model.addObject("pubList", pubList);
+
+		//System.out.println(pubList);
+		}
+		model.setViewName("ebook/srchEbook");
+		return model;
+
+	}
+	@RequestMapping("/bookcont")
+	public ModelAndView bookcont(@RequestParam("isbn") String isbn,HttpServletRequest request) {
+		ModelAndView model=new ModelAndView();
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		eBookVO vo=null;
+		String loan_status=null;
+		vo = eBookService.getEbook(isbn);
+		System.out.println(vo);
+		if(vo == null) {
+			System.out.println("isbn:"+isbn);
+			//isbn=isbn.trim();
+			String url="http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbmys628111103001&itemIdType=ISBN13&ItemId="+isbn+"&Cover=Big&output=xml&Version=20131101";
+			String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
+			String itemsname="item";
+			ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
+			System.out.println(pubList);
+			for(Map map:pubList) {
+				vo=new eBookVO();
+				vo.setIsbn((String)map.get("isbn13"));
+				vo.setE_title((String)map.get("title"));
+				vo.setE_author((String)map.get("author"));
+				vo.setE_publisher((String)map.get("publisher"));
+				vo.setE_publication_year((String)map.get("pubDate"));
+				vo.setBook_introduce((String)map.get("description"));
+				vo.setImgurl((String)map.get("cover"));
+				int no=eBookService.addBook_isbn(vo);
+				try {
+					InputStream is=new FileInputStream(new File("C:/Users/st473/Downloads/turnjs4-api-docs (1).pdf"));
+					PdfFile_Img pdf = new PdfFile_Img();
+					pdf.conversionPdf2Img(is, "ebook", no);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if(session.getAttribute("id") != null) {
+				String result=eBookService.getRecommand(id,vo.getE_no());
+				List<LoanVO> loanlist=eBookService.book_LoanList(id);
+				for(LoanVO loan:loanlist) {
+					if(loan.getE_no()==vo.getE_no()) {
+						loan_status="대출중";
+					}
+				}
+				if(result==null) {
+					model.addObject("recommand", "추천");
+				}else {
+					model.addObject("recommand", "비추천");
+				}
+			}
+			vo = eBookService.getEbook(isbn);
+		}else {
+			if(session.getAttribute("id") != null) {
+				String result=eBookService.getRecommand(id,vo.getE_no());
+				List<LoanVO> loanlist=eBookService.book_LoanList(id);
+				for(LoanVO loan:loanlist) {
+					if(loan.getE_no()==vo.getE_no()) {
+						loan_status="대출중";
+					}
+				}
+				if(result==null) {
+					model.addObject("recommand", "추천");
+				}else {
+					model.addObject("recommand", "비추천");
+				}
+			}
+		}
+		
+		
+		model.addObject("book", vo);
+		model.addObject("loan_status", loan_status);
+		//model.addObject("pubList", pubList);
+		model.setViewName("ebook/bookcont");
+		return model;
+	}
+	
+
+public ArrayList<Map> xmlp(String url,String[] fieldNames,String itemsname) {
+		ArrayList<Map> pubList= new ArrayList<Map>();
+		try {
+			//XML파싱 준비 => 페이지에 접근해줄 Document 객체 생성
+			//여기서 생성한 document 객체를 통해 파싱할 url의 요소를 읽어들인다.
+			DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+			DocumentBuilder b = f.newDocumentBuilder();
+			//위에서 구성한 URL을 통해 XMl 파싱 시작
+			//System.out.println(url);
+			Document doc = b.parse(url);
+
+			//root tag
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element: " + doc.getDocumentElement().getNodeName()); //Root element : result
+
+			//서버에서 응답한 XML데이터를 (발행문서 1개 해당)태그로 각각 나눔(파라미터로 요청한 size항목의 수만큼)
+			//파싱할 정보가 있는 tag에 접근
+			NodeList items = doc.getElementsByTagName(itemsname);
+			//System.out.println("파싱할 리스트 수: "+items.getLength());//파싱할 리스트수
+			System.out.println(itemsname);
+
+			/* list에 담긴 데이터 출력하기
+			for(int temp=0; temp<items.getLength(); temp++) {
+				Node nNode = items.item(temp);
+				if(nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					System.out.println("#################");
+					System.out.println(eElement.getTextContent()); //전체 정보
+					System.out.println("제목 : "+getTagValue("title", eElement)); //입력한 tag 정보 출력
+				}
+			}
+			 */
+			//for 루프시작
+			for (int i = 0; i < items.getLength(); i++) {
+				//i번째 publication 태그를 가져와서
+				Node n = items.item(i);
+				//노드타입을 체크함, 노드 타입이 엘리먼트가 아닐경우에만 수행
+				if (n.getNodeType() != Node.ELEMENT_NODE)
+					continue;
+
+				Element e = (Element) n;
+				HashMap<String,Object> pub = new HashMap<>();
+				//for 루프 시작
+				for(String name : fieldNames){
+					//fieldNames에 해당하는 값을 XML 노드에서 가져옴
+					NodeList titleList = e.getElementsByTagName(name);
+					Element titleElem = (Element) titleList.item(0);
+					//System.out.println(titleElem);
+					Node titleNode = titleElem.getChildNodes().item(0);
+					// 가져온 XML 값을 맵에 엘리먼트 이름 - 값 쌍으로 넣음
+
+					pub.put(name, titleNode.getNodeValue());
+				}
+				//데이터가 전부 들어간 맵을 리스트에 넣고 화면에 뿌릴 준비.
+				pubList.add(pub);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pubList;
+	}
 }
 
 @RestController
 class Rest{
 	@Autowired
 	private eBookService eBookService;
+	@Autowired
+	private MemberService memberService;
 	@Autowired
 	private ReplyService replyService;
 	
@@ -225,13 +409,83 @@ class Rest{
 		
 	}
 	
-	@RequestMapping("/book_loan")
-	public ResponseEntity<String> book_loan(HttpServletRequest request,HttpSession session){
+	@RequestMapping("/book_loan")//대출
+	public ResponseEntity<String> book_loan(HttpServletRequest request,HttpSession session,@RequestParam("e_no") int e_no) throws ParseException{
 		ResponseEntity<String> entity=null;
+		if(session.getAttribute("id") == null) {
+			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
+		}else {
+			String over=memberService.getoverdue((String)session.getAttribute("id"));
+			SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+			String time = format.format(new Date());
+			Date Date2=format.parse(time);
+			Long calOverDate=(long) 0;
+        	if(over != null) {
+        		Date overdate=format.parse(over);
+        		calOverDate=Date2.getTime()-overdate.getTime();
+        		System.out.println(Date2);
+        		System.out.println(overdate);
+        	}
+        	long calDateDays = calOverDate / ( 24*60*60*1000);
+        	System.out.println("연체"+calDateDays);
+        	if(calDateDays > 0) {
+				try {
+					eBookService.book_Loan((String)session.getAttribute("id"),e_no);//서비스에서 vo에 담을예정.그후에 추가.
+					entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+				}catch (Exception e) {
+					e.printStackTrace();
+					entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+				}
+        	}else {
+        		try {
+					entity=new ResponseEntity<String>(Long.toString(Math.abs(calDateDays)),HttpStatus.OK);
+				}catch (Exception e) {
+					e.printStackTrace();
+					entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+				}
+        	}
+		}
+		
+		return entity;
+	}
+	
+	@RequestMapping("/book_return")
+	public ResponseEntity<String> book_return(HttpServletRequest request,HttpSession session,@RequestParam("e_no") int e_no) throws ParseException{
+		ResponseEntity<String> entity=null;
+		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+		String time = format.format(new Date());
 		if(session.getAttribute("id") == null) {
 			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
 		}else {		
 			try {
+				String date=eBookService.getReturnDate((String)session.getAttribute("id"),e_no);//반납일을 가져옴
+				Long calOverDate=(long) 0;
+				Date Date1=format.parse(date);//String을 date형식으로 변환 해당형식으로 변환
+				Date Date2=format.parse(time);
+				long calDate=Date2.getTime()-Date1.getTime();//시간 계산
+				System.out.println(Date1);
+				long calDateDays = calDate / ( 24*60*60*1000); //일자 구하는
+				calDateDays+=10;
+		        //calDateDays = Math.abs(calDateDays);
+		        System.out.println(calDateDays);
+		        if(calDateDays > 0) {//0보다 크면 아래 문장 실행
+		        	System.out.println("12321hkjgdskfgh");
+		        	String over=memberService.getoverdue((String)session.getAttribute("id"));
+		        	if(over != null) {
+		        		Date overdate=format.parse(over);
+		        		calOverDate=Date2.getTime()-overdate.getTime();
+		        	}
+		        	
+		        	
+		        	long overDateDays = calOverDate / ( 24*60*60*1000);
+		        	if(overDateDays > 0) {
+		        		int days=(int)(overDateDays+calDateDays);
+		        		memberService.setOverDue((String)session.getAttribute("id"),(int)(overDateDays+calDateDays));
+		        	}else {
+		        		memberService.setOverDue((String)session.getAttribute("id"),(int)calDateDays);
+		        	}
+		        }
+				eBookService.book_Return((String)session.getAttribute("id"),e_no);//서비스에서 vo에 담을예정.그후에 추가.
 				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -242,21 +496,24 @@ class Rest{
 		return entity;
 	}
 	
-	@RequestMapping("/reply_add")
-	public ResponseEntity<String> reply_add(@RequestBody ReplyVO vo){
+	@RequestMapping("/book_loancount")//사용자가 대출한 개수
+	public ResponseEntity<String> book_loancount(HttpServletRequest request,HttpSession session){
 		ResponseEntity<String> entity=null;
-		System.out.println(vo.getE_no());
-		System.out.println(vo.getReply_cont());
-		System.out.println(vo.getId());
-		try {
-			replyService.reply_add(vo);
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-		}catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		if(session.getAttribute("id") == null) {
+			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
+		}else {		
+			try {
+				int loancount=eBookService.book_Loancount((String)session.getAttribute("id"));
+				entity=new ResponseEntity<String>(""+loancount,HttpStatus.OK);
+			}catch (Exception e) {
+				e.printStackTrace();
+				entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			}
 		}
+		
 		return entity;
 	}
+
 }
 
 

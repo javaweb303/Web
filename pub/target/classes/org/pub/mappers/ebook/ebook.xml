@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="eBook">
 <!-- 주석달려있는게 8월 19일자로 추가된것 -->
 <insert id="upload">
-insert into ebook (e_no,e_title,e_author,e_publisher,e_publication_year,e_introduce,e_group) values(e_num_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{e_introduce},#{e_group})
+insert into ebook (e_no,e_title,e_author,e_publisher,e_publication_year,book_introduce,author_introduce,contents,e_group) values(e_num_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{book_introduce},#{author_introduce},#{contents},#{e_group})
 </insert>
 <select id="sel" resultType="ebook">
 select * from ebook order by e_no desc
@@ -16,11 +16,17 @@ select * from ebook where e_no=#{no}
 <update id="up_recommend">
 update ebook set e_recommend=e_recommend+1 where e_no=#{i}
 </update>
-<insert id="addBook"><!-- 전자책등록 -->
-insert into ebook (e_no,e_title,e_author,e_publisher,e_publication_year,e_introduce,e_group) values(e_no_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{e_introduce},#{e_group})
+<insert id="addBook"><!-- 전자책등록 --><!-- author_introduce,contents 여기선 필요 x -->
+insert into ebook (e_no,e_title,e_author,e_publisher,e_publication_year,book_introduce,author_introduce,contents,e_group) values(e_num_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{book_introduce},#{author_introduce},#{contents},#{e_group})
 </insert>
+
+<insert id="addBook_isbn">
+insert into ebook (e_no,e_title,e_author,e_publisher,e_publication_year,book_introduce,isbn,imgurl) values(e_num_seq.nextval,#{e_title},#{e_author},#{e_publisher},#{e_publication_year},#{book_introduce},#{isbn},#{imgurl})
+</insert>
+
+
 <select id="getBook_no" resultType="int"><!-- 전자책 번호 가져오는것 -->
-select e_no from ebook where e_title=#{e_title} and e_author=#{e_author} and e_publisher=#{e_publisher} and e_publication_year=#{e_publication_year} and e_group=#{e_group}
+select e_no from ebook where e_title=#{e_title} and e_author=#{e_author} and e_publisher=#{e_publisher} and e_publication_year=#{e_publication_year}
 </select>
 <select id="getEbook" resultType="ebook"><!-- 전자책 정보 가져오기 -->
 select * from ebook where e_no=#{e_no}
@@ -48,28 +54,57 @@ select count(e_no) from ebook
 </select>
 <select id="getebookList" resultType="ebook">
 select * from 
-     (select rowNum rNum,e_no,e_title,e_author,e_publisher,e_publication_year,e_introduce,e_recommend,e_status,e_group
+     (select rowNum rNum,e_no,e_title,e_author,e_publisher,e_publication_year,book_introduce,author_introduce,contents,e_recommend,e_status,e_group
      from (select * from ebook
      <where>
-     <if test="find_field == ''">
-      <!-- 검색조건이 없어서 총레코드 개수 -->
+     <if test="searchCondition == '' or searchCondition == 'Keyword') and searchCa == '' or searchCa == '0')">
+      <!-- 검색조건이 없어서 총레코드 개수 처음에 -->
      </if>
-     <if test="find_field == 'e_title'">
+     <if test="searchCondition == '' or searchCondition == 'Keyword') and (find_theme == '' or searchCa == '0') and searchKeyword != ''">
+      e_title like #{find_name} or e_author like #{find_name} or e_publisher like #{find_name}
+     </if>
+     <if test="searchCondition == 'Title' and searchCa == '0'">
       <!-- 검색 조건이 제목인 경우 -->
-      e_title like #{find_name} <!-- like는 오라클 검색
-      연산자 -->
+      e_title like #{find_name}
      </if>
-     <if test="find_field == 'e_author'">
+     <if test="searchCondition == 'Author' and searchCa == '0'">
       e_author like #{find_name}
      </if>
-     <if test="find_field == 'e_publisher'">
+     <if test="searchCondition == 'Publisher' and searchCa == '0'">
       e_publisher like #{find_name}
      </if>
-     <if test="find_theme != null">AND e_group = #{find_theme} </if>
+     <!-- 혹시 모를 상황에서 ''추가 -->
+     <if test="searchCondition == 'Title' and searchCa != '0'">
+      <!-- 검색 조건이 제목인 경우 -->
+      e_title like #{find_name} AND e_group like #{find_theme}
+     </if>
+     <if test="searchCondition == 'Author' and searchCa != '0'">
+      e_author like #{find_name} AND e_group like #{find_theme}
+     </if>
+     <if test="searchCondition == 'Publisher' and searchCa != '0'">
+      e_publisher like #{find_name} AND e_group like #{find_theme}
+     </if>
      </where>
       order by e_no desc))
      where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
 <!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->     
 </select>
-
+<select id="getLoanList" resultType="loan"> <!-- 해당아이디가 대출한 목록 -->
+select * from book_loan_return where id=#{id} order by loan_date desc
+</select>
+<insert id="bookLoan"><!-- 대출날짜와 데출날짜+7일을한 반납날짜에 아이디 전자책번호를 저장하는 -->
+insert into book_loan_return values(sysdate,sysdate+7,#{id},#{e_no})
+</insert>
+<select id="getLoanCount" resultType="int"><!-- 대출 갯수 -->
+select count(e_no) from book_loan_return where id=#{id}
+</select>
+<delete id="bookReturn"><!-- 전자책 반납 -->
+delete from book_loan_return where id=#{id} and e_no=#{e_no}
+</delete>
+<select id="getReturnDate" resultType="String">
+select return_date from book_loan_return where id=#{id} and e_no=#{e_no}
+</select>
+<select id="getebook_isbn" resultType="ebook">
+select * from ebook where isbn=#{isbn}
+</select>
 </mapper>

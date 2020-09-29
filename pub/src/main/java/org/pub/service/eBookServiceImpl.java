@@ -1,8 +1,11 @@
 package org.pub.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.pub.dao.eBookDAO;
+import org.pub.vo.LoanVO;
 import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class eBookServiceImpl implements eBookService {
 	@Autowired
 	private eBookDAO eBookDAO;
-
+/*
 	@Override
 	public void upload(eBookVO book, String board,List<Integer> files_no) {
 		System.out.println("제목 "+book.getE_title());
@@ -30,7 +33,7 @@ public class eBookServiceImpl implements eBookService {
 		System.out.println("파일 번호 "+book.getFile_no());
 		eBookDAO.upload(book);
 	}
-
+*/
 	@Override
 	public List<eBookVO> select() {
 		return eBookDAO.select();
@@ -74,6 +77,47 @@ public class eBookServiceImpl implements eBookService {
 	@Override
 	public List<eBookVO> getebookList(eBookVO vo) {
 		return eBookDAO.getebookList(vo);
+	}
+
+	@Override
+	public List<LoanVO> book_LoanList(String id) {
+		return eBookDAO.getLoanList(id);
+	}
+
+	@Override
+	public void book_Loan(String id, int e_no) {
+		LoanVO vo=new LoanVO();
+		vo.setE_no(e_no);vo.setId(id);
+		eBookDAO.book_Loan(vo);
+	}
+
+	@Override
+	public int book_Loancount(String id) {
+		return eBookDAO.getLoanCount(id);
+	}
+
+	@Override
+	public void book_Return(String id, int e_no) {
+		LoanVO vo=new LoanVO();
+		vo.setE_no(e_no);vo.setId(id);
+		eBookDAO.book_Return(vo);
+	}
+
+	@Override
+	public String getReturnDate(String id, int e_no) {
+		LoanVO vo=new LoanVO();
+		vo.setE_no(e_no);vo.setId(id);
+		return eBookDAO.getReturnDate(vo);
+	}
+
+	@Override
+	public eBookVO getEbook(String isbn) {
+		return eBookDAO.getEbook(isbn);
+	}
+
+	@Override
+	public int addBook_isbn(eBookVO vo) {
+		return eBookDAO.addBook_isbn(vo);
 	}
 
 	

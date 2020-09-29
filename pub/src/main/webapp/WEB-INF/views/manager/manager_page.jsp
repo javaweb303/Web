@@ -1,3 +1,6 @@
+<%@page import="java.io.File"%>
+<%@page import="org.pub.temp.FileChooser"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,20 +12,35 @@
 <script>
 $(function(){
 	$('#ok').on("click",function(){
-		var e_title=$('#e_title').val();
-		var e_author=$('#e_author').val();
-		var e_publisher=$('#e_publisher').val();
-		var e_publication_year=$('#e_publication_year').val();
-		
-		var e_group=$('#e_group').val();
-		var e_bookimg=$('#e_bookimg').val();
-		var e_file=$('#e_file').val();
-		var obj={"e_title":e_title,"e_author":e_author,"e_publisher":e_publisher,"e_publication_year":e_publication_year,
-				"e_group":e_group,"e_bookimg":e_bookimg,"e_file":e_file};
-		alert(JSON.stringify(obj));
-		
+		alert($('#file_path').val());
+		$.ajax({
+			type:'post',
+			url:'/newadd',
+			contentType:"application/json;charset=UTF-8",
+			data:JSON.stringify({
+				book:$('#book').val(),
+			}),
+			success:function(result){
+				
+			}
+		});
 	});
-});
+}
+function getRealPath(obj){
+	obj.select();
+	var input = document.memberform.file ;
+	var fReader = new FileReader();
+	fReader.readAsDataURL(input.files[0]);
+	fReader.onloadend = function(event){
+		document.getElementById('file_path').value = event.target.result;
+	}
+	 // document.selection.createRange().text.toString(); 이게 실행이 안된다면....
+	 // document.selection.createRangeCollection()[0].text.toString(); 이걸로....
+	 //document.getElementById('file_path').value = obj.;
+}
+function pdf(){
+
+}
 </script>
 </head>
 <body>
@@ -45,18 +63,26 @@ $(function(){
 <th>책소개</th><td><textarea rows="14" cols="36" id="e_introduce" name="e_introduce"></textarea></td>
 </tr>
 <tr>
+<th>저자소개</th><td><textarea rows="14" cols="36" id="author_introduce" name="author_introduce"></textarea></td>
+</tr>
+<tr>
+<th>목차</th><td><textarea rows="14" cols="36" id="contents" name="contents"></textarea></td>
+</tr>
+<tr>
 <th>분류코드</th><td><input id="e_group" name="e_group"></td>
 </tr>
 <tr>
-<th>이미지</th><td><input type="file" name="e_bookimg" id="e_bookimg"></td>
+<th>이미지</th><td><input type="file" name="img" id="img"></td>
 </tr>
 <tr>
-<th>파일</th><td><input type="file" name="e_bookfile" id="e_bookfile"></td>
+<th>파일</th><td><input type="file" name="file" id="book"></td>
+<!-- <th>파일</th><td><input type="button" onclick="pdf()" value="PDF"></button></td> -->
 </tr>
 <tr>
 <th colspan="2"><input type="submit" value="확인"><input type="reset" value="취소" id="no"></th>
 </tr>
 </table>
+<input type="hidden" id="file_path" name="file_path" value="" />
 </form>
 </body>
 </html>
