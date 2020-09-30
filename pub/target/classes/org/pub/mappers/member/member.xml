@@ -5,9 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="Member">
 <insert id="m_join">
 <!-- 1은 가입회원 2는 탈퇴회원 -->
-insert into member (id,pw,name,email,gender,birth,regdate,state) values(#{id},#{pw},#{name},#{email},#{gender},#{birth},sysdate,1)
+insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values(#{id},#{pw},#{name},#{email},#{email_domain},#{gender},#{birth},#{mem_phone1},#{mem_phone2},#{mem_phone3},#{zipNo},#{roadAddrPart1},#{roadAddrPart1},#{addrDetail},sysdate,1)
 </insert>
-<select id="getMember" resultType="m">
+<select id="getMember" parameterType="String" resultType="m">
 select * from member where id=#{id}
 </select>
 

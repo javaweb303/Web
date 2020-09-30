@@ -115,6 +115,16 @@ drop table recommand;
 drop table ebook;
 drop table member;
 
+/*테이블 확인*/
+select * from member;
+select * from ebook;
+select * from file_list;
+select * from tbl_file;
+select * from email_code;
+select * from recommand;
+select * from reply;
+select * from book_loan_info;
+
 /*시퀀스*/
 /* 전자책 번호 */
 create sequence e_no_seq
@@ -143,4 +153,4 @@ drop sequence reply_no_seq;
 insert into board values('notice','공지사항');
 insert into board values('faq','자주묻는질문');
 
-insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('a','a','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);
+insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test','test','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);

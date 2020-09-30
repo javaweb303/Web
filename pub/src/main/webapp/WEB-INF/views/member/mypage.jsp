@@ -129,10 +129,10 @@ td{padding: 12px 0 12px 10px;}
 						</tr>
 						<tr>
 							<th rowspan="2">연락처</th>
-							<td>${member_info.email}</td>
+							<td>${member_info.email}@${member_info.email_domain}</td>
 						</tr>
 						<tr>
-							<td>${member_info.phone1}-${member_info.phone2}-${member_info.phone3}</td>
+							<td>${member_info.mem_phone1}-${member_info.mem_phone2}-${member_info.mem_phone3}</td>
 						</tr>
 						<tbody>
 							<tr>
@@ -141,7 +141,7 @@ td{padding: 12px 0 12px 10px;}
 							</tr>
 							<tr>
 								<th>도로명주소</th>
-								<td>${member_info.roadAddrPart1}${member_info.roadAddrPart2}</td>
+								<td>${member_info.roadAddrPart1}</td>
 							</tr>
 							<tr>
 								<th>상세주소</th>
