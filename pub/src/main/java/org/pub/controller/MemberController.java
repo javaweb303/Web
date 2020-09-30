@@ -2,6 +2,8 @@ package org.pub.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.pub.service.MemberService;
+import org.pub.service.eBookService;
+import org.pub.vo.LoanVO;
 import org.pub.vo.MemberVO;
+import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,7 +32,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MemberController {
 	@Autowired//자동 의존성
 	private MemberService memberService;
-	
+	@Autowired
+	private eBookService eBookService;
 	
 	@RequestMapping("/join")
 	public String join(Model m) {
@@ -107,12 +114,30 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/mypage")
-	public ModelAndView mypage(HttpSession session,HttpServletResponse response) {
+	public ModelAndView mypage(HttpSession session,HttpServletResponse response,@RequestParam(value="tab_menu", defaultValue = "my_info") String tab_menu) {
 		String id=(String)session.getAttribute("id");
+		ModelAndView model = new ModelAndView();
 		if(id != null) {
-			
+			MemberVO mem=memberService.getMember(id);
+			List<LoanVO> loanlist=eBookService.book_LoanList(id);//해당아이디에 해당하는 대출목록을 받아옴
+			List<eBookVO> myloanlist=new ArrayList<>();
+			//대출목록을 이용해서 파일 이미지를 가져옴 그리고 ebookVO에 해당 이미지 경로를 넣어줌.그리고 전자책 정보를 담아서 념김.
+			for(LoanVO loan:loanlist) {
+				int eno = loan.getE_no();//대출목록에있는 전자책번호를 저장.
+				eBookVO vo=eBookService.getEbook(eno);
+				vo.setLoan_date(loan.getLoan_date().substring(0, 10));
+				vo.setReturn_date(loan.getReturn_date().substring(0, 10));
+				System.out.println(vo);
+				myloanlist.add(vo);
+			}
+			model.setViewName("/member/mypage");
+			model.addObject("member_info", mem);
+			model.addObject("myloanlist", myloanlist);
+			model.addObject("tab_send", tab_menu);
+		}else {
+			model.setViewName("/member/login");
 		}
-		return null;
+		return model;
 	}
 }
 

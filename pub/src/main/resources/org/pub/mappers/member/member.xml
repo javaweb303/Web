@@ -10,4 +10,11 @@ insert into member (id,pw,name,email,gender,birth,regdate,state) values(#{id},#{
 <select id="getMember" resultType="m">
 select * from member where id=#{id}
 </select>
+
+<select id="getOverDue" resultType="String">
+select overdue from member where id=#{id}
+</select>
+<update id="setOverDue" parameterType="java.util.Map">
+update member set overdue=sysdate+#{days} where id=#{id}
+</update>
 </mapper>

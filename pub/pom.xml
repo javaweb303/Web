@@ -247,6 +247,20 @@
 			<version>1.4</version>
 
 		</dependency>
+		<!-- PDF파일 관련 -->
+		<!-- PDFBox -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.13</version>
+		</dependency>
+	
+		<!-- PDFBox-Tool -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox-tools</artifactId>
+			<version>2.0.13</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

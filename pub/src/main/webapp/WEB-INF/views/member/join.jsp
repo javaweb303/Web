@@ -16,10 +16,6 @@
 /*로컬주소*/
 #content .location{margin: 0 auto 23px; width: 100%;}
 #content .location ul li{float: right; list-style: none; right: 4%;}
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/영선
-=======
->>>>>>> refs/heads/영선
 
 #login {padding: 20px;margin-bottom: 20px;text-align: center;}
 #form {	font-size: 1.3em;width: 100%;display: inline-block; /*content/text 크기만큼만 점유하고 동일 라인에 붙는 성질*/}
@@ -28,10 +24,6 @@
 #inputbox .submit{background-color: #2d5188;}
 #inputbox p{font-size: 15px;}
 th{width: 30%;}
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/영선
-=======
->>>>>>> refs/heads/영선
 
 #joinbox label {font-weight: 700;}
 #joinbox .box {width: 100%;}

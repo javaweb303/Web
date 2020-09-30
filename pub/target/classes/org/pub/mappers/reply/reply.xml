@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reply">
+<insert id="reply_add"><!-- 나중에 댓글을 다른 게시판에서 사용할때 게시판 테이블 참조 하고, 번호값 받아서 사용해야함. -->
+insert into reply (reply_no,reply_cont,regdate,id,e_no) values(reply_no_seq.nextval,#{reply_cont},sysdate,#{id},#{e_no})
+</insert>
+<select id="reply_getList" resultType="reply"><!-- 나중에 다른 게시판에서 사용할떄 게시판 테이블 참조 하고 번호값 받아서 사용 -->
+select * from reply order by reply_no desc
+</select>
+<delete id="reply_del">
+delete from reply where reply_no=#{r_no}
+</delete>
+<select id="reply_get" resultType="reply">
+select * from reply where reply_no=#{r_no}
+</select>
+<update id="reply_edit">
+update reply set reply_cont=#{reply_cont},editdate=sysdate where reply_no=#{reply_no}
+</update>
+<select id="count" resultType="long">
+select count(reply_no) from reply where e_no=#{no}
+</select>
+<select id="reply_getlist" resultType="reply">
+select * from (select rowNum rNum,reply_no,reply_cont,regdate,editdate,id,e_no from reply where e_no=#{e_no} order by reply_no desc) where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
+<!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->     
+</select>
+<select id="replyCount" parameterType="int" resultType="int">
+select count(reply_no) from reply where e_no=#{e_no}
+</select>
+</mapper>

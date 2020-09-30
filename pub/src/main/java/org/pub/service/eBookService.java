@@ -2,17 +2,38 @@ package org.pub.service;
 
 import java.util.List;
 
+import org.pub.vo.LoanVO;
 import org.pub.vo.eBookVO;
 
 public interface eBookService {
 
-	void upload(eBookVO book, String string, List<Integer> files_no);
+	int addBook(eBookVO book);
 
-	List<eBookVO> select();
+	eBookVO getEbook(int e_no);
 
-	eBookVO selectOne(int no);
+	void recommand(String id, int e_no);
 
-	void up_recommend();
+	String getRecommand(String id, int e_no);
+
+	void non_recommand(String id, int e_no);
+
+	int getebookCount(eBookVO vo);
+
+	List<eBookVO> getebookList(eBookVO vo);
+
+	List<LoanVO> book_LoanList(String id);
+
+	void book_Loan(String attribute, int e_no);
+
+	int book_Loancount(String id);
+
+	void book_Return(String id, int e_no);
+
+	String getReturnDate(String id, int e_no);
+
+	eBookVO getEbook(String isbn);//
+
+	int addBook_isbn(eBookVO vo);
 
 
 }

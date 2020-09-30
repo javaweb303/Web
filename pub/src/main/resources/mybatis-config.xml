@@ -13,5 +13,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="org.pub.vo.GongjiVO" alias="gongji" />
 		<typeAlias type="org.pub.vo.FaqCategoryVO" alias="fcg"/>
 		<typeAlias type="org.pub.vo.FaqContentVO" alias="fct"/>
+		<typeAlias type="org.pub.vo.ReplyVO" alias="reply" />
+		<typeAlias type="org.pub.vo.LoanVO" alias="loan" />
 	</typeAliases>
 </configuration>
