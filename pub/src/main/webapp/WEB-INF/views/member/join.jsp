@@ -16,10 +16,6 @@
 /*로컬주소*/
 #content .location{margin: 0 auto 23px; width: 100%;}
 #content .location ul li{float: right; list-style: none; right: 4%;}
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/영선
-=======
->>>>>>> refs/heads/영선
 
 #login {padding: 20px;margin-bottom: 20px;text-align: center;}
 #form {	font-size: 1.3em;width: 100%;display: inline-block; /*content/text 크기만큼만 점유하고 동일 라인에 붙는 성질*/}
@@ -28,10 +24,6 @@
 #inputbox .submit{background-color: #2d5188;}
 #inputbox p{font-size: 15px;}
 th{width: 30%;}
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/영선
-=======
->>>>>>> refs/heads/영선
 
 #joinbox label {font-weight: 700;}
 #joinbox .box {width: 100%;}
@@ -45,22 +37,22 @@ th{width: 30%;}
    <div class="location"><!-- 이것도 이건 상단에 home>열린공간 >오시는길 이거 표시하는 부분? -->
    <ul class="">
    <li>회원가입 </li>
-   <li><a href="/controller">Home</a> > </li>
+   <li><a href="/">Home</a> > </li>
    </ul>
    </div>
    <div class="container" style="margin: 100px 0 100px 0;"><!-- 몸체 -->
       <div id="join" style="border: 1px solid gray; border-radius: 5px; width:500px; height: 350px; margin: 0 auto; padding: 25px 0;">
 	<div id="join-warp" style="width: 450px; margin: 0 auto; margin-top: 10px;">
 		<div id="join_box">
-				<form name="form" id="form" method="post">
+				<form name="form" id="form" method="post" action="/join_ok">
 					<table>
 						<tr>
 						<th>아이디</th>
-						<td><input type="text" id="" name=""></td>
+						<td><input type="text" id="id" name="id"></td>
 						</tr>
 						<tr>
 						<th>비밀번호</th>
-						<td><input type="password" id="" name=""></td>
+						<td><input type="password" id="pw" name="pw"></td>
 						</tr>
 						<tr>
 						<th>비밀번호 확인</th>
@@ -68,7 +60,7 @@ th{width: 30%;}
 						</tr>
 						<tr>
 						<th>이름</th>
-						<td><input type="text" id="" name=""></td>
+						<td><input type="text" id="name" name="name"></td>
 						</tr>
 						<tr>
 						<th>성별</th>
@@ -77,13 +69,13 @@ th{width: 30%;}
 						<tr>
 						<tr>
 						<th>생년월일</th>
-						<td><input></td>
+						<td><input name="birth"></td>
 						</tr>
 						<tr>
 						<tr>
 						<th>휴대전화</th>
 						<td>
-						<select id="phone1" name="phone1">
+						<select id="mem_phone1" name="mem_phone1">
 						<option value="010" selected>010</option>
 						<option value="011">011</option>
 						<option value="012">012</option>
@@ -95,15 +87,15 @@ th{width: 30%;}
 						<option value="018">018</option>
 						<option value="019">019</option>
 						</select> - 
-						<input type="text" id="phone2" name="phone2" style="width: 50px"> - <input type="text" id="phone3" name="phone3" style="width: 50px">
+						<input type="text" id="mem_phone2" name="mem_phone2" style="width: 50px"> - <input type="text" id="mem_phone3" name="mem_phone3" style="width: 50px">
 						</td>
 						</tr>
 						<tr>
 						<th>이메일</th>
 							<td>
 								<div id="email" class="box">
-									<input type="text" name="email" id="emailbox" style="width: 80px;"> @ 
-									<input type="text" name="at_sign_" id="at_sign" style="width: 100px;"> 
+									<input type="text" name="email" id="email" style="width: 80px;"> @ 
+									<input type="text" name="email_domain" id="email_domain" style="width: 100px;"> 
 									<select name="select_box" id="select_box" style="" onchange="select_();">
 										<option value="direct">직접입력</option>
 										<option value="naver.com">네이버</option>
@@ -136,21 +128,21 @@ th{width: 30%;}
 							</tr>
 							<tr>
 								<th>도로명주소</th>
-								<td><input type="text" id="roadAddrPart1" style="width:85%"></td>
+								<td><input type="text" id="roadAddrPart1" name="roadAddrPart1" style="width:85%"></td>
 							</tr>
 							<tr>
 								<th>상세주소</th>
 								<td>
-									<input type="text" id="addrDetail" style="width:40%" value="">
-									<input type="text" id="roadAddrPart2"  style="width:40%" value="">
+									<input type="text" id="addrDetail" name="addrDetail" style="width:40%" value="">
+									<input type="text" id="roadAddrPart2" name="roadAddrPart2" style="width:40%" value="">
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					<div style="text-align: center;">
+					<br> <input type="submit" value="가입" class="box"> <input type="button" value="취소" class="box" onclick="location.href='/'" >
+					</div>
 					</form>
-		</div>
-		<div style="text-align: center;">
-		<br> <input type="submit" id="send" value="가입" class="box"> <input type="button" id="send" value="취소" class="box" onclick="location.href='/'" >
 		</div>
 	</div>
       </div>
