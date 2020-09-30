@@ -16,7 +16,7 @@
 .on{color:#ff0000;}
 </style>
 </head>
-<body style="background:url(resources/images/viewbg.png) repeat">
+<body style="background:url(resources/images/viewer/viewbg.png) repeat">
 <div class="flipbook-viewport">
 	<div class="container">
 		<div class="flipbook">

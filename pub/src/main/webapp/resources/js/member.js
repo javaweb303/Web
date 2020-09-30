@@ -3,33 +3,7 @@
  */
 	$(function() {
 		$msg = '<font color="red" size="0.6"><b>필수 입력 값입니다.</b></font>';
-		$('#id').blur(function() {
-			if ($.trim($(this).val()) == "") {
-				$('#iderrbox').text('');
-				$('#iderrbox').append($msg);
-			} else {
-				$('#iderrbox').text('');
-				var obj = {"id":$.trim($(this).val())};
-				$.ajax({
-					type : "post",
-					url : "/idcheck",
-					dataType : "text",
-					contentType : "application/json",
-					data : JSON.stringify(obj),
-					success : function(data) {
-						if(data=='SUCCESS'){
-							$('#iderrbox').append('<font color="blue" size="0.6"><b>사용가능한 아이디입니다.</b></font>');
-						}
-						if(data=='FAIL'){
-							$('#iderrbox').append('<font color="red" size="0.6"><b>중복되는 아이디입니다.</b></font>');
-						}
-					},
-					error : function(errorThrown) {
-						alert(errorThrown.statusText);
-					}
-				});
-			}
-		});
+
 		$('#pw').blur(function() {
 			if ($.trim($(this).val()) == "") {
 				$('#pwderrbox').text('');
@@ -77,9 +51,6 @@
 					if(data=='SUCCESS'){
 						alert('인증메일이 발송되었습니다.');
 					}
-				},
-				error : function(errorThrown) {
-					alert(errorThrown.statusText);
 				}
 			});
 		});

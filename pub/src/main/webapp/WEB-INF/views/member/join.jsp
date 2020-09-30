@@ -37,7 +37,7 @@ th{width: 30%;}
    <div class="location"><!-- 이것도 이건 상단에 home>열린공간 >오시는길 이거 표시하는 부분? -->
    <ul class="">
    <li>회원가입 </li>
-   <li><a href="/controller">Home</a> > </li>
+   <li><a href="/">Home</a> > </li>
    </ul>
    </div>
    <div class="container" style="margin: 100px 0 100px 0;"><!-- 몸체 -->

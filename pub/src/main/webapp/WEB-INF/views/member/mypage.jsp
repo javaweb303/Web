@@ -173,13 +173,13 @@ td{padding: 12px 0 12px 10px;}
 											<img alt="" src="${loanlist.imgurl}" style="width: 165px; height: 225px; margin: 0; float: left;">
 											</c:if>
 											<c:if test="${empty loanlist.imgurl}">
-											<img src="/file/book_img/${loanlist.e_no}_/${loanlist.e_title}.png" style="width: 165px; height: 225px; margin: 0; float: left;">
+											<img src="/file/book_img/${loanlist.e_no}_/${loanlist.title}.png" style="width: 165px; height: 225px; margin: 0; float: left;">
 											</c:if>
 											<div style="padding-top: 15px;">
-												<p style="font-size: 25px; margin: 5px 0 5px 0; overflow: hidden; height: 33px;">${loanlist.e_title}</p>
-													<span>저자:${loanlist.e_author}</span><br>
-													<span>출판사:${loanlist.e_publisher}</span><br>
-													<span>출판연도:${loanlist.e_publication_year}</span><br>
+												<p style="font-size: 25px; margin: 5px 0 5px 0; overflow: hidden; height: 33px;">${loanlist.title}</p>
+													<span>저자:${loanlist.author}</span><br>
+													<span>출판사:${loanlist.publisher}</span><br>
+													<span>출판연도:${loanlist.publication_year}</span><br>
 													<span>대출일:${loanlist.loan_date}</span><br>
 													<span>반납예정일:${loanlist.return_date}</span>
 											</div>

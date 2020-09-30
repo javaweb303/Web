@@ -6,10 +6,10 @@
 <style>
 /*헤더 색*/
 #head {
-	background-color: #D4748C
+	background-color: #5F78D4
 } /*색변경*/
 #gnb li ul {
-	border-top: 7px solid #f18023;
+	border-top: 7px solid #B36276;
 } /*색변경*/
 /*내용*/
 #content {
@@ -25,7 +25,7 @@
 /*테마 이름*/
 #content .content_head {
 	height: 200px;
-	background-color: #ED829D;
+	background-color: #6B87ED;
 } /*색변경*/
 #content .content_head h2 {
 	padding: 75px 0 70px;
@@ -314,12 +314,12 @@
 </style>
 <div id="content">
 	<div class="content_head">
-		<h2>도서관 서비스</h2>
+		<h2>전자잭</h2>
 	</div>
 	<div class="location">
 		<ul class="">
-			<li>통합 검색</li>
-			<li>도서관 서비스 ></li>
+			<li>통합검색</li>
+			<li>전자도서관 ></li>
 			<li><a href="/">Home</a> ></li>
 		</ul>
 	</div>
@@ -330,7 +330,7 @@
 
 			<!-- 좌측 카테고리 -->
 			<div class="cont_lnb">
-				<h2>통합 검색</h2>
+				<h2>전자 책</h2>
 				<ul class="cont_lnb_sub">
 					<li><a href="/searchEbook">통합검색</a></li>
 				</ul>
@@ -339,7 +339,7 @@
 
 			<!-- 우측 본문내용 -->
 			<div class="cont_box">
-				<h2>통합 검색</h2>
+				<h2>전자책</h2>
 				<div>
 					<!-- 우측 메뉴 창 -->
 					<!-- 검색 폼(검색 버튼 클릭하면 검색 키워드가 컨트롤러에 전송) -->

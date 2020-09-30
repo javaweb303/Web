@@ -19,19 +19,19 @@ select e_no from ebook where title=#{title} and author=#{author} and publisher=#
 select * from ebook where e_no=#{e_no}
 </select>
 <insert id="recommand" parameterType="java.util.Map"><!-- 추천 했는지 확인하기위한 테이블 -->
-insert into recommand values(#{id},#{e_no})
+insert into recommend values(#{id},#{e_no})
 </insert>
 <update id="e_recommand_up" parameterType="java.util.Map"><!-- 해당 번호의 전자책 추천 횟수 증가 -->
-update ebook set e_recommend=e_recommend+1 where e_no=#{e_no}
+update ebook set recommend=recommend+1 where e_no=#{e_no}
 </update>
 <select id="getrecommand" parameterType="java.util.Map" resultType="String"><!-- 추천 확인을 위한 값을 받아옴. -->
-select * from recommand where id=#{id} and e_no=#{e_no}
+select * from recommend where id=#{id} and e_no=#{e_no}
 </select>
 <delete id="non_recommand">
-delete from recommand where id=#{id} and e_no=#{e_no}
+delete from recommend where id=#{id} and e_no=#{e_no}
 </delete>
 <update id="e_recommand_down" parameterType="java.util.Map"><!-- 해당 번호의 전자책 추천 횟수 감소 -->
-update ebook set e_recommend=e_recommend-1 where e_no=#{e_no}
+update ebook set recommend=recommend-1 where e_no=#{e_no}
 </update>
 
 <select id="ebookCount" resultType="int"><!--  강사님꺼 참고해서 -->

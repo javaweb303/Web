@@ -43,7 +43,7 @@ CREATE TABLE board (
 );
 
 /* 추천 */
-CREATE TABLE recommand (
+CREATE TABLE recommend (
 	id VARCHAR2(100), /* 아이디 */
 	e_no NUMBER(38) /* 전자책번호 */
 );
@@ -88,8 +88,8 @@ CREATE TABLE email_code (
 
 /*외래키*/
 /*추천*/
-ALTER TABLE recommand ADD CONSTRAINT FK_member_TO_recommand FOREIGN KEY (id) REFERENCES member (id);
-ALTER TABLE recommand ADD CONSTRAINT FK_ebook_TO_recommand FOREIGN KEY (e_no) REFERENCES ebook (e_no);
+ALTER TABLE recommend ADD CONSTRAINT FK_member_TO_recommend FOREIGN KEY (id) REFERENCES member (id);
+ALTER TABLE recommend ADD CONSTRAINT FK_ebook_TO_recommend FOREIGN KEY (e_no) REFERENCES ebook (e_no);
 
 /*대출정보*/
 ALTER TABLE book_loan_info ADD CONSTRAINT FK_member_TO_book_loan_info FOREIGN KEY (id) REFERENCES member (id);
@@ -121,7 +121,7 @@ select * from ebook;
 select * from file_list;
 select * from tbl_file;
 select * from email_code;
-select * from recommand;
+select * from recommend;
 select * from reply;
 select * from book_loan_info;
 

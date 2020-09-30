@@ -343,7 +343,7 @@ class Rest{
         	}
         	long calDateDays = calOverDate / ( 24*60*60*1000);
         	System.out.println("연체"+calDateDays);
-        	if(calDateDays > 0) {
+        	if(calDateDays >= 0) {
 				try {
 					eBookService.book_Loan((String)session.getAttribute("id"),e_no);//서비스에서 vo에 담을예정.그후에 추가.
 					entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
@@ -367,34 +367,34 @@ class Rest{
 	@RequestMapping("/book_return")
 	public ResponseEntity<String> book_return(HttpServletRequest request,HttpSession session,@RequestParam("e_no") int e_no) throws ParseException{
 		ResponseEntity<String> entity=null;
-		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
-		String time = format.format(new Date());
+		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");//데이터타입 년월일로 출력형식변경 하기위한
+		String time = format.format(new Date());//현재시간을 담음
 		if(session.getAttribute("id") == null) {
 			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
 		}else {		
 			try {
 				String date=eBookService.getReturnDate((String)session.getAttribute("id"),e_no);//반납일을 가져옴
 				Long calOverDate=(long) 0;
-				Date Date1=format.parse(date);//String을 date형식으로 변환 해당형식으로 변환
-				Date Date2=format.parse(time);
-				long calDate=Date2.getTime()-Date1.getTime();//시간 계산
-				System.out.println(Date1);
+				Date receiveDate=format.parse(date);//String을 date형식으로 변환 해당형식으로 변환
+				Date Now=format.parse(time);
+				long calDate=Now.getTime()-receiveDate.getTime();//시간 계산
+				System.out.println(receiveDate);
 				long calDateDays = calDate / ( 24*60*60*1000); //일자 구하는
 				calDateDays+=10;
 		        //calDateDays = Math.abs(calDateDays);
-		        System.out.println(calDateDays);
+		        System.out.println(calDateDays);//3일이 초과됨
 		        if(calDateDays > 0) {//0보다 크면 아래 문장 실행
 		        	System.out.println("12321hkjgdskfgh");
 		        	String over=memberService.getOverDue((String)session.getAttribute("id"));
 		        	if(over != null) {
 		        		Date overdate=format.parse(over);
-		        		calOverDate=Date2.getTime()-overdate.getTime();
+		        		calOverDate=overdate.getTime()-Now.getTime();//남은 연체기간 계산?
 		        	}
-		        	
-		        	
 		        	long overDateDays = calOverDate / ( 24*60*60*1000);
+		        	System.out.println("연체일 "+overDateDays);
 		        	if(overDateDays > 0) {
 		        		int days=(int)(overDateDays+calDateDays);
+		        		System.out.println("계산도ㅣㄴ"+days);
 		        		memberService.setOverDue((String)session.getAttribute("id"),(int)(overDateDays+calDateDays));
 		        	}else {
 		        		memberService.setOverDue((String)session.getAttribute("id"),(int)calDateDays);
