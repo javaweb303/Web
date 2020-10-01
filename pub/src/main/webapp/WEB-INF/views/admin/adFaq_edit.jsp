@@ -81,22 +81,3 @@
   <!-- /.content-wrapper -->
 
   <jsp:include page="../include/adminFooter.jsp"></jsp:include>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="<c:url value='/bootstrap/plugins/jquery/jquery.min.js' />"></script>
-<!-- Bootstrap 4 -->
-<script src="<c:url value='/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-<!-- AdminLTE App -->
-<script src="<c:url value='/bootstrap/dist/js/adminlte.min.js' />"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<c:url value='/bootstrap/dist/js/demo.js' />"></script>
-</body>
-</html>

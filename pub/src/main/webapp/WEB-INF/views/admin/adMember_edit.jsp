@@ -50,20 +50,26 @@
               <c:if test="${m.state == 1}">가입회원</c:if>
               <c:if test="${m.state == 2}">탈퇴회원</c:if>
               </span></td>
+              <c:if test="${m.state == 1}">
               <th style="background-color:#F6F6F6;">회원가입일</th>
               <td>${m.regdate}</td>
+              </c:if>
+              <c:if test="${m.state == 2}">
+              <th style="background-color:#F6F6F6;">회원탈퇴일</th>
+              <td>${m.deldate}</td>
+              </c:if>
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">아이디</th>
               <td>${m.id}</td>
               <th style="background-color:#F6F6F6;">이름</th>
-              <td>${m.name}</td>
+              <td><input type="text" name="name" class="form-control" id="name" value="${m.name}"></td>
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">생년월일</th>
               <td>${m.birth}</td>
               <th style="background-color:#F6F6F6;">성별</th>
-              <td>${m.gender}</td>
+              <td><input type="text" name="name" class="form-control" id="name" value="${m.gender}"></td>
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">이메일</th>
@@ -86,22 +92,3 @@
   <!-- /.content-wrapper -->
 
   <jsp:include page="../include/adminFooter.jsp"></jsp:include>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="<c:url value='/bootstrap/plugins/jquery/jquery.min.js' />"></script>
-<!-- Bootstrap 4 -->
-<script src="<c:url value='/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-<!-- AdminLTE App -->
-<script src="<c:url value='/bootstrap/dist/js/adminlte.min.js' />"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<c:url value='/bootstrap/dist/js/demo.js' />"></script>
-</body>
-</html>

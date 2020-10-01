@@ -29,7 +29,7 @@
 							<ul class="gnb_sub">
 								<li><a href="/search">통합검색</a></li>
 								<li><a href="/new">신간도서</a></li>
-								<li><a href="/popular">베스트 셀러</a></li>
+								<li><a href="/popular">인기도서</a></li>
 								<li><a href="/recomm">추천도서</a></li>
 							</ul></li>
 						<li class="gnb_menu"><a href="/eBook">전자 도서관</a>

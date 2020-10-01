@@ -246,10 +246,6 @@ div {
 			<div class="cont_box">
 				<!-- 몸체 우측공간 -->
 				<h2>도서 상세 정보</h2>
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/영선
-=======
->>>>>>> refs/heads/영선
 				<div>
 					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
 					<div class="contents" id="contents">

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/adminHeader.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="resources/js/member.js"></script>	
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -65,6 +68,13 @@
 						</div>
 						
 						<div class="form-group row">
+						<label for="pwdCheck" class="col-sm-2 col-form-label">비밀번호  확인</label>
+						<div class="col-sm-10">
+						<input type="password" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="password">
+						</div>
+						</div>
+						
+						<div class="form-group row">
 						<label for="name" class="col-sm-2 col-form-label">이름</label>
 						<div class="col-sm-10">
 						<input type="text" class="form-control" name="name" id="name" placeholder="name">
@@ -97,7 +107,7 @@
 						<div class="form-group row">
 						<label for="phone" class="col-sm-2 col-form-label">휴대전화</label>
 						<div class="form-inline col-sm-10">
-						<select class="form-control" id="mem_phone01" name="mem_phone01">
+						<select class="form-control" id="mem_phone1" name="mem_phone1">
                         <option value="010">010</option>
 						<option value="011">011</option>
 						<option value="012">012</option>
@@ -110,8 +120,8 @@
 						<option value="019">019</option>
                         </select>
                 		&nbsp;-&nbsp;
-                		<input class="form-control col-1" type="text" id="mem_phone02" name="mem_phone02" style="width: 50px"> &nbsp;-&nbsp; 
-                		<input class="form-control col-1" type="text" id="mem_phone03" name="mem_phone03" style="width: 50px">
+                		<input class="form-control col-1" type="text" id="mem_phone2" name="mem_phone2" style="width: 50px"> &nbsp;-&nbsp; 
+                		<input class="form-control col-1" type="text" id="mem_phone3" name="mem_phone3" style="width: 50px">
                         
 						</div>
 						</div>
@@ -120,8 +130,8 @@
                     <label for="email" class="col-sm-2 col-form-label">이메일</label>
                     <div class="form-inline col-sm-10">
                       <input type="text" class="form-control" name="email" id="email" placeholder="Email"> @ 
-					  <input type="text" class="form-control" name="emailDomain" id="emailDomain" >&nbsp;
-                      <select class="form-control" name="select_box" id="select_box" style="" onchange="select_();">
+					  <input type="text" class="form-control" name="email_domain" id="email_domain">&nbsp;
+                      <select class="form-control" name="select_box" id="select_box" onchange="select_();">
 										<option value="direct">직접입력</option>
 										<option value="naver.com">네이버</option>
 										<option value="daum.net">다음</option>
@@ -173,23 +183,3 @@
 		<!-- /.content-wrapper -->
 
 		<jsp:include page="../include/adminFooter.jsp"></jsp:include>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
-	</div>
-	<!-- ./wrapper -->
-
-	<!-- jQuery -->
-	<script src="<c:url value='/bootstrap/plugins/jquery/jquery.min.js' />"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="<c:url value='/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-	<!-- AdminLTE App -->
-	<script src="<c:url value='/bootstrap/dist/js/adminlte.min.js' />"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="<c:url value='/bootstrap/dist/js/demo.js' />"></script>
-</body>
-</html>

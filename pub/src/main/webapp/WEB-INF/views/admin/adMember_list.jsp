@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <jsp:include page="../include/adminHeader.jsp"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
@@ -75,7 +76,12 @@
               ${m.id}
               <br/>
               <small>
-              ${m.regdate}
+              <c:if test="${m.state==1}">
+              ${fn:substring(m.regdate,0,10)}
+              </c:if>
+              <c:if test="${m.state==2}">
+              ${fn:substring(m.deldate,0,10)}
+              </c:if>
               </small>
               </a>
               </td>
@@ -83,7 +89,7 @@
               ${m.name}
               </td>
               <td>
-              ${m.email}
+              ${m.email}@${m.email_domain}
               </td>
               <td>
               <span>
@@ -127,22 +133,3 @@
   <!-- /.content-wrapper -->
 
   <jsp:include page="../include/adminFooter.jsp"></jsp:include>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="<c:url value='/bootstrap/plugins/jquery/jquery.min.js' />"></script>
-<!-- Bootstrap 4 -->
-<script src="<c:url value='/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-<!-- AdminLTE App -->
-<script src="<c:url value='/bootstrap/dist/js/adminlte.min.js' />"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<c:url value='/bootstrap/dist/js/demo.js' />"></script>
-</body>
-</html>

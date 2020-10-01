@@ -43,8 +43,8 @@ delete from gongji where gongji_no=#{no}
 
 <insert id="ad_join">
 <!-- 1은 가입회원 2는 탈퇴회원 -->
-insert into member (id, pw, name, gender, birth, zipNo, roadAddrPart1, roadAddrPart2, addrDetail, mem_phone01, mem_phone02, mem_phone03, email, emailDomain, regdate, state)
-values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAddrPart2},#{addrDetail},#{mem_phone01},#{mem_phone02},#{mem_phone03},#{email},#{emailDomain},sysdate,1)
+insert into member (id, pw, name, gender, birth, zipNo, roadAddrPart1, roadAddrPart2, addrDetail, mem_phone1, mem_phone2, mem_phone3, email, email_domain, regdate, state)
+values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAddrPart2},#{addrDetail},#{mem_phone1},#{mem_phone2},#{mem_phone3},#{email},#{email_domain},sysdate,1)
 </insert>
 
 <select id="adFaq_count" resultType="int">
@@ -63,5 +63,8 @@ select * from faqContent where faqNo=#{no}
 update faqContent set question=#{question}, answer=#{answer} where faqNo=#{faqNo}
 </update>
 
+<select id="adEbook_list" resultType="ebook">
+select * from ebook order by e_no desc
+</select>
 </mapper>
 

@@ -41,7 +41,7 @@ public class FileServiceImpl extends JFrame implements FileService,ActionListene
 	@Autowired
 	private FileDAO fileDAO;
 
-	private static final String PATH = "C:/upload";
+	private static final String PATH = "C:/Upload";
 	//private static final String PREFIX_URL = "/upload/";
 	/*
 	@Override

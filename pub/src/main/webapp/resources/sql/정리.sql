@@ -21,7 +21,6 @@ CREATE TABLE member (
 	state NUMBER(10) DEFAULT 1, /* 회원상태 */
 	overdue DATE /* 연체기간 */
 );
-
 /* 전자책 */
 CREATE TABLE ebook (
 	e_no NUMBER(38) constraint eBook_Eno_PK primary key, /* 전자책번호 */
@@ -112,7 +111,7 @@ drop table email_code;
 drop table book_loan_info;
 drop table reply;
 drop table recommand;
-drop table ebook;
+drop table ebook CASCADE CONSTRAINTS;
 drop table member;
 
 /*테이블 확인*/
@@ -127,7 +126,7 @@ select * from book_loan_info;
 
 /*시퀀스*/
 /* 전자책 번호 */
-create sequence e_no_seq
+create sequence e_num_seq
 increment by 1 
 start with 1 
 nocache;
@@ -145,7 +144,7 @@ start with 1
 nocache;
 
 /* 시퀀스 삭제*/
-drop sequence e_no_seq;
+drop sequence e_num_seq;
 drop sequence file_no_seq;
 drop sequence reply_no_seq;
 
@@ -154,3 +153,4 @@ insert into board values('notice','공지사항');
 insert into board values('faq','자주묻는질문');
 
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test','test','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);
+insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,deldate,state,delcont) values('test1','test1','홍길동','abc','naver.com','여자','19971212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,2,'더이상 홈페이지를 사용하지 않게 되었습니다.');

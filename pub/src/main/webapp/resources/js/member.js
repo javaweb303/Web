@@ -89,12 +89,13 @@
 			return false;
 		}
 	}
-function select_(){
+
+	function select_(){
 	var select_val=document.getElementById('select_box').value;
 	if(select_val=='direct'){
-		document.getElementById('emailDomain').value="";
+		document.getElementById('email_domain').value="";
 	}else{
-		document.getElementById('emailDomain').value=select_val;
+		document.getElementById('email_domain').value=select_val;
 	}
 	alert(select_val);
 }

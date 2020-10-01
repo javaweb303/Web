@@ -114,6 +114,7 @@ public class eBookController {
 	public ModelAndView searchEbook(@RequestParam(required=false)String searchKeyword,HttpServletRequest request) {
 
 		ModelAndView model=new ModelAndView();
+		String url;
 		eBookVO vo=new eBookVO();
 		//검색어가 있으면 책 정보 리스트를 가져옴..
 		if(searchKeyword != null) {
@@ -127,9 +128,15 @@ public class eBookController {
 		System.out.println(categoryId);
 		vo.setSearchCa(categoryId);
 		//XML 데이터를 호출할 URL => 알라딘 api 사용
-		String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType="+queryType+"&CategoryId="+categoryId+"&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20070901&Cover=Big";
+		url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType="+queryType+"&CategoryId="+categoryId+"&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20070901&Cover=Big";
 
-		//System.out.println(url);
+		System.out.println(url);
+		model.addObject("query", query);
+		model.addObject("queryType", queryType);
+		model.addObject("categoryId", categoryId);
+		}else {
+			url="http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101";
+		}
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
 		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
 
@@ -140,9 +147,8 @@ public class eBookController {
 
 		
 		model.addObject("pubList", pubList);
-
 		//System.out.println(pubList);
-		}
+		
 		model.setViewName("ebook/srchEbook");
 		return model;
 
@@ -175,7 +181,7 @@ public class eBookController {
 				vo.setImgurl((String)map.get("cover"));
 				int no=eBookService.addBook_isbn(vo);
 				try {
-					InputStream is=new FileInputStream(new File("C:/Users/st473/Downloads/turnjs4-api-docs (1).pdf"));
+					InputStream is=new FileInputStream(new File("C:/Users/User/Downloads/book.pdf"));
 					PdfFile_Img pdf = new PdfFile_Img();
 					pdf.conversionPdf2Img(is, "ebook", no);
 				}catch (Exception e) {

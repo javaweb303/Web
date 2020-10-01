@@ -49,8 +49,14 @@
               <c:if test="${m.state == 1}">가입회원</c:if>
               <c:if test="${m.state == 2}">탈퇴회원</c:if>
               </span></td>
+              <c:if test="${m.state==1}">
               <th style="background-color:#F6F6F6;">회원가입일</th>
               <td>${fn:substring(m.regdate,0,10)}</td>
+              </c:if>
+              <c:if test="${m.state==2}">
+              <th style="background-color:#F6F6F6;">회원탈퇴일</th>
+              <td>${fn:substring(m.deldate,0,10)}</td>
+              </c:if>
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">아이디</th>
@@ -66,14 +72,23 @@
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">이메일</th>
-              <td>${m.email}@${m.emailDomain}</td>
+              <td>${m.email}@${m.email_domain}</td>
               <th style="background-color:#F6F6F6;">핸드폰 번호</th>
-              <td>${m.mem_phone01}-${m.mem_phone02}-${m.mem_phone03}</td>
+              <td>${m.mem_phone1}-${m.mem_phone2}-${m.mem_phone3}</td>
               </tr>
               <tr>
               <th style="background-color: #F6F6F6;">주소</th>
               <td colspan="3">[${m.zipNo}] &nbsp; ${m.roadAddrPart1} &nbsp; ${m.roadAddrPart2} ${m.addrDetail} </td>
               </tr>
+              
+              <c:if test="${m.state==2}">
+              <tr>
+              <th style="background-color:#F6F6F6;" colspan="4">회원탈퇴 사유</th>
+              </tr>
+              <tr>
+              <td colspan="4" rowspan="3"> ${m.delcont}</td>
+              </tr>
+              </c:if>
               <!-- 
                   <tr>
                       <td>
@@ -147,22 +162,3 @@
   <!-- /.content-wrapper -->
 
   <jsp:include page="../include/adminFooter.jsp"></jsp:include>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="<c:url value='/bootstrap/plugins/jquery/jquery.min.js' />"></script>
-<!-- Bootstrap 4 -->
-<script src="<c:url value='/bootstrap/plugins/bootstrap/js/bootstrap.bundle.min.js' />"></script>
-<!-- AdminLTE App -->
-<script src="<c:url value='/bootstrap/dist/js/adminlte.min.js' />"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<c:url value='/bootstrap/dist/js/demo.js' />"></script>
-</body>
-</html>

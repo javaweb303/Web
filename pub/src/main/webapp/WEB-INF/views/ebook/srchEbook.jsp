@@ -356,37 +356,32 @@
 									<div class="field">
 										<label for="searchCa" class="blind">전체</label> <select
 											name="searchCa" class="searchCa">
-											<option value="0" selected="selected">전체</option>
-											<option value="38401">컴퓨터/모바일</option>
-											<option value="38396">소설/시/희곡</option>
-											<option value="38403">인문학</option>
-											<option value="38405">과학</option>
-											<option value="38404">사회과학</option>
-											<option value="38397">역사</option>
-											<option value="38402">예술/대중문화</option>
-											<option value="38409">가정/요리/뷰티</option>
-											<option value="56388">건강/취미/레저</option>
-											<option value="38411">외국어</option>
-											<option value="38410">종교/역학</option>
-											<option value="38406">어린이</option>
-						
+											<option value="0" <c:if test="${categoryId==0}">selected</c:if>>전체</option>
+											<option value="1" <c:if test="${categoryId==1}">selected</c:if>>소설/시/희곡</option>
+											<option value="656" <c:if test="${categoryId==656}">selected</c:if>>인문학</option>
+											<option value="987" <c:if test="${categoryId==987}">selected</c:if>>과학</option>
+											<option value="798" <c:if test="${categoryId==798}">selected</c:if>>사회과학</option>
+											<option value="74" <c:if test="${categoryId==74}">selected</c:if>>역사</option>
+											<option value="517" <c:if test="${categoryId==517}">selected</c:if>>예술/대중문화</option>
+											<option value="1322" <c:if test="${categoryId==1322}">selected</c:if>>외국어</option>
+											<option value="1237" <c:if test="${categoryId==1237}">selected</c:if>>종교/역학</option>
 										</select>
 									</div>
 									<!-- 검색 키워드 분류 카테고리(전체 or 제목 or 저자 or 출판사) -->
 									<div class="searchSelect">
 										<label for="searchCondition" class="blind">전체</label> <select
 											id="searchCondition" name="searchCondition" title="검색 선택">
-											<option value="Keyword" selected="selected">전체</option>
-											<option value="Title">제목</option>
-											<option value="Author">저자</option>
-											<option value="Publisher">출판사</option>
+											<option value="Keyword" <c:if test="${queryType=='Keyword'}">selected</c:if>>전체</option>
+											<option value="Title" <c:if test="${queryType=='Title'}">selected</c:if>>제목</option>
+											<option value="Author" <c:if test="${queryType=='Author'}">selected</c:if>>저자</option>
+											<option value="Publisher" <c:if test="${queryType=='Publisher'}">selected</c:if>>출판사</option>
 										</select>
 									</div>
 									<!-- 검색어 입력 -->
 									<div class="keywordInput">
 										<input type="text" id="searchKeyword" name="searchKeyword"
 											title="검색어를 입력하세요" placeholder="검색어를 입력하세요"
-											autocomplete="off" class="ac_input">
+											autocomplete="off" class="ac_input" value="${query}">
 									</div>
 									<!-- 버튼으로 검색 결과 컨트롤러에 전송 -->
 									<div class="btnSubmit">

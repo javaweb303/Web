@@ -31,46 +31,55 @@ public class LibraryController {
 	public ModelAndView search(@RequestParam(required=false)String searchKeyword,HttpServletRequest request) {
 
 		ModelAndView model=new ModelAndView();
-		
+		String url;
 		//검색어가 있으면 책 정보 리스트를 가져옴..
 		if(searchKeyword != null) {
-		String query = request.getParameter("searchKeyword");
-		System.out.println(query);
-		String queryType =request.getParameter("searchCondition");
-		System.out.println(queryType);
-		String categoryId = request.getParameter("searchCa");
-		System.out.println(categoryId);
-		//XML 데이터를 호출할 URL => 알라딘 api 사용
-		String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType="+queryType+"&CategoryId="+categoryId+"&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20070901&Cover=Big";
+			String query = request.getParameter("searchKeyword");
+			System.out.println(query);
+			String queryType =request.getParameter("searchCondition");
+			System.out.println(queryType);
+			String categoryId = request.getParameter("searchCa");
+			System.out.println(categoryId);
+			//XML 데이터를 호출할 URL => 알라딘 api 사용
+			url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbmys628111103001&Query="+query+"&QueryType="+queryType+"&CategoryId="+categoryId+"&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20070901&Cover=Big";
 
-		//System.out.println(url);
-		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
-
-		String itemsname="item";
-
-		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
-		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
-
-		
-		model.addObject("pubList", pubList);
-		model.addObject("query", query);
-		model.addObject("queryType", queryType);
-		model.addObject("categoryId", categoryId);
-		//System.out.println(pubList);
+			System.out.println(url);
+			model.addObject("query", query);
+			model.addObject("queryType", queryType);
+			model.addObject("categoryId", categoryId);
+		} else {
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101";
 		}
-		
+			//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+			String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
+
+			String itemsname="item";
+
+			//각 게시물하나에 해당하는 XML 노드를 담을 리스트
+			ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
+
+
+			model.addObject("pubList", pubList);
+			
+			//System.out.println(pubList);
+
 		model.setViewName("library_services/srchBook");
 		return model;
 
 	}
 
+
 	@RequestMapping("/new")
-	public ModelAndView newBook() {
-
-		//XML 데이터를 호출할 URL
-		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
-
+	public ModelAndView newBook(@RequestParam(required=false)String searchCa) {
+		System.out.println("카테고리:"+searchCa);
+		String url;
+		if(searchCa != null) {
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big&CategoryId="+searchCa;
+			System.out.println("url:"+url);
+		}else {
+			//XML 데이터를 호출할 URL
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
+		}
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
 		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
 
@@ -81,32 +90,62 @@ public class LibraryController {
 
 		ModelAndView model=new ModelAndView();
 		model.addObject("pubList", pubList);
+		model.addObject("categoryId", searchCa);
 		model.setViewName("library_services/newBook");
 		return model;
 	}
 
 	@RequestMapping("/popular")
-	public ModelAndView popular() {
-		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal=Calendar.getInstance();
-		String end=dateFormat.format(cal.getTime());
-		cal.add(Calendar.MONTH,-5);
-		String start=dateFormat.format(cal.getTime());
+	public ModelAndView popular(@RequestParam(required=false)String searchCa) {
+		System.out.println("카테고리:"+searchCa);
+		String url;
+		if(searchCa != null) {
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=Bestseller&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big&CategoryId="+searchCa;
+			System.out.println("url:"+url);
+		}else {
+			//XML 데이터를 호출할 URL
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=Bestseller&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
+		}
+		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
 
-		//XML 데이터를 호출할 URL
-		String url = "http://data4library.kr/api/loanItemSrch?authKey=60ae2adbf5c860435596c14ca52a122889124505a03ee28c41a829ea7185fce0&startDt="+start+"&endDt="+end+"&gender=0&from_age=6&to_age=10&region=11;22&addCode=0&kdc=6&pageNo=1&pageSize=20";
+		String itemsname="item";
 
+		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
+		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
 
-		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열 
-		String[] fieldNames ={"bookname","authors","publisher","publication_year","bookImageURL","isbn13"};
+		ModelAndView model=new ModelAndView();
+		model.addObject("categoryId", searchCa);
+		model.addObject("pubList", pubList);
+		model.setViewName("library_services/popBook");
+		return model;
+	}
 
-		String itemsname="doc";
+	@RequestMapping("/recomm")
+	public ModelAndView recomm(@RequestParam(required=false)String searchCa) {
+
+		System.out.println("카테고리:"+searchCa);
+		String url;
+		if(searchCa != null) {
+			//XML 데이터를 호출할 URL => 파싱할 URL
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemEditorChoice&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big&CategoryId="+searchCa;
+			System.out.println("url:"+url);
+		}else {
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemEditorChoice&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big&CategoryId=1230";
+		}
+
+		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
+
+		String itemsname="item";
+
 		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
 		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
 
 		ModelAndView model=new ModelAndView();
 		model.addObject("pubList", pubList);
-		model.setViewName("library_services/popular");
+		model.addObject("categoryId", searchCa);
+		model.setViewName("library_services/recBook");
 		return model;
 	}
 
@@ -120,33 +159,10 @@ public class LibraryController {
 		String itemsname="item";
 		ArrayList<Map> pubList=xmlp(url, fieldNames,itemsname);
 		ModelAndView model=new ModelAndView();
+		model.addObject("pubList", pubList);
 		model.setViewName("library_services/bookcont");
-		model.addObject("pubList", pubList);
 		return model;
 	}
-
-	@RequestMapping("/recomm")
-	public ModelAndView recomm(HttpServletRequest request) {
-
-		//String categoryId = request.getParameter("categoryId");
-		//System.out.println(categoryId);
-		//XML 데이터를 호출할 URL => 파싱할 URL
-		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemEditorChoice&CategoryId=1230&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
-
-		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
-		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13","description"};
-
-		String itemsname="item";
-
-		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
-		ArrayList<Map> pubList = xmlp(url, fieldNames,itemsname);
-
-		ModelAndView model=new ModelAndView();
-		model.addObject("pubList", pubList);
-		model.setViewName("library_services/recBook");
-		return model;
-	}
-
 
 	/*
 	// tag값의 정보를 가져오는 메소드
