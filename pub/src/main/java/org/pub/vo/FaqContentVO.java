@@ -17,4 +17,7 @@ public class FaqContentVO {
 	private int startrow;
 	private int endrow;
 	
+	private String find_field; //검색 필드
+	private String find_name; //검색어 
+	
 }

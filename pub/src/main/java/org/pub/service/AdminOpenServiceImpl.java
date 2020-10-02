@@ -15,6 +15,11 @@ public class AdminOpenServiceImpl implements AdminOpenService {
 	private AdminOpenDAO adminOpenDAO;
 
 	@Override
+	public void insertG(GongjiVO g) {
+		this.adminOpenDAO.insertG(g);
+	}
+	
+	@Override
 	public List<GongjiVO> getGongjiList(GongjiVO g) {
 		return this.adminOpenDAO.getGongjiList(g);
 	}
@@ -58,6 +63,13 @@ public class AdminOpenServiceImpl implements AdminOpenService {
 	public void editFaq(FaqContentVO f) {
 		this.adminOpenDAO.editFaq(f);
 	}
+
+	@Override
+	public void insertF(FaqContentVO f) {
+		this.adminOpenDAO.insertF(f);
+	}
+
+	
 	
 	
 }

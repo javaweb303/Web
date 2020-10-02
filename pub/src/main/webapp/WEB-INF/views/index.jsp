@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,7 +117,7 @@ $(function(){
 					<c:forEach items="${pubList}" var="list" step="1">
 						<li style="width: 200px; height: 275px; float:left; margin: 0 15px 0 15px;">
 						<a href="./bookcont?isbn=${list['isbn13']}">
-						<img alt="책이미지" src="${list['bookImageURL']}" style="width: 200px; height: 250px;"></a>
+						<img alt="책이미지" src="${list['cover']}" style="width: 200px; height: 250px;"></a>
 						<p style="width: 200px; height: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${list['bookname']}</p>
 						</li>
 					</c:forEach>
@@ -124,22 +125,36 @@ $(function(){
 			</div>
       	<div id="listbox" style="margin: 0 20px 0 20px; padding-top: 25px; border-top: 1px solid gray;">
       		<div style="width: 50%; height: 350px; float: left;">
-      		<h3 style="margin: 20px 0;">공지사항</h3>
-      		<div class="l"><!-- 제목 나오는곳 -->
-      		<a href="#">1111</a>
-      		</div>
-      		<div class="r"><!-- 날짜 나오는곳 -->
-      		2222
-      		</div>
-      		</div>
-      		<div style="width: 50%; height: 350px; float: left;">
-      		<h3 style="margin: 20px 0;">FAQ</h3>
-      		<div class="l"><!-- 제목 나오는곳 -->
-      		<a href="#">asdasdasd</a>
-      		</div>
-      		<div class="r"><!-- 날짜 나오는곳 -->
-      		asdas
-      		</div>
+      		<div id="gMain_wrap">
+  <h2 class="gMain_title">사용자 공지목록</h2>
+  <br>
+  <table id="gMain_t">
+   <tr>
+    <th>제목</th><th>날짜</th>
+   </tr>
+   <c:if test="${!empty glist}">
+   <c:forEach var="g" items="${glist}">
+    <tr>
+     <th><a href="gongji_cont?gongji_no=${g.gongji_no}">
+      <c:if test="${fn:length(g.gongji_title)>16}">
+       ${fn:substring(g.gongji_title,0,16)}...
+      </c:if>
+      <c:if test="${fn:length(g.gongji_title)<16}">
+      ${g.gongji_title}
+      </c:if>
+     </a>
+     </th>
+     <th>${g.gongji_date}</th>
+    </tr>
+   </c:forEach>
+   </c:if>
+   <c:if test="${empty glist}">
+    <tr>
+     <th colspan="2">공지 목록이 없습니다!</th>
+    </tr>   
+   </c:if>
+  </table>
+ </div>
       		</div>
       	</div>
       </div>

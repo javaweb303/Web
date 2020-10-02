@@ -7,6 +7,8 @@ import org.pub.vo.GongjiVO;
 
 public interface AdminOpenService {
 
+	void insertG(GongjiVO g);
+	
 	List<GongjiVO> getGongjiList(GongjiVO g);
 
 	int getListCount(GongjiVO g);
@@ -24,5 +26,7 @@ public interface AdminOpenService {
 	FaqContentVO getFaqCont(int no);
 
 	void editFaq(FaqContentVO f);
+
+	void insertF(FaqContentVO f);
 
 }

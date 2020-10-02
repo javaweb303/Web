@@ -1,10 +1,8 @@
 package org.pub.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +11,10 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.pub.controller.LibraryController;
+import org.pub.service.PubService;
+import org.pub.vo.FaqContentVO;
+import org.pub.vo.GongjiVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,22 +25,23 @@ import org.w3c.dom.NodeList;
 
 @Controller
 public class PubController {
-		
+	@Autowired
+	private PubService pubService;
+	
 	@RequestMapping("/")
 	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
-		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal=Calendar.getInstance();
-		String end=dateFormat.format(cal.getTime());
-		cal.add(Calendar.MONTH,-5);
-		String start=dateFormat.format(cal.getTime());
+		
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
 		System.out.println(id);
+		
+		List<GongjiVO> glist=this.pubService.getList();
 		//XML 데이터를 호출할 URL
-		String url = "http://data4library.kr/api/loanItemSrch?authKey=60ae2adbf5c860435596c14ca52a122889124505a03ee28c41a829ea7185fce0&startDt="+start+"&endDt="+end+"&gender=0&from_age=6&to_age=10&region=11;22&addCode=0&kdc=6&pageNo=1&pageSize=10";
+		String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
 		
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열 
-		String[] fieldNames ={"bookname","authors","publisher","publication_year","bookImageURL","isbn13"};
+		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
+		
 		//각 게시물하나에 해당하는 XML 노드를 담을 리스트
 		ArrayList<Map> pubList= new ArrayList<Map>();
 		try {
@@ -51,7 +53,7 @@ public class PubController {
 			doc.getDocumentElement().normalize();
 
 			//서버에서 응답한 XML데이터를 publication(발행문서 1개 해당)태그로 각각 나눔(파라미터로 요청한 size항목의 수만큼)
-			NodeList items = doc.getElementsByTagName("doc");
+			NodeList items = doc.getElementsByTagName("item");
 			//for 루프시작
 			for (int i = 0; i < items.getLength(); i++) {
 				//i번째 publication 태그를 가져와서
@@ -82,6 +84,7 @@ public class PubController {
 		ModelAndView m=new ModelAndView();
 		m.setViewName("index");
 		m.addObject("pubList", pubList);
+		m.addObject("glist", glist);
 		return m;
 	}
 }

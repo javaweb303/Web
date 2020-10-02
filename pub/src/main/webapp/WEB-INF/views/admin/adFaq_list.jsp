@@ -40,6 +40,26 @@
           </div>
         </div>
         <div class="card-body p-0">
+        <div class="form-control-inline">
+				<form role="form" class="form-inline-lg">
+					<div class="input-group">
+					<div class="input-group-prepend">
+					<select name="find_field" class="form-control">
+								<option value="Question"
+									<c:if test="${find_field=='Question'}">${'selected'}</c:if>>질문</option>
+								<option value="Answer"
+									<c:if test="${find_field=='Answer'}">${'selected'}</c:if>>답변</option>
+							</select>
+						</div>
+						<input class="form-control" type="text" aria-label="Search" name="find_name"
+								id="find_name" placeholder="검색어를 입력해 주세요" value="${find_name}">
+						<div class="input-group-append">
+							<input class="btn btn-block btn-outline-success" value="검색" type="submit">
+						</div>
+					</div>
+				</form>
+				</div>
+				<br><br>
           <table class="table table-striped projects">
               <thead>
                   <tr>
@@ -99,11 +119,72 @@
               </c:if>
               </tbody>
           </table>
+          <%--페이징 즉 쪽나누기 추가 --%>
+  <div class="btn-group float-right">
+    <%-- 검색전 페이징 --%>
+<c:if test="${(empty find_field) && (empty find_name)}">    
+    <c:if test="${page<=1}">
+    <button type="button" class="btn btn-default"><i class="fas fa-chevron-left"></i></button>
+     
+    </c:if>
+    <c:if test="${page>1}">
+     <a href="admin_faq_list?page=${page-1}"><button type="button" class="btn btn-default"><i class="fas fa-chevron-left"></i></button></a>
+    </c:if>
+    
+    <%--현재 쪽번호 출력--%>
+    <c:forEach var="a" begin="${startpage}" end="${endpage}"
+    step="1">
+     <c:if test="${a == page}"><%--현재 페이지가 선택되었다면--%>
+      <button type="button" class="btn btn-default">${a}</button>
+     </c:if>
+     <c:if test="${a != page}"><%--현재 페이지가 선택되지 않았
+     다면 --%>
+     <a href="admin_faq_list?page=${a}"><button type="button" class="btn btn-default">${a}</button></a>
+     </c:if>
+    </c:forEach>
+    
+    <c:if test="${page >= maxpage}">
+    <button type="button" class="btn btn-default"><i class="fas fa-chevron-right"></i></button>
+    </c:if>
+    <c:if test="${page<maxpage}">
+    <a href="admin_faq_list?page=${page+1}"><button type="button" class="btn btn-default"><i class="fas fa-chevron-right"></i></button></a>
+    </c:if>
+</c:if>
+
+<%-- 검색후 페이징 --%>
+ <c:if test="${(!empty find_field) || (!empty find_name)}">    
+    <c:if test="${page<=1}">
+     <button type="button" class="btn btn-default"><i class="fas fa-chevron-left"></i></button>
+    </c:if>
+    <c:if test="${page>1}">
+     <a href="admin_faq_list?page=${page-1}&find_field=${find_field}&find_name=${find_name}"><button type="button" class="btn btn-default"><i class="fas fa-chevron-left"></i></button></a>&nbsp;
+    </c:if>
+    
+    <%--현재 쪽번호 출력--%>
+    <c:forEach var="a" begin="${startpage}" end="${endpage}"
+    step="1">
+     <c:if test="${a == page}"><%--현재 페이지가 선택되었다면--%>
+      <button type="button" class="btn btn-default">${a}</button>
+     </c:if>
+     <c:if test="${a != page}"><%--현재 페이지가 선택되지 않았
+     다면 --%>
+     <a href="admin_faq_list?page=${a}&find_field=${find_field}&find_name=${find_name}"><button type="button" class="btn btn-default">${a}</button></a>
+     </c:if>
+    </c:forEach>
+    
+    <c:if test="${page >= maxpage}">
+    <button type="button" class="btn btn-default"><i class="fas fa-chevron-right"></i></button>
+    </c:if>
+    <c:if test="${page<maxpage}">
+    <a href="admin_faq_list?page=${page+1}&find_field=${find_field}&find_name=${find_name}"><button type="button" class="btn btn-default"><i class="fas fa-chevron-right"></i></button></a>
+    </c:if>
+</c:if>   
+  </div>
         </div>
         <!-- /.card-body -->
         
         <div class="card-footer">
-        <button type="button" class="btn btn-secondary btn-sm float-right" onclick="location='admin_gongji_write';">글쓰기</button>
+        <button type="button" class="btn btn-secondary btn-sm float-right" onclick="location='admin_faq_write';">글쓰기</button>
         </div>
       </div>
       <!-- /.card -->

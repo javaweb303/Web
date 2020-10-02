@@ -10,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>FAQ 상세정보 수정</h1>
+            <h1>공지사항 등록</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">FAQ 상세정보 수정</li>
+              <li class="breadcrumb-item active">공지사항 등록</li>
             </ol>
           </div>
         </div>
@@ -28,7 +28,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">관리자 FAQ</h3>
+          <h3 class="card-title">관리자 공지사항 등록</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -39,40 +39,36 @@
             </button>
           </div>
         </div>
-        <form role="form" method="post" name="f" action="admin_faq_edit_ok">
-        <input type="hidden" name="faqNo" value="${f.faqNo}"/>
+       <form role="form" method="post" name="g" action="admin_gongji_write_ok">
         <div class="card-body p-0">
           <table class="table table projects">
               <tbody>
               <tr>
-              <th style="background-color:#F6F6F6;">글 번호</th>
-              <td>${f.faqNo}</td>
-              <th style="background-color:#F6F6F6;">카테고리</th>
-              <td><c:if test="${f.CId==100}">홈페이지</c:if>
-              <c:if test="${f.CId==200}">전자도서관</c:if>
-              <c:if test="${f.CId==300}">도서관서비스</c:if>
-              <c:if test="${f.CId==400}">열린공간</c:if></td>
+              <th style="background-color:#F6F6F6;">작성자</th>
+              <td><input type="text" class="form-control" name="gongji_name" id="gongji_name"/></td>
+              <th style="background-color:#F6F6F6;">비밀번호</th>
+              <td><input type="password" class="form-control" name="gongji_pwd" id="gongji_pwd"/></td>
               </tr>
               <tr>
-              <th style="background-color:#F6F6F6;">자주 묻는 질문</th>
-              <td colspan="3"><input type=text name="question" id="question" value="${f.question}" style="width:500px"/></td>
+              <th style="background-color:#F6F6F6;">제목</th>
+              <td colspan="3"><input class="form-control" type=text name="gongji_title" id="gongji_title"/></td>
               </tr>
               <tr>
-              <th style="background-color:#F6F6F6;" colspan="4">답변</th>
+              <th style="background-color:#F6F6F6;" colspan="4">내용</th>
               </tr>
               
               <tr>
-              <td colspan="4"><textarea name="answer" id="answer" rows="10" cols="100">${f.answer}</textarea></td>
+              <td colspan="4"><textarea class="form-control" name="gongji_cont" id="gongji_cont" rows="10" cols="100"></textarea></td>
               </tr>
               </tbody>
           </table>
         </div>
         <div class="card-footer">
-        <input type="submit" class="btn btn-primary float-right">
+        <button type="submit" class="btn btn-primary float-right">등록</button>
         </div>
         </form>
         <!-- /.card-body -->
-      </div>
+        </div>
       <!-- /.card -->
 
     </section>

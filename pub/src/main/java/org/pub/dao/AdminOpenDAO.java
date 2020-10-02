@@ -6,6 +6,8 @@ import org.pub.vo.FaqContentVO;
 import org.pub.vo.GongjiVO;
 
 public interface AdminOpenDAO {
+	
+	void insertG(GongjiVO g);
 
 	List<GongjiVO> getGongjiList(GongjiVO g);
 
@@ -24,5 +26,7 @@ public interface AdminOpenDAO {
 	FaqContentVO getFaqCont(int no);
 
 	void editFaq(FaqContentVO f);
+
+	void insertF(FaqContentVO f);
 
 }

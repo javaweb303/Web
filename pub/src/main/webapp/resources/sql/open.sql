@@ -36,60 +36,7 @@ select g_no_Seq.nextval from dual;
 
 
 -----------------------------------------------------------------------------------------------------------------
-
---faq 테이블 생성
-create table faq(
-fno number(38) primary key
-,question varchar2(4000) not null
-,answer varchar2(4000) not null
-,pno number(38) not null --페이징 번호
-,cno number(38) not null --카테고리 번호
-,chckcno number(38)
-);
-
---시퀀스 생성
-create sequence faq_no_seq
-start with 1
-increment by 1
-nocache;
-
---faq 입력
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'회원가입은 어떻게 하나요?','오른쪽 상단에서 자물쇠 아이콘을 선택하면 로그인 화면이 나옵니다. 해당 화면 맨 하단에 있는 회원가입을 선택하면 가입화면이 표시됩니다.',1,100);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'개인정보 수정은 어디서 하나요?','마이페이지에서 수정하실 수 있습니다.',2,100);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'아이디/비밀번호를 까먹었어요','아이디/비밀번호 찾기를 이용하시면 아이디 찾기와 비밀번호 변경이 가능합니다!',3,100);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'회원 탈퇴는 어떻게 하나요?','로그인 후 마이페이지에서 가능합니다',4,100);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'전자도서관을 이용하려면 회원으로 가입해야하나요?','회원이 아니더라도 검색 기능과 모두 이용 자료 열람은 가능하므로 이용 범위에 따라 필수는 아닙니다. 전자도서관 회원가입시 다양한 개인화 서비스가 가능합니다',1,200);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'열린공간은 무엇인가요?','열린공간은 공지사항과 자주 묻는 질문에 대한 서비스를 제공하는 메뉴입니다.',1,400);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'검색은 어떻게 하나요?','통합 검색은 메인페이지 상단에 검색 기능을 사용하시면 검색을 할 수 있습니다.',1,300);
-
-insert into faq (fno,question,answer,pno,cno) values(faq_no_seq.nextval,'전자도서관이 무엇인가요?','전자도서관은 전자책을 대출할 수 있는 메뉴입니다.문아공간 회원만 전자책 대출이 가능하며,해당 메뉴를 이용하고자 할 시 로그인 된 상태이어야 합니다.
-또한 대출 기간은 최대 7일로 대출 후 해당 서비스를 이용할 수 있습니다',2,200);
-
-
-select * from faq;
-
-select count(*) from faq where cno=100;
-  
-select * from (
-  select pno, fno, question, answer,cno from
-  (select * from faq order by fno))
-  where pno>=1 and pno<=10 and cno=200;
-  
-select * from (
-  select pno, fno, question, answer,cno from
-  (select * from faq order by fno))
-  where pno>=1 and pno<=6 and cno=100;
-  
-drop table faq;
-
-drop sequence faq_no_seq;
-
+--faq 카테고리 (홈페이지, 전자도서관, ...)
 create table faqCategory(
 categoryId number(38) primary key
 , categoryName varchar2(2000) not null
@@ -102,7 +49,7 @@ insert into faqCategory values(200,'전자도서관');
 insert into faqCategory values(300,'도서관서비스');
 insert into faqCategory values(400,'열린공간');
 
-
+--faq에 들어갈 내용
 create table faqContent(
 faqNo number(38) primary key
 , Question varchar2(4000) not null

@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Admin">
 
+
 <select id="ad_list" resultType="m">
 select * from member
 </select>
@@ -20,13 +21,53 @@ update member set email=#{email} where id=#{id}
 <delete id="ad_del">
 delete from member where id=#{id}
 </delete>
+
 <!-- 공지사항 sql -->
+<insert id="adBbs_in">
+insert into gongji (gongji_no,gongji_name,gongji_title,
+   gongji_pwd,gongji_cont,gongji_date)
+   values(g_no_seq.nextval,#{gongji_name},#{gongji_title},
+   #{gongji_pwd},#{gongji_cont},sysdate)
+</insert>
+
 <select id="adBbs_list" resultType="gongji">
-select * from gongji order by gongji_no desc
+select * from 
+     (select rowNum rNum,gongji_no,gongji_name,gongji_title,
+     gongji_hit,gongji_date
+     from (select * from gongji     
+     <where>
+     <if test="find_field == ''">
+      <!-- 검색조건이 없어서 총레코드 개수 -->
+     </if>
+     <if test="find_field == 'gongji_title'">
+      <!-- 검색 조건이 제목인 경우 -->
+      gongji_title like #{find_name} <!-- like는 오라클 검색
+      연산자 -->
+     </if>
+     <if test="find_field == 'gongji_cont'">
+      gongji_cont like #{find_name}
+     </if>
+     </where>     
+      order by gongji_no desc)) 
+     where rNum &gt;= #{startrow} and rNum &lt;= #{endrow}
+   <!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->
 </select>
 
 <select id="adBbs_count" resultType="int">
 select count(gongji_no) from gongji
+     <where>
+     <if test="find_field == ''">
+      <!-- 검색조건이 없어서 총레코드 개수 -->
+     </if>
+     <if test="find_field == 'gongji_title'">
+      <!-- 검색 조건이 제목인 경우 -->
+      gongji_title like #{find_name} <!-- like는 오라클 검색
+      연산자 -->
+     </if>
+     <if test="find_field == 'gongji_cont'">
+      gongji_cont like #{find_name}
+     </if>
+     </where>
 </select>
 
 <select id="adBbs_cont" resultType="gongji">
@@ -47,12 +88,33 @@ insert into member (id, pw, name, gender, birth, zipNo, roadAddrPart1, roadAddrP
 values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAddrPart2},#{addrDetail},#{mem_phone1},#{mem_phone2},#{mem_phone3},#{email},#{email_domain},sysdate,1)
 </insert>
 
+<!-- faq -->
+<insert id="adFaq_in">
+insert into faqContent (faqNo,Question,Answer,cId) values(faqCont_no_seq.nextval,#{Question},#{Answer},#{cId})
+</insert>
 <select id="adFaq_count" resultType="int">
 select count(faqNo) from faqContent
 </select>
 
 <select id="adFaq_list" resultType="fct">
-select * from faqContent order by faqNo desc
+select * from(
+select rowNum rNum, faqNo,Question,Answer,cId,chkCId from
+(select * from faqContent <where>
+     <if test="find_field == ''">
+      <!-- 검색조건이 없어서 총레코드 개수 -->
+     </if>
+     <if test="find_field == 'Question'">
+      <!-- 검색 조건이 질문인 경우 -->
+     	question like #{find_name} <!-- like는 오라클 검색
+      연산자 -->
+     </if>
+     <if test="find_field == 'Answer'">
+      answer like #{find_name}
+     </if>
+     </where>  
+     order by faqNo desc))
+     where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}
+
 </select>
 
 <select id="adFaq_cont" resultType="fct">

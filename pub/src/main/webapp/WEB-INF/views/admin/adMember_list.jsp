@@ -122,7 +122,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-        <button type="button" class="btn btn-secondary btn-sm float-right" onclick="location='#';">등록</button>
+        <button type="button" class="btn btn-secondary btn-sm float-right" onclick="location='/admin_member_reg';">등록</button>
         </div>
       </div>
       <!-- /.card -->

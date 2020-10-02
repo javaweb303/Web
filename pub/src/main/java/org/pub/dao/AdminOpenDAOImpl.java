@@ -15,6 +15,11 @@ public class AdminOpenDAOImpl implements AdminOpenDAO {
 	private SqlSession sqlSession;
 	
 	@Override
+	public void insertG(GongjiVO g) {
+		this.sqlSession.insert("adBbs_in", g);
+	}
+	
+	@Override
 	public List<GongjiVO> getGongjiList(GongjiVO g) {
 		return this.sqlSession.selectList("adBbs_list", g);
 	}
@@ -59,5 +64,12 @@ public class AdminOpenDAOImpl implements AdminOpenDAO {
 		System.out.println("dao:"+f.getQuestion());
 		this.sqlSession.update("adFaq_edit", f);
 	}
+
+	@Override
+	public void insertF(FaqContentVO f) {
+		this.sqlSession.insert("adFaq_in", f);
+	}
+
+	
 
 }
