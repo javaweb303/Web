@@ -12,7 +12,7 @@ public class eBookVO {
 	private String publisher;//출판사
 	private String publication_year;//출판연도
 	private String book_introduce;//책소개
-	private String group;//분류
+	private String category;//분류
 	private String status;//도서현황
 	private int recommend;//추천수
 	private String isbn;

@@ -59,6 +59,8 @@
 		사이트의 신뢰도를 가져온다. 자료의 불일치성을 완정히 제거한다. -->
 	<context:component-scan
 		base-package="org.pub.service" />
+	<context:component-scan
+		base-package="org.pub.util" />
 
 	<!-- 멀티파트 리졸버 -->
 

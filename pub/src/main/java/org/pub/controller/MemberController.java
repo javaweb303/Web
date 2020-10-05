@@ -87,6 +87,7 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			if(pwd.equals(dbpwd)) {
 				session.setAttribute("id", id);
+				session.setAttribute("Rank", vo.getState());
 				out.println("<script>");
 				out.println("alert('정상로그인 되었습니다.')");
 				out.println("location='/'");

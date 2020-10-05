@@ -34,7 +34,12 @@ $(function(){
             <c:if test="${!empty id}">
             <span>${id}님</span>&nbsp;
             <a href="./logout">Logout</a>
-            <a href="./mypage">Mypage</a>
+            <c:if test="${Rank eq '1'}">
+		         <a href="./mypage"><img src="resources/images/header/myPage.png"></a>
+		    </c:if>
+		    <c:if test="${Rank eq '5'}">
+		         <a href="./adIndex">AdminPage</a>
+		    </c:if>
             </c:if>
             </div>
          </div>
@@ -59,7 +64,12 @@ $(function(){
             </c:if>
             <c:if test="${!empty id}">
             <a href="./loginout"><img src="resources/images/login.png"></a>
-            <a href="./mypage"><img src="resources/images/myPage.png"></a>
+            <c:if test="${Rank eq '1'}">
+		         <a href="./mypage"><img src="resources/images/header/myPage.png"></a>
+		    </c:if>
+		    <c:if test="${Rank eq '5'}">
+		         <a href="./adIndex"><img src="resources/images/header/myPage.png"></a>
+		    </c:if>
             <a href="#" id="slbtn"><img src="resources/images/menu_Main.png"></a>
             </c:if>
             </div>

@@ -24,8 +24,15 @@ import org.apache.commons.io.FileUtils;
 import org.pub.service.eBookService;
 import org.pub.vo.eBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Add_EBook extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private eBookService ebooksService;
 	
@@ -37,10 +44,11 @@ public class Add_EBook extends JFrame implements ActionListener{
 	JLabel img_text,file_text;
 	String[] group= {"컴퓨터/모바일","소설/시/희곡","인문학","과학","사회과학","역사","예술/대중문화","가정/요리/뷰티","건강/취미/레저","외국어","종교/역학","어린이",};
 	JComboBox<String> combo;
+	JFrame frame=new JFrame();
+	
+	public void UI(){ //프레임 출력하기위한 ..
 
-	public void UI() { //프레임 출력하기위한 ..
-
-		setTitle("임시");
+		frame.setTitle("임시");
 		Container c=getContentPane();
 		c.setLayout(null);
 
@@ -133,10 +141,12 @@ public class Add_EBook extends JFrame implements ActionListener{
 		c.add(file_btn);
 		c.add(ok_btn);
 		c.add(no_btn);
-
-		setSize(510, 500);
-		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		frame.add(c);
+		
+		frame.setSize(510, 500);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	@Override
@@ -158,7 +168,7 @@ public class Add_EBook extends JFrame implements ActionListener{
 				vo.setAuthor(author.getText());
 				vo.setPublisher(publisher.getText());
 				vo.setPublication_year(publication_year.getText());
-				vo.setGroup(combo(combo.getSelectedItem().toString()));
+				vo.setCategory(combo.getSelectedItem().toString());
 				vo.setBook_introduce(book_info.getText());
 			
 				System.out.println(vo);
@@ -189,6 +199,7 @@ public class Add_EBook extends JFrame implements ActionListener{
 					e1.printStackTrace();
 				}
 				text_c();
+				frame.dispose();
 			}else {
 				JOptionPane.showMessageDialog(null, "빈칸있음..", "빈칸있음", JOptionPane.PLAIN_MESSAGE);
 			}
