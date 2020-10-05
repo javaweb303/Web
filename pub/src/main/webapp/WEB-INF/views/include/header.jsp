@@ -57,7 +57,12 @@
 					</c:if>
 					<c:if test="${!empty id}">
 					<a href="/logout"><img alt="로고" src="resources/images/sllogin.png"></a>
-					<a href="/mypage"><img src="resources/images/header/myPage.png"></a>
+					<c:if test="${Rank eq '1'}">
+		            	<a href="./mypage"><img src="resources/images/header/myPage.png"></a>
+		            </c:if>
+		            <c:if test="${Rank eq '5'}">
+		            	<a href="./adIndex"><img src="resources/images/header/myPage.png"></a>
+		            </c:if>
 					</c:if>
 					<!-- href를 안쓰는 이유 쓰면 상단을 이동됨. 아니면 #'아무문자나 입력' --> 
 					<a id="slbtn"><img alt="로고" src="resources/images/menu.png"></a>

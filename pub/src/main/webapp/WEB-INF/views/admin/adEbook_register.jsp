@@ -2,6 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/adminHeader.jsp"></jsp:include>
+<%@ page import="org.pub.util.*" %>
+<script>
+function AddBook(){
+	$.ajax({
+		url:'Load_UI',
+		type:'post',
+		seccess:function(result){
+			if(result=='OK'){
+				
+			}
+		}
+	});
+};
+</script>
 
 <!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -43,7 +57,7 @@
 						</div>
 					</div>
 						<div class="card-body">
-						 <button type="" class="btn btn-secondary btn-sm float-right">전자책 등록</button>		
+						 <button type="button" class="btn btn-secondary btn-sm float-right" onclick="AddBook()">전자책 등록</button>		
 						<table class="table table-striped projects">
               <thead>
                   <tr>

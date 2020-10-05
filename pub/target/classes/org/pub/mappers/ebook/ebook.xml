@@ -4,11 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="eBook">
 <insert id="addBook"><!-- 전자책등록 --><!-- author_introduce,contents 여기선 필요 x -->
-insert into ebook (e_no,title,author,publisher,publication_year,book_introduce,category) values(e_num_seq.nextval,#{title},#{author},#{publisher},#{publication_year},#{book_introduce},#{category})
+insert into ebook (e_no,title,author,publisher,publication_year,book_introduce,category) values(e_no_seq.nextval,#{title},#{author},#{publisher},#{publication_year},#{book_introduce},#{category})
 </insert>
 
 <insert id="addBook_isbn">
-insert into ebook (e_no,title,author,publisher,publication_year,book_introduce,isbn,imgurl) values(e_num_seq.nextval,#{title},#{author},#{publisher},#{publication_year},#{book_introduce},#{isbn},#{imgurl})
+insert into ebook (e_no,title,author,publisher,publication_year,book_introduce,isbn,imgurl) values(e_no_seq.nextval,#{title},#{author},#{publisher},#{publication_year},#{book_introduce},#{isbn},#{imgurl})
 </insert>
 
 
