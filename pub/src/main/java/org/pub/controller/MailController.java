@@ -49,7 +49,7 @@ public class MailController {
 	@RequestMapping("/chk")
 	public ResponseEntity<String> chk(@RequestBody Map<String,Object> list, Model m){
 		ResponseEntity<String> entity=null;
-		String email=(String)list.get("email");
+		String email=(String)list.get("email"); cx"?
 		String code=(String)list.get("code");
 		try {
 			String dbcode=mailService.code(email).trim();

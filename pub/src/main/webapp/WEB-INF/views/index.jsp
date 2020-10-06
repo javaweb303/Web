@@ -35,7 +35,7 @@ $(function(){
             <span>${id}님</span>&nbsp;
             <a href="./logout">Logout</a>
             <c:if test="${Rank eq '1'}">
-		         <a href="./mypage"><img src="resources/images/header/myPage.png"></a>
+		         <a href="./mypage">mypage</a>
 		    </c:if>
 		    <c:if test="${Rank eq '5'}">
 		         <a href="./adIndex">AdminPage</a>

@@ -8,13 +8,27 @@ function AddBook(){
 	$.ajax({
 		url:'Load_UI',
 		type:'post',
-		seccess:function(result){
+		success:function(result){
 			if(result=='OK'){
-				
+				alert('전자책이 정상적으로 등록이됨.');
 			}
 		}
 	});
 };
+function delBook(obj){
+	$parent = $(obj).parents('.book_tr');
+	var eno=$($parent.find('.e_no')).val();
+	$.ajax({
+		url:'delBook',
+		type:'post',
+		date:eno,
+		success:function(result){
+			if(result=='OK'){
+				alert('전자책이 정삭적으로 삭제됨.');
+			}
+		}
+	});
+}
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -84,8 +98,8 @@ function AddBook(){
               <tbody>
               <c:if test="${!empty elist}">
               <c:forEach var="eb" items="${elist}">
-              <tr>
-              <td>
+              <tr class="book_tr">
+              <td class="e_no">
               	${eb.e_no}
               </td>
               <td>
@@ -114,7 +128,7 @@ function AddBook(){
                               </i>
                               Edit
                           </a>
-                          <a class="btn btn-danger btn-sm" href="#">
+                          <a class="btn btn-danger btn-sm" href="#" onclick="delBook(this)">
                               <i class="fas fa-trash">
                               </i>
                               Delete

@@ -37,4 +37,6 @@ public interface eBookDAO {
 
 	int addBook_isbn(eBookVO vo);
 
+	void delBook(String eno);
+
 }

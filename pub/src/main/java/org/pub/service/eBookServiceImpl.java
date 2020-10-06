@@ -68,9 +68,9 @@ public class eBookServiceImpl implements eBookService {
 	}
 
 	@Override
-	public void book_Return(String id, int e_no) {
+	public void book_Return(String id, int e_no, int state) {
 		LoanVO vo=new LoanVO();
-		vo.setE_no(e_no);vo.setId(id);
+		vo.setE_no(e_no);vo.setId(id);vo.setState(state);
 		eBookDAO.book_Return(vo);
 	}
 
@@ -89,6 +89,11 @@ public class eBookServiceImpl implements eBookService {
 	@Override
 	public int addBook_isbn(eBookVO vo) {
 		return eBookDAO.addBook_isbn(vo);
+	}
+
+	@Override
+	public void delBook(String eno) {
+		eBookDAO.delBook(eno);
 	}
 
 	
