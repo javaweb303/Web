@@ -75,6 +75,7 @@ public class eBookDAOImpl implements eBookDAO {
 
 	@Override
 	public void book_Loan(LoanVO vo) {
+		sqlSession.update("bookstate_down", vo);
 		sqlSession.insert("bookLoan", vo);
 	}
 
@@ -85,7 +86,7 @@ public class eBookDAOImpl implements eBookDAO {
 
 	@Override
 	public void book_Return(LoanVO vo) {
-		
+		sqlSession.update("bookstate_up", vo);
 		sqlSession.delete("bookReturn", vo);
 	}
 
@@ -103,5 +104,10 @@ public class eBookDAOImpl implements eBookDAO {
 	public int addBook_isbn(eBookVO vo) {
 		sqlSession.selectOne("addBook_isbn",vo);
 		return sqlSession.selectOne("getBook_no",vo);
+	}
+
+	@Override
+	public void delBook(String eno) {
+		sqlSession.delete("delBook", eno);
 	}
 }

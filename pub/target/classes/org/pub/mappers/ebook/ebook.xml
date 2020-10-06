@@ -75,21 +75,30 @@ select * from
 <!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->     
 </select>
 <select id="getLoanList" resultType="loan"> <!-- 해당아이디가 대출한 목록 -->
-select * from book_loan_info where id=#{id} order by loan_date desc
+select * from book_loan_info where id=#{id} and state=1 order by loan_date desc
 </select>
 <insert id="bookLoan"><!-- 대출날짜와 데출날짜+7일을한 반납날짜에 아이디 전자책번호를 저장하는 -->
-insert into book_loan_info values(sysdate,sysdate+7,#{id},#{e_no})
+insert into book_loan_info (loan_date,return_date,state,id,e_no) values(sysdate,sysdate+7,1,#{id},#{e_no})
 </insert>
+<update id="bookstate_down">
+update ebook set status=status-1 where e_no=#{e_no}
+</update>
+<update id="bookstate_up">
+update ebook set status=status+1 where e_no=#{e_no}
+</update>
 <select id="getLoanCount" resultType="int"><!-- 대출 갯수 -->
 select count(e_no) from book_loan_info where id=#{id}
 </select>
-<delete id="bookReturn"><!-- 전자책 반납 -->
-delete from book_loan_info where id=#{id} and e_no=#{e_no}
-</delete>
+<update id="bookReturn"><!-- 전자책 반납 -->
+update book_loan_info set state=#{state},return_date_ok=sysdate where id=#{id} and e_no=#{e_no} and state=1
+</update>
 <select id="getReturnDate" resultType="String">
-select return_date from book_loan_info where id=#{id} and e_no=#{e_no}
+select return_date from book_loan_info where id=#{id} and e_no=#{e_no} and state=1
 </select>
 <select id="getebook_isbn" resultType="ebook">
 select * from ebook where isbn=#{isbn}
 </select>
+<delete id="delBook">
+delete from ebook where e_no=#{e_no} 
+</delete>
 </mapper>

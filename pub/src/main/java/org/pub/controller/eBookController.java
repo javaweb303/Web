@@ -181,7 +181,7 @@ public class eBookController {
 				vo.setImgurl((String)map.get("cover"));
 				int no=eBookService.addBook_isbn(vo);
 				try {
-					InputStream is=new FileInputStream(new File("C:/Users/User/Downloads/book.pdf"));
+					InputStream is=new FileInputStream(new File("C:/Users/st473/Downloads/book.pdf"));
 					PdfFile_Img pdf = new PdfFile_Img();
 					pdf.conversionPdf2Img(is, "ebook", no);
 				}catch (Exception e) {
@@ -370,7 +370,7 @@ class Rest{
 		return entity;
 	}
 	
-	@RequestMapping("/book_return")
+	@RequestMapping("/book_return")//쿼리에서 반납날짜랑 반납예정일 비교해서 하면 더빠른가..?
 	public ResponseEntity<String> book_return(HttpServletRequest request,HttpSession session,@RequestParam("e_no") int e_no) throws ParseException{
 		ResponseEntity<String> entity=null;
 		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");//데이터타입 년월일로 출력형식변경 하기위한
@@ -379,6 +379,7 @@ class Rest{
 			entity=new ResponseEntity<String>("noLogin",HttpStatus.OK);
 		}else {		
 			try {
+				int state=2;//반납 상태 2 = 정상 반납, 3 = 연체됨.
 				String date=eBookService.getReturnDate((String)session.getAttribute("id"),e_no);//반납일을 가져옴
 				Long calOverDate=(long) 0;
 				Date receiveDate=format.parse(date);//String을 date형식으로 변환 해당형식으로 변환
@@ -386,11 +387,12 @@ class Rest{
 				long calDate=Now.getTime()-receiveDate.getTime();//시간 계산
 				System.out.println(receiveDate);
 				long calDateDays = calDate / ( 24*60*60*1000); //일자 구하는
-				calDateDays+=10;
+				//calDateDays+=10;
 		        //calDateDays = Math.abs(calDateDays);
 		        System.out.println(calDateDays);//3일이 초과됨
 		        if(calDateDays > 0) {//0보다 크면 아래 문장 실행
-		        	System.out.println("12321hkjgdskfgh");
+		        	System.out.println("연체됨");
+		        	state=3;
 		        	String over=memberService.getOverDue((String)session.getAttribute("id"));
 		        	if(over != null) {
 		        		Date overdate=format.parse(over);
@@ -406,7 +408,7 @@ class Rest{
 		        		memberService.setOverDue((String)session.getAttribute("id"),(int)calDateDays);
 		        	}
 		        }
-				eBookService.book_Return((String)session.getAttribute("id"),e_no);//서비스에서 vo에 담을예정.그후에 추가.
+				eBookService.book_Return((String)session.getAttribute("id"),e_no,state);//서비스에서 vo에 담을예정.그후에 추가.
 				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 			}catch (Exception e) {
 				e.printStackTrace();

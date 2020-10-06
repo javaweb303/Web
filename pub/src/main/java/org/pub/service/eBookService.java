@@ -27,13 +27,15 @@ public interface eBookService {
 
 	int book_Loancount(String id);
 
-	void book_Return(String id, int e_no);
+	void book_Return(String id, int e_no, int state);
 
 	String getReturnDate(String id, int e_no);
 
 	eBookVO getEbook(String isbn);//
 
 	int addBook_isbn(eBookVO vo);
+
+	void delBook(String eno);
 
 
 }

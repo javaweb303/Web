@@ -51,6 +51,8 @@ CREATE TABLE recommend (
 CREATE TABLE book_loan_info (
 	loan_date DATE, /* 대출날짜 */
 	return_date DATE, /* 반납날짜 */
+	state number(3) DEFAULT 1, /* 대출 상태 1 - 대출중, 2 - 정상 반납, 3 - 연체*/
+	return_date_ok DATE, /* 반납 완료 날짜 */
 	id VARCHAR2(100), /* 아이디 */
 	e_no NUMBER(38) /* 전자책번호 */
 );
@@ -110,8 +112,8 @@ drop table board;
 drop table email_code;
 drop table book_loan_info;
 drop table reply;
-drop table recommand;
-drop table ebook CASCADE CONSTRAINTS;
+drop table recommend;
+drop table ebook;
 drop table member;
 
 /*테이블 확인*/
@@ -153,5 +155,6 @@ insert into board values('notice','공지사항');
 insert into board values('faq','자주묻는질문');
 
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test','test','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);
+insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test2','test2','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,deldate,state,delcont) values('test1','test1','홍길동','abc','naver.com','여자','19971212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,2,'더이상 홈페이지를 사용하지 않게 되었습니다.');
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test3','test3','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,5);
