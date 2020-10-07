@@ -16,4 +16,6 @@ public interface AdminMemberDAO {
 
 	void register(MemberVO m);
 
+	int getListCount(MemberVO m);
+
 }

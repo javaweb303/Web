@@ -16,4 +16,6 @@ public interface AdminMemberService {
 
 	void register(MemberVO m);
 
+	int getListCount(MemberVO m);
+
 }

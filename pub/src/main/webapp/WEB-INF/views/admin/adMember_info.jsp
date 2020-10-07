@@ -47,9 +47,10 @@
               <th style="background-color:#F6F6F6;">회원 상태</th>
               <td><span>
               <c:if test="${m.state == 1}">가입회원</c:if>
+              <c:if test="${m.state == 5}">관리자</c:if>
               <c:if test="${m.state == 2}">탈퇴회원</c:if>
               </span></td>
-              <c:if test="${m.state==1}">
+              <c:if test="${m.state==1 || m.state==5}">
               <th style="background-color:#F6F6F6;">회원가입일</th>
               <td>${fn:substring(m.regdate,0,10)}</td>
               </c:if>

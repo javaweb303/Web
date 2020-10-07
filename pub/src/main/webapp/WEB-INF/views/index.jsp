@@ -19,7 +19,7 @@
       	<div style="height: 150px;"></div>
       	<div id="navbox">
          <nav id="nav">
-         	<span>도서관 서비스</span><span>전자 도서관</span><span>도서관 안내</span><span>열린공간</span>
+         	<span onclick="location.href='/search'">도서관 서비스</span><span onclick="location.href='/eBook'">전자 도서관</span><span onclick="location.href='/history'">도서관 안내</span><span onclick="location.href='/bbs_list'">열린공간</span>
          </nav>
          </div>
       </header>
@@ -68,7 +68,8 @@
 	      			
 	      			</div>
 	      			<div>
-	      				<span onclick="location.href='/mypage'">MyPage</span><span onclick="location.href='/mypage?tab_menu=lib'">MyLibrary</span>
+	      				<c:if test="${Rank eq '1'}"><span onclick="location.href='/mypage'">MyPage</span><span onclick="location.href='/mypage?tab_menu=lib'">MyLibrary</span></c:if>
+	      				<c:if test="${Rank eq '5'}"><span onclick="location.href='./admin/adIndex'">AdminPage</span></c:if>
 	      			</div>
       			</div>
       		</c:if>

@@ -69,6 +69,11 @@ public class AdminOpenServiceImpl implements AdminOpenService {
 		this.adminOpenDAO.insertF(f);
 	}
 
+	@Override
+	public void delF(int no) {
+		this.adminOpenDAO.delF(no);
+	}
+
 	
 	
 	

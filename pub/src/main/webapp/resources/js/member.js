@@ -1,8 +1,3 @@
-
-
-/**
- * member.js
- */
 function join_check(){
 	if($.trim($("#id").val())==""){
 		alert("회원아이디를 입력하세요!");
@@ -74,6 +69,77 @@ function join_check(){
 	
 	if($.trim($("#chk_code").val()) =="") {
 		alert("인증코드를 입력하세요!");
+		return false;
+	}
+}
+
+//관리자 회원 가입
+function adjoin_check(){
+	if($.trim($("#id").val())==""){
+		alert("회원아이디를 입력하세요!");
+		$("#id").val("").focus();
+		return false;
+	}
+	$mem_pwd=$.trim($("#pw").val());
+	$mem_pwd2=$.trim($("#mem_pwd2").val());
+	if($mem_pwd == ""){
+		alert("비번을 입력하세요!");
+		$("#pw").val("").focus();
+		return false;
+	}
+	if($mem_pwd2 == ""){
+		alert("비번확인을 입력하세요!");
+		$("#mem_pwd2").val("").focus();
+		return false;
+	}
+	if($mem_pwd != $mem_pwd2){
+		alert("비번이 다릅니다!");
+		$("#pw").val("");//비번 입력박스를 초기화
+		$("#mem_pwd2").val("");
+		$("#pw").focus();
+		return false;
+	}
+	if($.trim($("#name").val())==""){
+		alert("회원이름을 입력하세요!");
+		$("#name").val("").focus();
+		return false;
+	}
+	
+	if($.trim($("#birth").val())==""){
+		alert("생년월일을 입력하세요!");	
+		$("#birth").val("").focus();	
+		return false;
+	}
+	
+	
+	
+	if($.trim($("#zipNo").val())==""){
+		alert("우편번호를 입력하세요!");		
+		return false;
+	}
+
+	if($.trim($("#mem_phone2").val())==""){
+		alert("핸드폰 번호를 확인하세요!");
+		$("#mem_phone2").val("").focus();
+		return false;
+	}
+	if($.trim($("#mem_phone3").val())==""){
+		alert("핸드폰 번호를 확인하세요!");
+		$("#mem_phone3").val("").focus();
+		return false;
+	}
+	if($.trim($("#email").val())==""){
+		alert("메일을 입력하세요!");
+		$("#email").val("").focus();
+		return false;
+	}
+	if($.trim($("#email_domain").val())==""){
+		alert("메이일을 입력하세요!");		
+		return false;
+	}
+	
+	if(!($('input:radio[name=gender]').is(':checked'))){
+		alert("성별을 선택해주세요!");		
 		return false;
 	}
 }
@@ -289,8 +355,3 @@ function sendmail(){
 
 
 //비밀번호 제약조건
-
-
-
-
-

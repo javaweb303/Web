@@ -8,6 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>관리자 페이지</title>
 
+	<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="icon" type="image/png" href="http://example.com/myicon.png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -40,7 +43,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -163,7 +166,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/adIndex" class="brand-link" style=" text-align: center;">
+    <a href="/admin/adIndex" class="brand-link" style=" text-align: center;">
       
       <i class="nav-icon fas fa-university fa-3x"></i>
       <br>
@@ -197,11 +200,10 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="/admin_ebook_reg" class="nav-link">
+            <a href="/admin/admin_ebook_reg" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
                 	전자책 관리
-                <!--  <span class="right badge badge-danger">New</span>-->
               </p>
             </a>
           </li>
@@ -215,16 +217,9 @@
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-            <%--<a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a> --%>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="/admin/admin_loan" class="nav-link">
                   <p>대출반납</p>
                 </a>
               </li>
@@ -251,13 +246,8 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin_member_list" class="nav-link">
+                <a href="/admin/admin_member_list" class="nav-link">
                   <p>이용자관리</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <p>반입 반출</p>
                 </a>
               </li>
             </ul>
@@ -273,12 +263,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin_bbs_list" class="nav-link">
+                <a href="/admin/admin_bbs_list" class="nav-link">
                   <p>공지사항</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin_faq_list" class="nav-link">
+                <a href="/admin/admin_faq_list" class="nav-link">
                   <p>FAQ</p>
                 </a>
               </li>

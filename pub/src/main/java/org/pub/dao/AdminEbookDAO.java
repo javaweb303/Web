@@ -8,4 +8,6 @@ public interface AdminEbookDAO {
 
 	List<eBookVO> getEbookList(eBookVO eb);
 
+	int getEbookListCount(eBookVO eb);
+
 }

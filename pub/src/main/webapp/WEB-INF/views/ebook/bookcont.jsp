@@ -98,7 +98,7 @@ $(function(){
 				url:'/book_loancount',
 				dataType:'text',
 				success:function(data){
-					if(data==0){
+					if(data==5){
 						alert('다참');
 					}else{
 						$.ajax({
@@ -206,7 +206,7 @@ $(function(){
 							<p>저자 : ${book.author}</p>
 							<p>출판사 : ${book.publisher}</p>
 							<p>출판연도 : ${book.publication_year}</p>
-							<p>도서현황 : 5/${book.status}</p>
+							<p>도서현황 : ${book.status}/5</p>
 							<p>추천수 : ${book.recommend}</p>
 							<br> 
 							<input type="button" value="<c:if test="${!empty recommand}"><c:if test="${recommand eq '추천'}">추천</c:if><c:if test="${recommand eq '비추천'}">비추천</c:if></c:if><c:if test="${empty recommand}">추천</c:if>" class="btn" id="recommend" />

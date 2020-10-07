@@ -70,6 +70,11 @@ public class AdminOpenDAOImpl implements AdminOpenDAO {
 		this.sqlSession.insert("adFaq_in", f);
 	}
 
+	@Override
+	public void delF(int no) {
+		this.sqlSession.delete("adFaq_del",no);
+	}
+
 	
 
 }

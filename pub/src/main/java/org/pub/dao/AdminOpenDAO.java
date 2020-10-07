@@ -29,4 +29,6 @@ public interface AdminOpenDAO {
 
 	void insertF(FaqContentVO f);
 
+	void delF(int no);
+
 }

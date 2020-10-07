@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/admin/*")
 public class AdminOpenController {
 
 	@Autowired
@@ -47,7 +48,7 @@ public class AdminOpenController {
 		PrintWriter out=response.getWriter();
 
 		this.adminOpenService.insertG(g);//공지 저장
-		return "redirect:/admin_bbs_list";
+		return "redirect:/admin/admin_bbs_list";
 	}
 
 	//관리자 공지 목록
@@ -134,16 +135,16 @@ public class AdminOpenController {
 
 
 		this.adminOpenService.editGongji(g);//공지 수정
-		return new ModelAndView("redirect:/admin_bbs_list");
+		return new ModelAndView("redirect:/admin/admin_bbs_list");
 	}//admin_gongji_edit_ok()
 
 	//관리자 공지 삭제
 	@RequestMapping("/admin_gongji_del")
-	public String admin_gongji_del(@RequestParam("no") int no, HttpServletRequest request, 
+	public String admin_gongji_del(@RequestParam("no") int no, @RequestParam("page") int page, HttpServletRequest request, 
 			HttpServletResponse response) throws Exception{
 		PrintWriter out = response.getWriter();
 		this.adminOpenService.delG(no);//공지 삭제
-		return "redirect:/admin_bbs_list";
+		return "redirect:/admin/admin_bbs_list?page="+page;
 	}//admin_gongji_del()
 
 	
@@ -172,7 +173,7 @@ public class AdminOpenController {
 			PrintWriter out=response.getWriter();
 			System.out.println("cid:"+f.getCId());
 			this.adminOpenService.insertF(f);//공지 저장
-			return "redirect:/admin_faq_list";
+			return "redirect:/admin/admin_faq_list";
 		}
 	
 	//관리자 faq 목록
@@ -222,7 +223,7 @@ public class AdminOpenController {
 
 	}//admin_faq_list()
 
-	//관리자 공지 수정과 상세 정보
+	//관리자 faq와 상세 정보
 	@RequestMapping("/admin_faq_cont")
 	public String admin_faq_cont(Model cm, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("no") int no, @RequestParam("state") String state) throws Exception{
@@ -243,12 +244,20 @@ public class AdminOpenController {
 		return null;
 	}//admin_faq_cont()
 
-	//관리자 공지 수정 완료
+	//관리자 faq 수정 완료
 	@RequestMapping("/admin_faq_edit_ok")
 	public ModelAndView admin_faq_edit_ok(FaqContentVO f, HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		System.out.println("controller:"+f.getQuestion());
 		this.adminOpenService.editFaq(f);//공지 수정
-		return new ModelAndView("redirect:/admin_faq_list");
+		return new ModelAndView("redirect:/admin/admin_faq_list");
 	}//admin_faq_edit_ok()
+	
+	//관리자 faq 삭제
+	@RequestMapping("/admin_faq_del")
+	public String admin_faq_del(@RequestParam("no") int no, @RequestParam("page") int page, HttpServletRequest request, 
+	HttpServletResponse response) throws Exception{
+		this.adminOpenService.delF(no);//공지 삭제
+		return "redirect:/admin/admin_faq_list?page="+page;
+	}
 }
