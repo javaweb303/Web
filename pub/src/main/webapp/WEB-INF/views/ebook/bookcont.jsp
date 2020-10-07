@@ -98,7 +98,7 @@ $(function(){
 				url:'/book_loancount',
 				dataType:'text',
 				success:function(data){
-					if(data==5){
+					if(data==0){
 						alert('다참');
 					}else{
 						$.ajax({

@@ -13,5 +13,27 @@ public interface MemberDAO {
 	String getOverDue(String id);
 
 	void setOverDue(Map<String, Object> map);
+	
+	void updateMember(MemberVO m);
 
+
+	void delMem(MemberVO dm);
+
+
+	MemberVO login_check(String login_id);
+
+
+	MemberVO idcheck(String id);
+
+
+	Object insertMember(MemberVO m);
+
+
+	MemberVO pwdMember(MemberVO m);
+
+
+	void updatePwd(MemberVO m);
+
+
+	MemberVO findMember(MemberVO m);
 }

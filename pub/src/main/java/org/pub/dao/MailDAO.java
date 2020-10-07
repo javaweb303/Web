@@ -8,4 +8,6 @@ public interface MailDAO {
 
 	String code(String email);
 
+	void delCode(String email);
+
 }

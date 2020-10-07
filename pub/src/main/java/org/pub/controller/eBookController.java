@@ -25,6 +25,7 @@ import org.pub.service.FileService;
 import org.pub.service.MemberService;
 import org.pub.service.ReplyService;
 import org.pub.service.eBookService;
+import org.pub.util.Add_EBook;
 import org.pub.util.PdfFile_Img;
 import org.pub.vo.LoanVO;
 import org.pub.vo.eBookVO;
@@ -49,6 +50,8 @@ public class eBookController {
 	private eBookService eBookService;
 	@Autowired
 	private FileService fileService;
+	@Autowired
+	private Add_EBook addebook;
 	
 	@RequestMapping("/mylib")//로그인이 되어있는지 확인
 	public ModelAndView MyLibraryCheck(HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -100,10 +103,10 @@ public class eBookController {
 		ModelAndView model=new ModelAndView();
 		eBookVO vo = eBookService.getEbook(e_no);
 		
-		int filecount=fileService.Dir_filecount(vo);
+		
 		model.setViewName("ebook/viewer");
 		model.addObject("book", vo);
-		model.addObject("book_imgfile", filecount);
+		model.addObject("book_imgfile", addebook.Dir_filecount(vo));
 		
 		//fileService.open(path);
 		return model;

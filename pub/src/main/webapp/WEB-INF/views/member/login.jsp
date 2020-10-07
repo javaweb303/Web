@@ -1,5 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" 
+            uri="http://java.sun.com/jsp/jstl/core" %>
+<head>
 <jsp:include page="../include/header.jsp"></jsp:include>
+
+<script src="./resources/js/jquery.js"></script>
+
+
+<script>
+ //아이디 찾기
+ function id_find(){
+	 $url="id_find";//매핑주소
+	 window.open($url,"아이디검색","width=400px,height=300px"+
+			 ",scrollbars=yes");
+	 //open(공지창경로,공지창이름,속성) 메서드로 폭이 300픽셀,
+	 //높이가 300픽셀,스크롤바가 생성되는 새로운 공지창을 만든다.
+ }
+</script>
+
+
+
+ <script>
+ //비번찾기
+ function pwd_find(){
+	 $url="pwd_find";//매핑주소
+	 window.open($url,"비번검색","width=450px,height=300px"+
+			 ",scrollbars=yes");
+	 //open(공지창경로,공지창이름,속성) 메서드로 폭이 300픽셀,
+	 //높이가 300픽셀,스크롤바가 생성되는 새로운 공지창을 만든다.
+ }
+</script>
+
+
+</head>
 <style>
 /*헤더 색*/
 #head{background-color: #171d33}/*색변경*/
@@ -22,7 +55,7 @@
    <div class="location"><!-- 이것도 이건 상단에 home>열린공간 >오시는길 이거 표시하는 부분? -->
    <ul class="">
    <li>로그인 </li>
-   <li><a href="/controller">Home</a> > </li>
+   <li><a href="/">Home</a> > </li>
    </ul>
    </div>
    <div class="container" style="border: 1px solid gray; border-radius: 5px; margin: 15px;"><!-- 몸체 -->
@@ -31,10 +64,19 @@
          	<h2>로그인을 하세요.</h2><br><br><br>
 					<form method="post" action="/login_ok" ><!-- 메인으로 나올라구씀 -->
 						<div id="inputbox">
+						
+						
+						
+						
 							<input type="text" name="id" class="input_row" placeholder="아이디">
 							<br> <input type="password" name="pwd" class="input_row"
 								placeholder="비밀번호"> <br> <input type="submit"
 								value="로그인" class="submit input_row" />
+								<br><br>
+								
+								<input type="button" value="아이디 찾기" onclick="id_find();"/> /
+								<input type="button" value="비밀번호 찾기"  	
+								onclick="pwd_find();" />
 						</div>
 					</form>
 			</div>
