@@ -85,15 +85,15 @@
 									<td>${g.gongji_hit}</td>
 									<td class="project-actions text-right"><a
 										class="btn btn-primary btn-sm"
-										href="/admin_gongji_cont?no=${g.gongji_no}&state=cont"> <i
+										href="/admin/admin_gongji_cont?no=${g.gongji_no}&state=cont"> <i
 											class="fas fa-folder"> </i> View
 									</a> <a class="btn btn-info btn-sm"
-										href="/admin_gongji_cont?no=${g.gongji_no}&state=edit"> <i
+										href="/admin/admin_gongji_cont?no=${g.gongji_no}&state=edit"> <i
 											class="fas fa-pencil-alt"> </i> Edit
 									</a> <a class="btn btn-danger btn-sm"
 										onclick="if(confirm('정말로 삭제하시겠습니까?')==true){
-                        	  location='admin_gongji_del?no=${g.gongji_no}';
-                        	  }else {return ;}">
+                        	  location='/admin/admin_gongji_del?no=${g.gongji_no}&page=${page}';
+                        	  }else {return ;}" style="color:#fff;">
 											<i class="fas fa-trash"> </i> Delete
 									</a></td>
 								</tr>

@@ -73,7 +73,17 @@
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">이메일</th>
-              <td colspan="3"><input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" value="${m.email}"></td>
+              <td colspan="3" ><input type="email" name="email" class="form-control-inline" id="inputEmail3" placeholder="Email" value="${m.email}"> @ 
+					  <input type="text" class="form-control-inline" name="email_domain" id="email_domain">&nbsp;
+					  <select class="form-control-inline" name="mail_list" id="mail_list" onchange="domain_list();">
+										<option value="direct">직접입력</option>
+										<option value="naver.com">네이버</option>
+										<option value="daum.net">다음</option>
+										<option value="google.com">구글</option>
+										<option value="nate.com">네이트</option>
+									</select>
+              
+              </td>
               </tr>
               </tbody>
           </table>

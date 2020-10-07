@@ -5,9 +5,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Admin">
 
+<select id="ad_count" resultType="int">
+select count(id) from member
+<where>
+<if test="find_field == ''"></if><!-- 전체 회원수 -->
+<if test="find_field == 'id'">
+id like #{find_name}
+</if>
+<if test="find_field == 'name'">
+name like #{find_name}
+</if>
+</where>
+</select>
 
 <select id="ad_list" resultType="m">
-select * from member
+select * from (select rowNum rNum, id, name,email,email_domain,state from
+(select * from member
+<where>
+<if test="find_field == ''"></if>
+<if test="find_field == 'id'">
+id like #{find_name}
+</if>
+<if test="find_field == 'name'">
+name like #{find_name}
+</if>
+</where>
+order by id asc))
+where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}
 </select>
 
 <select id="ad_info" resultType="m">
@@ -18,9 +42,9 @@ select * from member where id=#{id}
 update member set email=#{email} where id=#{id}
 </update>
 
-<delete id="ad_del">
-delete from member where id=#{id}
-</delete>
+<update id="ad_del">
+update member set state=2 where id=#{id}
+</update>
 
 <!-- 공지사항 sql -->
 <insert id="adBbs_in">
@@ -94,6 +118,19 @@ insert into faqContent (faqNo,Question,Answer,cId) values(faqCont_no_seq.nextval
 </insert>
 <select id="adFaq_count" resultType="int">
 select count(faqNo) from faqContent
+<where>
+<if test="find_field == ''">
+      <!-- 검색조건이 없어서 총레코드 개수 -->
+     </if>
+     <if test="find_field == 'Question'">
+      <!-- 검색 조건이 질문인 경우 -->
+     	question like #{find_name} <!-- like는 오라클 검색
+      연산자 -->
+     </if>
+     <if test="find_field == 'Answer'">
+      answer like #{find_name}
+     </if>
+     </where> 
 </select>
 
 <select id="adFaq_list" resultType="fct">
@@ -125,8 +162,72 @@ select * from faqContent where faqNo=#{no}
 update faqContent set question=#{question}, answer=#{answer} where faqNo=#{faqNo}
 </update>
 
-<select id="adEbook_list" resultType="ebook">
-select * from ebook order by e_no desc
+<delete id="adFaq_del">
+delete from faqContent where faqNo=#{no}
+</delete>
+
+<select id="adEbook_list" parameterType="ebook" resultType="ebook">
+select * from (select rowNum rNum, e_no, title, author,
+ publisher, publication_year from 
+ (select * from ebook
+ <where>
+<if test="searchCondition == ''"></if>
+<if test="searchCondition == 'title'">
+title like #{searchKeyword}
+</if>
+<if test="searchCondition == 'author'">
+author like #{searchKeyword}
+</if>
+<if test="searchCondition == 'publisher'">
+publisher like #{searchKeyword}
+</if>
+</where>
+ order by e_no asc))
+ where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}
 </select>
+
+<select id="adEbook_count" resultType="int">
+select count(e_no) from ebook
+<where>
+<if test="searchCondition == ''"></if>
+<if test="searchCondition == 'title'">
+title like #{searchKeyword}
+</if>
+<if test="searchCondition == 'author'">
+author like #{searchKeyword}
+</if>
+<if test="searchCondition == 'publisher'">
+publisher like #{searchKeyword}
+</if>
+</where>
+</select>
+
+<select id="adMem_info" resultType="m">
+select * from member where id=#{id}
+</select>
+
+<select id="adLoan_list" resultType="loan">
+select * from book_loan_info where id=#{id}
+</select>
+
+<select id="adLoanEbook_list" resultType="ebook">
+select e.title, e.isbn, e.publisher, e.e_no
+from member m, book_loan_info b, ebook e
+where m.id=b.id and b.e_no=e.e_no and m.id=#{id} and b.state=1
+order by b.loan_date desc
+</select>
+
+<select id="adLoanEbook_info" resultType="ebook">
+select * from(
+select rowNum, e.title, e.isbn, e.publisher,e.author,e.publication_year, e.e_no
+from member m, book_loan_info b, ebook e
+where m.id=b.id and b.e_no=e.e_no and m.id=#{id}
+order by b.loan_date desc)
+where rowNum=1
+</select>
+
+<update id="adLoanEbook_return">
+update book_loan_info set state=2 where e_no=#{e_no}
+</update>
 </mapper>
 

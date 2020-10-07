@@ -160,6 +160,7 @@ public class MemberController {
   		  out.println("</script>");
   	  }else if(pwd.equals(dbpwd)){
          session.setAttribute("id", id);
+         session.setAttribute("Rank", Integer.toString(vo.getState()));
          out.println("<script>");
          out.println("alert('정상로그인 되었습니다.')");
          mv.setViewName("redirect:/");

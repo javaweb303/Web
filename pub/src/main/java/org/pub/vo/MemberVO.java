@@ -26,4 +26,12 @@ public class MemberVO {
 	private int state;//회원 상태
 	private boolean admin;
 	private String overdue;
+	
+	/*관리자 단 회원 관리 회원 목록 페이징(쪽 나누기) 관련 변수*/
+	private int startrow;//시작행 번호
+	private int endrow;//끝행 번호
+	
+	/* 관리자 단 회원 목록 검색 필드와 검색어 저장변수*/
+	private String find_name; //검색어
+	private String find_field; //검색 필드
 }

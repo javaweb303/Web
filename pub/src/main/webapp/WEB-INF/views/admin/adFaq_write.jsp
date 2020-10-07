@@ -39,7 +39,7 @@
             </button>
           </div>
         </div>
-        <form role="form" method="post" name="f" action="admin_faq_write_ok">
+        <form role="form" method="post" name="f" action="/admin/admin_faq_write_ok">
         <div class="card-body p-0">
           <table class="table table projects">
               <tbody>

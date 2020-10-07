@@ -87,7 +87,7 @@ update ebook set status=status-1 where e_no=#{e_no}
 update ebook set status=status+1 where e_no=#{e_no}
 </update>
 <select id="getLoanCount" resultType="int"><!-- 대출 갯수 -->
-select count(e_no) from book_loan_info where id=#{id}
+select count(e_no) from book_loan_info where id=#{id} and state=1
 </select>
 <update id="bookReturn"><!-- 전자책 반납 -->
 update book_loan_info set state=#{state},return_date_ok=sysdate where id=#{id} and e_no=#{e_no} and state=1

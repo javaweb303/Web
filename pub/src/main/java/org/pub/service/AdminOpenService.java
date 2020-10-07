@@ -29,4 +29,6 @@ public interface AdminOpenService {
 
 	void insertF(FaqContentVO f);
 
+	void delF(int no);
+
 }

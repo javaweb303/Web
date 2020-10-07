@@ -96,19 +96,19 @@
               <c:if test="${f.CId==400}">열린공간</c:if>
               </td>
               <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="/admin_faq_cont?no=${f.faqNo}&state=cont">
+                          <a class="btn btn-primary btn-sm" href="/admin/admin_faq_cont?no=${f.faqNo}&state=cont">
                               <i class="fas fa-folder">
                               </i>
                               View
                           </a>
-                          <a class="btn btn-info btn-sm" href="/admin_faq_cont?no=${f.faqNo}&state=edit">
+                          <a class="btn btn-info btn-sm" href="/admin/admin_faq_cont?no=${f.faqNo}&state=edit">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Edit
                           </a>
                           <a class="btn btn-danger btn-sm" onclick="if(confirm('정말로 삭제하시겠습니까?')==true){
-                        	  location='admin_faq_del?no=${f.faqNo}';
-                        	  }else {return ;}">
+                        	  location='/admin/admin_faq_del?no=${f.faqNo}&page=${page}';
+                        	  }else {return ;}" style="color:#fff;">
                               <i class="fas fa-trash">
                               </i>
                               Delete

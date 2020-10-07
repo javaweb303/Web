@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="resources/js/member.js"></script>	
+<script type="text/javascript" src="/js/member.js"></script>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -45,7 +45,7 @@
 							</button>
 						</div>
 					</div>
-					<form role="form" name="form" id="form" method="post" action="/admin_member_reg_ok">
+					<form role="form" name="form" id="form" method="post" action="/admin_member_reg_ok" onsubmit="return adjoin_check();">
 						<div class="card-body">
 						
 						<div class="form-group row">
@@ -70,7 +70,7 @@
 						<div class="form-group row">
 						<label for="pwdCheck" class="col-sm-2 col-form-label">비밀번호  확인</label>
 						<div class="col-sm-10">
-						<input type="password" class="form-control" id="pwdCheck" name="pwdCheck" placeholder="password">
+						<input type="password" class="form-control" id="mem_pwd2" name="mem_pwd2" placeholder="password">
 						</div>
 						</div>
 						
@@ -128,10 +128,10 @@
 						
 						<div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">이메일</label>
-                    <div class="form-inline col-sm-10">
+                    <div id="emailbox" class="form-inline col-sm-10">
                       <input type="text" class="form-control" name="email" id="email" placeholder="Email"> @ 
 					  <input type="text" class="form-control" name="email_domain" id="email_domain">&nbsp;
-                      <select class="form-control" name="select_box" id="select_box" onchange="select_();">
+                      <select class="form-control" name="mail_list" id="mail_list" onchange="domain_list();">
 										<option value="direct">직접입력</option>
 										<option value="naver.com">네이버</option>
 										<option value="daum.net">다음</option>
@@ -148,7 +148,7 @@
 				<div class="input-group ">
                   <input type="text" id="zipNo" name="zipNo" readonly class="form-control">
                   <span class="input-group-append">
-                    <input type="button" class="form-control" value="주소검색" onclick="goPopup();">
+                    <input type="button" class="form-control" value="주소검색" onclick="goPopup()">
                   </span>
                 </div>
 				</div>
@@ -167,11 +167,12 @@
                 <input type="text" class="form-control col-sm-5" id="addrDetail" name="addrDetail" value=""> &nbsp;&nbsp;
                 <input type="text" class="form-control col-sm-5" id="roadAddrPart2" name="roadAddrPart2" value="">
                 </div>
-                </div> 		
+                </div> 	
+                	
 						</div>
 					<!-- /.card-body -->
 					<div class="card-footer">
-						<button type="submit" class="btn btn-secondary btn-sm float-right">등록</button>
+						<input type="submit" class="btn btn-secondary btn-sm float-right" value="등록">
 					</div>
 					</form>
 				</div>

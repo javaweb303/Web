@@ -8,4 +8,6 @@ public interface AdminEbookService {
 
 	List<eBookVO> getEbookList(eBookVO eb);
 
+	int getEbookListCount(eBookVO eb);
+
 }

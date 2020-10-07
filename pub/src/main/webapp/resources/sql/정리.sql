@@ -155,6 +155,7 @@ drop sequence reply_no_seq;
 insert into board values('notice','공지사항');
 insert into board values('faq','자주묻는질문');
 
+update member set state=5 where id='admin';
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test','test','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,regdate,state) values('test2','test2','a모','a','naver.com','남자','19961212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,1);
 insert into member (id,pw,name,email,email_domain,gender,birth,mem_phone1,mem_phone2,mem_phone3,zipNo,roadAddrPart1,roadAddrPart2,addrDetail,deldate,state,delcont) values('test1','test1','홍길동','abc','naver.com','여자','19971212','010','0000','0000','123','서울 특별시 동작구 1322','***빌딩','303호',sysdate,2,'더이상 홈페이지를 사용하지 않게 되었습니다.');

@@ -184,7 +184,7 @@ public class eBookController {
 				vo.setImgurl((String)map.get("cover"));
 				int no=eBookService.addBook_isbn(vo);
 				try {
-					InputStream is=new FileInputStream(new File("C:/Users/st473/Downloads/book.pdf"));
+					InputStream is=new FileInputStream(new File("C:/Users/User/Downloads/book.pdf"));
 					PdfFile_Img pdf = new PdfFile_Img();
 					pdf.conversionPdf2Img(is, "ebook", no);
 				}catch (Exception e) {

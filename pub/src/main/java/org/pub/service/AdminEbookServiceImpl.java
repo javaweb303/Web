@@ -17,6 +17,11 @@ public class AdminEbookServiceImpl implements AdminEbookService {
 	public List<eBookVO> getEbookList(eBookVO eb) {
 		return this.adminEbookDAO.getEbookList(eb);
 	}
+
+	@Override
+	public int getEbookListCount(eBookVO eb) {
+		return this.adminEbookDAO.getEbookListCount(eb);
+	}
 	
 	
 }

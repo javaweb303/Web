@@ -26,11 +26,15 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 	}//관리자로 회원정보 수정
 	@Override
 	public void delM(String id) {
-		this.sqlSession.delete("ad_del", id);
+		this.sqlSession.update("ad_del", id);
 	}//관리자로 사용자 회원 삭제
 	@Override
 	public void register(MemberVO m) {
 		this.sqlSession.insert("ad_join", m);
+	}
+	@Override
+	public int getListCount(MemberVO m) {
+		return this.sqlSession.selectOne("ad_count",m);
 	}
 
 }

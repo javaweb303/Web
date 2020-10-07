@@ -32,5 +32,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public void register(MemberVO m) {
 		this.adminMemberDAO.register(m);
 	}
+	@Override
+	public int getListCount(MemberVO m) {
+		return this.adminMemberDAO.getListCount(m);
+	}
 
 }
