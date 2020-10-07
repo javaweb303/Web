@@ -13,11 +13,20 @@ public class MailDAOImpl implements MailDAO {
 
 	@Override
 	public void sendCode(MailVO v) {
+		String code=this.sqlSession.selectOne("code", v.getEmail());
+		if(code!=null) {
+			sqlSession.delete("delcode", v.getEmail());
+		}
 		this.sqlSession.insert("sendcode", v);
 	}
 
 	@Override
 	public String code(String email) {
 		return this.sqlSession.selectOne("code", email);
+	}
+
+	@Override
+	public void delCode(String email) {
+		sqlSession.delete("delcode", email);
 	}
 }

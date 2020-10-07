@@ -21,15 +21,15 @@ nocache;
 
 insert into gongji (gongji_no,gongji_name,gongji_title,gongji_pwd,gongji_cont,
 gongji_date)
-values(g_no_seq.nextval,'관리자','첫번째 공지','777','세번째 공지에요.안녕하세요 오늘도 좋은 하루 보내세요. 코딩 너무 어렵네요^^',sysdate)
+values(g_no_seq.nextval,'관리자','첫번째 공지','777','세번째 공지에요.안녕하세요 오늘도 좋은 하루 보내세요. 코딩 너무 어렵네요^^',sysdate);
 
 insert into gongji (gongji_no,gongji_name,gongji_title,gongji_pwd,gongji_cont,
 gongji_date)
-values(g_no_seq.nextval,'관리자','두번째 공지','777','세번째 공지에요.안녕하세요 오늘도 좋은 하루 보내세요. 코딩 너무 어렵네요^^',sysdate)
+values(g_no_seq.nextval,'관리자','두번째 공지','777','세번째 공지에요.안녕하세요 오늘도 좋은 하루 보내세요. 코딩 너무 어렵네요^^',sysdate);
 
 insert into gongji (gongji_no,gongji_name,gongji_title,gongji_pwd,gongji_cont,
 gongji_date)
-values(g_no_seq.nextval,'관리자','세번째 공지','777','세번째 공지에요.안녕하세요 오늘도 좋은 하루 보내세요. 코딩 너무 어렵네요^^',sysdate)
+values(g_no_seq.nextval,'관리자','세번째 공지','777','세번째 공지에요.안녕하세요 오늘도 좋은 하루 보내세요. 코딩 너무 어렵네요^^',sysdate);
 
 
 select g_no_Seq.nextval from dual;

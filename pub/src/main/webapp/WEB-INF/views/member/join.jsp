@@ -7,6 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="../include/header.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/member.js"></script>
+<script>
+
+</script>
 <style>
 /*헤더 색*/
 #head{background-color: #171d33}/*색변경*/
@@ -31,6 +34,7 @@ th{width: 30%;}
 #su_img {	margin: 0 auto;	width: 300px;	height: 150px;	background-image: url(resources/images/logo/logo.png);	background-repeat: no-repeat; background-position: center;	background-size: 100%;}
 #joinbox .box .chk_email {	width: 100%;	height: 35px;}
 #send{height: 35px;}
+
 </style>
 <div id="content">
    <div class="content_head"><h2>회원가입</h2></div><!-- 이거 바꾸고 -->
@@ -48,7 +52,9 @@ th{width: 30%;}
 					<table>
 						<tr>
 						<th>아이디</th>
-						<td><input type="text" id="id" name="id"></td>
+						<td><input type="text" id="id" name="id"><input type="button" value="아이디중복체크" class="input_b" onclick="id_check();"><br/>
+      	<span id="idcheck"></span> </td>
+						
 						</tr>
 						<tr>
 						<th>비밀번호</th>
@@ -93,10 +99,10 @@ th{width: 30%;}
 						<tr>
 						<th>이메일</th>
 							<td>
-								<div id="email" class="box">
+								<div id="emailbox" class="box">
 									<input type="text" name="email" id="email" style="width: 80px;"> @ 
-									<input type="text" name="email_domain" id="email_domain" style="width: 100px;"> 
-									<select name="select_box" id="select_box" style="" onchange="select_();">
+									<input type="text" name="email_domain" id="email_domain" style="width: 100px;"  readonly > 
+									<select name="mail_list" id="mail_list" style="" onchange="domain_list();">
 										<option value="direct">직접입력</option>
 										<option value="naver.com">네이버</option>
 										<option value="daum.net">다음</option>
@@ -110,7 +116,7 @@ th{width: 30%;}
 						<th>이메일 확인</th>
 						<td>
 						<input type="text" size="6" name="chk_code" id="chk_code" class="inputbox">
-						<input type="button" class="chk_email" value="인증코드 받기" id="chkBtn" />
+						<input type="button" class="chk_email" value="인증코드 받기" id="chkBtn"  onclick="sendmail('join');"/>
 									<!-- pass -->
 						</td>
 						</tr>
@@ -140,7 +146,7 @@ th{width: 30%;}
 						</tbody>
 					</table>
 					<div style="text-align: center;">
-					<br> <input type="submit" value="가입" class="box"> <input type="button" value="취소" class="box" onclick="location.href='/'" >
+					<br> <input type="submit" value="가입" class="box" id="submit_btn" disabled="disabled"> <input type="button" value="취소" class="box" onclick="location.href='/'" >
 					</div>
 					</form>
 		</div>

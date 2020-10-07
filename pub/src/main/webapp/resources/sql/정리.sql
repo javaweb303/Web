@@ -150,6 +150,7 @@ drop sequence e_num_seq;
 drop sequence file_no_seq;
 drop sequence reply_no_seq;
 
+
 /* ?? */
 insert into board values('notice','공지사항');
 insert into board values('faq','자주묻는질문');

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.mail.internet.MimeMessage;
 
 import org.pub.service.MailService;
+import org.pub.service.MemberService;
 import org.pub.vo.MailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,19 +28,36 @@ public class MailController {
 	private JavaMailSender mailSender;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private MemberService memverService;
 	
 	@RequestMapping("/sendmail")
-	public ResponseEntity<String> sendMail(@RequestBody HashMap<String,String> map) {
+	public ResponseEntity<String> sendMail(@RequestParam("email") String email, @RequestParam("domain") String domain, @RequestParam("type") String type,@RequestParam(value="code", required=false, defaultValue="") String code) {
 		ResponseEntity<String> entity=null;
-		String email=map.get("email");
-		String code=code();
 		MailVO v=new MailVO();
 		v.setEmail(email);
-		v.setCode(code);
+		v.setDomain(domain);
+		v.setType(type);
 		try {
-			mailService.sendCode(v);
-			mailTest(v);
-			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			if(type.equals("join")) {
+				code=mailService.r_code();
+				v.setCode(code);
+				mailService.mailsend(v);
+				mailService.sendCode(v);
+				entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			}else if(type.equals("check")) {
+				String dbcode=mailService.code(email).trim();
+				System.out.println("넘겨받은 code = "+code);
+				System.out.println(dbcode);
+				if(code.equals(dbcode)) {
+					mailService.delCode(email);
+					entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+				}else {
+					entity=new ResponseEntity<String>("FAIL",HttpStatus.OK);
+				}
+			}else if(type.equals("find_pwd")) {
+				//memverService.updatePwd(m);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -49,7 +68,7 @@ public class MailController {
 	@RequestMapping("/chk")
 	public ResponseEntity<String> chk(@RequestBody Map<String,Object> list, Model m){
 		ResponseEntity<String> entity=null;
-		String email=(String)list.get("email"); cx"?
+		String email=(String)list.get("email");
 		String code=(String)list.get("code");
 		try {
 			String dbcode=mailService.code(email).trim();
@@ -68,53 +87,6 @@ public class MailController {
 		return entity;
 	}
 	
-	public String mailTest(MailVO v) {
-		// 메일 제목, 내용
-		String subject = "회원가입 인증 코드";
-		String content = "인증 코드는  ";
-		String code=v.getCode();
-		
-		// 보내는 사람
-		String from = "st4731@naver.com";
-		
-		// 받는 사람
-		String to = v.getEmail();
-		
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = new MimeMessageHelper(message,
-                    true, "UTF-8");
-
-			// 메일 내용을 채워줌
-            messageHelper.setFrom(from);	// 보내는 사람 셋팅
-            messageHelper.setTo(to);		// 받는 사람 셋팅
-            messageHelper.setSubject(subject);	// 제목 셋팅
-            messageHelper.setText(content+code);	// 내용 셋팅
-
-			// 메일 전송
-			mailSender.send(message);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return code;
-	}
-	public String code(){
-		String code="";
-		for(int i=0;i<=5;i++) {
-			int num=(int)(Math.random()*3);
-			if(num == 0) {
-				code+=""+(int)(Math.random()*10);
-			}else if(num == 1) {
-				code+=(char)((int)(Math.random()*26)+65);
-			}else if(num == 2) {
-				code+=(char)((int)(Math.random()*26)+97);
-			}else {
-
-			}
-		}
-		return code;
-
-	}
+	
 }
 
