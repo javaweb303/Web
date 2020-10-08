@@ -1,6 +1,9 @@
 package org.pub.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +14,13 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.pub.service.MemberService;
 import org.pub.service.PubService;
+import org.pub.service.eBookService;
 import org.pub.util.XML_Parsing;
 import org.pub.vo.FaqContentVO;
 import org.pub.vo.GongjiVO;
+import org.pub.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +34,33 @@ import org.w3c.dom.NodeList;
 public class PubController {
 	@Autowired
 	private PubService pubService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private eBookService eBookservice;
 	
 	@RequestMapping("/")
-	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
-		
+	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) throws ParseException {
+		ModelAndView m=new ModelAndView();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
+		MemberVO vo=null;
+		if(id!=null) {
+			SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+			String time = format.format(new Date());
+			Date newDate=format.parse(time);
+			vo = memberService.getMember(id);
+			if(vo.getOverdue()!=null) {
+			Date overDate=format.parse(vo.getOverdue());
+			int cal=(int)(newDate.getTime()-overDate.getTime());
+			m.addObject("overDate", cal/( 24*60*60*1000));
+			}else {
+				m.addObject("overDate", 0);
+			}
+				
+			m.addObject("count", eBookservice.book_Loancount(id));
+			
+		}
 		System.out.println(id);
 		
 		List<GongjiVO> glist=this.pubService.getList();
@@ -50,12 +77,13 @@ public class PubController {
 		ArrayList<Map> popular_List= xml.xmlp(popular_url, fieldNames, itemsname);
 		ArrayList<Map> recomm_List= xml.xmlp(recomm_url, fieldNames, itemsname);
 		
-		ModelAndView m=new ModelAndView();
+		
 		m.setViewName("index");
 		m.addObject("newList", new_List);
 		m.addObject("popularList", popular_List);
 		m.addObject("recommList", recomm_List);
 		m.addObject("glist", glist);
+		m.addObject("member_info", vo);
 		return m;
 	}
 }

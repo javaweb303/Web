@@ -37,6 +37,8 @@ a:hover { color: black; text-decoration: underline;}
 #member_box{padding: 25px 0;}
 
 .member_input{width: 253px; height: 30px; padding: 0;}
+.mem_tap{font-size: 15px; padding: 0 3%;}
+
 #login_btn{width: 100%; height: 50px;}
 span{cursor: pointer; font-size: 8px;}
 #join{margin-left: 90px;}
@@ -51,4 +53,4 @@ span{cursor: pointer; font-size: 8px;}
 #listBox ul li {padding: 3px 0;}
 #listBox ul li span{font-size: 15px;}
 
-
+.footer-info{background-color: #555274; color: white; font-weight: 300;}
