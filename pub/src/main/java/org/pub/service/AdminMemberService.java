@@ -18,4 +18,7 @@ public interface AdminMemberService {
 
 	int getListCount(MemberVO m);
 
+	//관리자 메인화면에서 회원 수
+	int getMemberCount(MemberVO member);
+
 }

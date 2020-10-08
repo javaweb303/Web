@@ -40,5 +40,10 @@ public class AdminLoanDAOImpl implements AdminLoanDAO{
 		this.sqlSession.update("adLoanEbook_return", e_no);
 	}
 
+	@Override
+	public List<eBookVO> getReturn(String id) {
+		return this.sqlSession.selectList("adReturnEbook_list", id);
+	}
+
 	
 }

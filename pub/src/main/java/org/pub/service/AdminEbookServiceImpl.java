@@ -22,6 +22,12 @@ public class AdminEbookServiceImpl implements AdminEbookService {
 	public int getEbookListCount(eBookVO eb) {
 		return this.adminEbookDAO.getEbookListCount(eb);
 	}
+
+	//관리자 메인화면에서 전자책 수
+	@Override
+	public int getEbookCount(eBookVO eb) {
+		return this.adminEbookDAO.getEbookCount(eb);
+	}
 	
 	
 }

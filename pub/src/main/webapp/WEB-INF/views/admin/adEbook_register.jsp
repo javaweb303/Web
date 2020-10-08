@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="../include/adminHeader.jsp"></jsp:include>
 <%@ page import="org.pub.util.*"%>
 <script>
@@ -115,15 +116,20 @@ function delBook(obj){
 							<c:forEach var="eb" items="${elist}">
 								<tr class="book_tr">
 									<td class="e_no">${eb.e_no}</td>
-									<td><a> ${eb.title} <br />
+									<td><a><c:if test="${fn:length(eb.title)>16 }">${fn:substring(eb.title,0,16)}...</c:if> 
+									<c:if test="${fn:length(eb.title)<16}">${eb.title}</c:if>
+									<br />
 									</a></td>
-									<td>${eb.author}</td>
+									<td><c:if test="${fn:length(eb.author)>12 }">${fn:substring(eb.author,0,12)}...</c:if> 
+									<c:if test="${fn:length(eb.author)<12}">${eb.author}</c:if>
+									</td>
 									<td>${eb.publisher}</td>
 									<td>${eb.publication_year}</td>
-									<td class="project-actions text-right"><a
-										class="btn btn-primary btn-sm" href="#"> <i
+									<td class="project-actions text-right">
+									<button type="button"
+										class="btn btn-primary btn-sm" onclick="location.href='read?e_no=${eb.e_no}';"> <i
 											class="fas fa-folder"> </i> View
-									</a> <a class="btn btn-info btn-sm" href="#"> <i
+									</button> <a class="btn btn-info btn-sm" href="#"> <i
 											class="fas fa-pencil-alt"> </i> Edit
 									</a> <a class="btn btn-danger btn-sm"
 										onclick="delBook(this)" style="color:#fff;"> <i class="fas fa-trash"> </i>

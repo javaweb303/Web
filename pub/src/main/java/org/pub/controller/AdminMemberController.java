@@ -63,7 +63,7 @@ public class AdminMemberController {
 	}//admin_member_list()
 	
 	//관리자에서 회원 상세정보 + 수정폼
-	@RequestMapping("/admin/admin_member_info")
+	@RequestMapping("/admin_member_info")
 	public String admin_member_info(String id, String state, HttpServletRequest request, HttpServletResponse response,
 			Model am) throws Exception{
 		MemberVO m = this.adminMemberService.getMemInfo(id);
@@ -87,7 +87,7 @@ public class AdminMemberController {
 		this.adminMemberService.editM(m);//회원정보 수정
 		out.println("<script>");
 		out.println("alert('회원정보 수정');");
-		out.println("location='/admin/admin_member_info?state=info&id="+m.getId()+"';");
+		out.println("location='/admin_member_info?state=info&id="+m.getId()+"';");
 		out.println("</script>");
 		return null;
 	}//admin_member_edit()

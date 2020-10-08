@@ -74,6 +74,26 @@ public class AdminOpenDAOImpl implements AdminOpenDAO {
 	public void delF(int no) {
 		this.sqlSession.delete("adFaq_del",no);
 	}
+	//관리자 메인화면에서 공지사항 수
+	@Override
+	public int getGongjiCount(GongjiVO g) {
+		return this.sqlSession.selectOne("adIndex_gongjiCount",g);
+	}
+	//관리자 메인화면에서 faq 수
+	@Override
+	public int getFaqCount(FaqContentVO f) {
+		return this.sqlSession.selectOne("adIndex_faqCount", f);
+	}
+	//메인화면에서 최근 공지사항 출력
+	@Override
+	public List<GongjiVO> getMainGongjiList(GongjiVO g) {
+		return this.sqlSession.selectList("adIndex_gongjiList", g);
+	}
+	//메인화면에서 최근 faq 출력
+	@Override
+	public List<FaqContentVO> getMainFaqList(FaqContentVO f) {
+		return this.sqlSession.selectList("adIndex_faqList", f);
+	}
 
 	
 

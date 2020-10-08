@@ -182,17 +182,6 @@
         </div>
       </div>
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -200,7 +189,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="/admin/admin_ebook_reg" class="nav-link">
+            <a href="/admin_ebook_reg" class="nav-link">
               <i class="nav-icon fas fa-folder-open"></i>
               <p>
                 	전자책 관리
@@ -209,34 +198,19 @@
           </li>
           
           <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/admin/admin_loan" class="nav-link">
               <i class="nav-icon fas fa-retweet"></i>
               <p>
                 	대출반납
-                <i class="fas fa-angle-left right"></i>
-                <span class="right badge badge-danger">New</span>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/admin/admin_loan" class="nav-link">
-                  <p>대출반납</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <p>대출반납자료</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 	이용자관리
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -253,7 +227,7 @@
             </ul>
           </li>
           <li class="nav-header">웹 관리 시스템</li>
-          <li class="nav-item">
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-comments"></i>
               <p>
@@ -273,25 +247,6 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-header">LABELS</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Important</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
-              <p>Warning</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
-              <p>Informational</p>
-            </a>
           </li>
         </ul>
       </nav>

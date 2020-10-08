@@ -22,6 +22,11 @@ public class AdminEbookDAOImpl implements AdminEbookDAO {
 	public int getEbookListCount(eBookVO eb) {
 		return this.sqlSession.selectOne("adEbook_count", eb);
 	}
+
+	@Override
+	public int getEbookCount(eBookVO eb) {
+		return this.sqlSession.selectOne("adIndex_ebookCount", eb);
+	}
 	
 	
 }
