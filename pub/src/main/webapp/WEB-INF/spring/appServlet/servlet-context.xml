@@ -33,6 +33,9 @@
 	<mapping path="/admin/**" />
 	<mapping path="/admin_member_reg"/>
 	<mapping path="/admin_member_reg_ok"/>
+	<mapping path="/admin_ebook_reg"/>
+	<mapping path="/Load_UI"/>
+	<mapping path="/admin_member_info"/>
 	<beans:ref bean="AdminInterceptor" />
 	</interceptor>
 	</interceptors>

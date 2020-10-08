@@ -246,14 +246,6 @@ function domain_list(){
 }//domain_list()
 
 
-
-
-
-
-
-
-
-
 //member_edt.jsp
 
 function edit_check(){

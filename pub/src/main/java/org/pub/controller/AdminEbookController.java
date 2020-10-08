@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sun.net.www.protocol.http.logging.HttpLogFormatter;
 
 @Controller
-@RequestMapping("/admin/*")
 public class AdminEbookController {
 
 	@Autowired

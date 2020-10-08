@@ -18,5 +18,7 @@ public interface AdminLoanDAO {
 
 	void delB(String e_no);
 
+	List<eBookVO> getReturn(String id);
+
 
 }

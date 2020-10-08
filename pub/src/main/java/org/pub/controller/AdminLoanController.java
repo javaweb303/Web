@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.pub.service.AdminLoanService;
 import org.pub.vo.LoanVO;
@@ -26,23 +27,27 @@ public class AdminLoanController {
 	
 	@RequestMapping("/admin_loan")
 	private String adLoan(@RequestParam(required = false)String id, Model m, HttpServletRequest request,
-			HttpServletResponse response)throws Exception{
+			HttpServletResponse response )throws Exception{
+		HttpSession session=request.getSession();
 		
 		System.out.println("id:"+id);
 		if(id == null) {
-			id="test3"; 
+			id=(String)session.getAttribute("id"); 
 		}
 		MemberVO mem = this.adminLoanService.getMem(id);
 		List<LoanVO> lolist = this.adminLoanService.getLoan(id);
 		List<eBookVO> elist = this.adminLoanService.getEbookList(id);
+		List<eBookVO> relist = this.adminLoanService.getReturn(id);
 		eBookVO ebook = this.adminLoanService.getEbook(id);
 		//System.out.println("전자책 번호 :"+loan.get(4));
 		//eBookVO ebook = this.adminLoanService.getEbook(loan.get(4));
 		//eBookVO eBook = this.adminLoanService.getEbook();
 		m.addAttribute("mem", mem);
 		m.addAttribute("lolist", lolist);
+		System.out.println(lolist);
 		m.addAttribute("elist", elist);
 		m.addAttribute("ebook",ebook);
+		m.addAttribute("relist", relist);
 		return "/admin/adLoan";
 	}
 	@RequestMapping("/admin_return")

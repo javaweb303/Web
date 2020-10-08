@@ -36,5 +36,10 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 	public int getListCount(MemberVO m) {
 		return this.sqlSession.selectOne("ad_count",m);
 	}
+	//관리자 메인화면에서 회원수
+	@Override
+	public int getMemberCount(MemberVO member) {
+		return this.sqlSession.selectOne("adIndex_memberCount",member);
+	}
 
 }

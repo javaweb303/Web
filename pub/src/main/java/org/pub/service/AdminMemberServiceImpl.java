@@ -36,5 +36,10 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public int getListCount(MemberVO m) {
 		return this.adminMemberDAO.getListCount(m);
 	}
+	//관리자 메인화면에서 회원수
+	@Override
+	public int getMemberCount(MemberVO member) {
+		return this.adminMemberDAO.getMemberCount(member);
+	}
 
 }

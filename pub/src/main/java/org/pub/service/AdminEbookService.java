@@ -10,4 +10,7 @@ public interface AdminEbookService {
 
 	int getEbookListCount(eBookVO eb);
 
+	//관리자 메인화면에서 전자책 수
+	int getEbookCount(eBookVO eb);
+
 }

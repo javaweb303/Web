@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../include/adminHeader.jsp"></jsp:include>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/js/member.js"></script>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -39,7 +42,7 @@
             </button>
           </div>
         </div>
-        <form role="form" method="post" name="m" action="admin_member_edit">
+        <form role="form" method="post" name="form" action="/admin/admin_member_edit">
         <input type="hidden" name="id" value="${m.id}">
         <div class="card-body p-0">
           <table class="table table projects">
@@ -69,12 +72,12 @@
               <th style="background-color:#F6F6F6;">생년월일</th>
               <td>${m.birth}</td>
               <th style="background-color:#F6F6F6;">성별</th>
-              <td><input type="text" name="name" class="form-control" id="name" value="${m.gender}"></td>
+              <td><input type="text" name="gender" class="form-control" id="gender" value="${m.gender}"></td>
               </tr>
               <tr>
               <th style="background-color:#F6F6F6;">이메일</th>
-              <td colspan="3" ><input type="email" name="email" class="form-control-inline" id="inputEmail3" placeholder="Email" value="${m.email}"> @ 
-					  <input type="text" class="form-control-inline" name="email_domain" id="email_domain">&nbsp;
+              <td colspan="3" ><input type="text" name="email" class="form-control-inline" id="email" placeholder="Email" value="${m.email}"> @ 
+					  <input type="text" class="form-control-inline" name="email_domain" id="email_domain" value="${m.email_domain}">&nbsp;
 					  <select class="form-control-inline" name="mail_list" id="mail_list" onchange="domain_list();">
 										<option value="direct">직접입력</option>
 										<option value="naver.com">네이버</option>
@@ -83,6 +86,28 @@
 										<option value="nate.com">네이트</option>
 									</select>
               
+              </td>
+              </tr>
+              <tr>
+              <th style="background-color: #F6F6F6;">우편번호</th>
+              <td colspan="3"><input type="hidden" id="confmKey" name="confmKey" value="" >
+              <input type="text" id="zipNo" name="zipNo" readonly class="form-control-inline" value="${m.zipNo}">
+              <span class="form-control-inline">
+              <input type="button" class="form-control-inline" value="주소검색" onclick="goPopup()">
+              </span>
+              </td>
+              </tr>
+              <tr>
+              <th style="background-color: #F6F6F6;">도로명 주소</th>
+              <td colspan="3">
+              <input type="text" class="form-control" id="roadAddrPart1" name="roadAddrPart1" value="${m.roadAddrPart1}">
+              </td>
+              </tr>
+              <tr>
+              <th style="background-color: #F6F6F6;">상세 주소</th>
+              <td colspan="3">
+              <input type="text" class="form-control-inline col-sm-5" id="addrDetail" name="addrDetail" value="${m.addrDetail}"> &nbsp;&nbsp;
+                <input type="text" class="form-control-inline col-sm-5" id="roadAddrPart2" name="roadAddrPart2" value="${m.roadAddrPart2}">
               </td>
               </tr>
               </tbody>

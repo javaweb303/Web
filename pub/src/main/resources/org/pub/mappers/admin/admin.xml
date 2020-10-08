@@ -4,6 +4,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Admin">
+<!-- 메인화면 -->
+<!-- 관리자 메인화면에서 공지사항 수 -->
+<select id="adIndex_gongjiCount" resultType="int">
+select count(*) from gongji
+</select>
+
+<!-- 관리자 메인화면에서 faq 수 -->
+<select id="adIndex_faqCount" resultType="int">
+select count(*) from faqContent
+</select>
+<!-- 관리자 메인화면에서 회원 수 -->
+<select id="adIndex_memberCount" resultType="int">
+select count(*) from member where state=1
+</select>
+<!-- 관리자 메인화면에서 ebook 수 -->
+<select id="adIndex_ebookCount" resultType="int">
+select count(*) from ebook 
+</select>
+<!--  메인화면에서 최근 공지사항 출력-->
+<select id="adIndex_gongjiList" resultType="gongji">
+select * from (
+select gongji_no, gongji_title, gongji_date
+from gongji order by gongji_no desc)
+where rownum &lt; 6
+</select>
+<!-- 메인화면에서 최근 faq 출력 -->
+<select id="adIndex_faqList" resultType="fct">
+select * from (
+select faqNo, Question
+from faqContent order by faqNo desc)
+where rownum &lt; 6
+</select>
+
 
 <select id="ad_count" resultType="int">
 select count(id) from member
@@ -39,7 +72,10 @@ select * from member where id=#{id}
 </select>
 
 <update id="ad_edit">
-update member set email=#{email} where id=#{id}
+update member set email=#{email}, email_domain=#{email_domain}, name=#{name}, gender=#{gender},
+zipNo=#{zipNo}, roadAddrPart1=#{roadAddrPart1}, roadAddrPart2=#{roadAddrPart2}, addrDetail=#{addrDetail}
+
+where id=#{id}
 </update>
 
 <update id="ad_del">
@@ -202,6 +238,8 @@ publisher like #{searchKeyword}
 </where>
 </select>
 
+
+
 <select id="adMem_info" resultType="m">
 select * from member where id=#{id}
 </select>
@@ -229,5 +267,12 @@ where rowNum=1
 <update id="adLoanEbook_return">
 update book_loan_info set state=2 where e_no=#{e_no}
 </update>
+
+<select id="adReturnEbook_list" resultType="ebook">
+select e.title, e.isbn, e.publisher, e.e_no
+from member m, book_loan_info b, ebook e
+where m.id=b.id and b.e_no=e.e_no and m.id=#{id} and b.state=2
+order by b.loan_date desc
+</select>
 </mapper>
 

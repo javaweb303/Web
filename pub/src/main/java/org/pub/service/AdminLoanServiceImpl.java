@@ -40,5 +40,10 @@ public class AdminLoanServiceImpl implements AdminLoanService {
 		this.adminLoanDAO.delB(e_no);
 	}
 
+	@Override
+	public List<eBookVO> getReturn(String id) {
+		return this.adminLoanDAO.getReturn(id);
+	}
+
 	
 }

@@ -74,6 +74,27 @@ public class AdminOpenServiceImpl implements AdminOpenService {
 		this.adminOpenDAO.delF(no);
 	}
 
+	//관리자 메인 화면에서 공지사항 수
+	@Override
+	public int getGongjiCount(GongjiVO g) {
+		return this.adminOpenDAO.getGongjiCount(g);
+	}
+	//관리자 메인 화면에서 faq 수
+	@Override
+	public int getFaqCount(FaqContentVO f) {
+		return this.adminOpenDAO.getFaqCount(f);
+	}
+	//메인화면에서 최근 공지사항 출력
+	@Override
+	public List<GongjiVO> getMainGongjiList(GongjiVO g) {
+		return this.adminOpenDAO.getMainGongjiList(g);
+	}
+	//메인화면에서 최근 faq 출력
+	@Override
+	public List<FaqContentVO> getMainFaqList(FaqContentVO f) {
+		return this.adminOpenDAO.getMainFaqList(f);
+	}
+
 	
 	
 	

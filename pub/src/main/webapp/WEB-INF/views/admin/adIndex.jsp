@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="../include/adminHeader.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -8,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">관리자 메인 화면</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">main</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -28,61 +29,61 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-purple">
               <div class="inner">
-                <h3>150</h3>
+                <h3>${gongji_count}</h3>
 
-                <p>New Orders</p>
+                <p>공지사항</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/admin/admin_bbs_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-pink">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>${faq_count}</h3>
 
-                <p>Bounce Rate</p>
+                <p>FAQ</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/admin/admin_faq_list" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
+            <div class="small-box bg-info">
+              <div class="inner" style="color:#fff;">
+                <h3>${member_count}</h3>
 
-                <p>User Registrations</p>
+                <p>이용 회원</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/admin/admin_member_list" class="small-box-footer" style="color:#fff !important;">More info <i class="fas fa-arrow-circle-right" style="color:#fff;"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
+            <div class="small-box bg-orange">
+              <div class="inner" style="color:#fff;">
+                <h3>${ebook_count}</h3>
 
-                <p>Unique Visitors</p>
+                <p>전자책</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/admin/admin_ebook_reg" class="small-box-footer" style="color:#fff !important;">More info <i class="fas fa-arrow-circle-right" style="color:#fff;"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -90,41 +91,196 @@
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
+        
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
+          <!-- 공지사항 -->
+          <div class="card">
+          <div class="card-header">
+          <h3 class="card-title">
+                  <i class="ion ion-create-outline mr-1"></i>
+                  	공지사항
                 </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                    </li>
-                  </ul>
                 </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <table class="table table-striped projects">
+					<thead>
+						<tr>
+							<th style="width: 5%">NO</th>
+							<th style="width: 30%">제목</th>
+							<th style="width: 20%">등록일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:if test="${!empty glist}">
+							<c:forEach var="g" items="${glist}">
+								<tr>
+									<td>${g.gongji_no}</td>
+									<td><a> ${g.gongji_title} </a></td>
+									<td>${g.gongji_date}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+                </div>
+                <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-secondary float-right" onclick="location.href='/admin/admin_gongji_write';"><i class="fas fa-plus"></i> 공지사항 등록</button>
+              </div>
+          </div>
+           <!-- /.card -->
+          </section>
+          
+          <section class="col-lg-5 connectedSortable">
+          <!-- FAQ -->
+          <div class="card">
+          <div class="card-header">
+          <h3 class="card-title">
+                  <i class="ion ion-create-outline mr-1"></i>
+                  	faq
+                </h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <table class="table table-striped projects">
+					<thead>
+						<tr>
+							<th style="width: 5%">NO</th>
+							<th style="width: 30%">질문</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:if test="${!empty flist}">
+							<c:forEach var="f" items="${flist}">
+								<tr>
+									<td>${f.faqNo}</td>
+									<td><a><c:if test="${fn:length(f.question)>16 }">${fn:substring(f.question,0,16)}...</c:if> 
+									<c:if test="${fn:length(f.question)<16}">${f.question}</c:if>
+									</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+                </div>
+                <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-secondary float-right" onclick="location.href='/admin/admin_faq_write';"><i class="fas fa-plus"></i> faq 등록</button>
+              </div>
+          </div>
+           <!-- /.card -->
+          </section>
+          <section class="col-lg-12 connectedSortable">
+        <!-- 연락처 -->
+        <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+                  <i class="ion ion-create-outline mr-1"></i>
+                  	Contacts
+                </h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <div class="row d-flex align-items-stretch">
+        		<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  PM
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>문영선</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Web Programmer </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: 경기도 수원시 권선구</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: 010-3831-6811</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="<c:url value='/bootstrap/dist/img/user2-160x160.jpg' />" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
                   </div>
                 </div>
-              </div><!-- /.card-body -->
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="#" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> View Profile
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- /.card -->
-
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  PL
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>박범석</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Web Programmer / UX / Graphic Artist </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="<c:url value='/bootstrap/dist/img/user2-160x160.jpg' />" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="#" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> View Profile
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  PE
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>유성근</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Web Programmer / UX / Graphic Artist / Coffee Lover </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="<c:url value='/bootstrap/dist/img/user2-160x160.jpg' />" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="#" class="btn btn-sm btn-primary">
+                      <i class="fas fa-user"></i> View Profile
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+        		</div>
+        		<!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-secondary float-right" onclick="location.href='#';"><i class="fas fa-plus"></i>더보기</button>
+              </div>
+          </div>
+           <!-- /.card -->
+          </section>
+          <section class="col-lg-7 connectedSortable">
             <!-- TO DO List -->
             <div class="card">
               <div class="card-header">
@@ -251,7 +407,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
+                <button type="button" class="btn btn-secondary float-right"><i class="fas fa-plus"></i> Add item</button>
               </div>
             </div>
             <!-- /.card -->
@@ -259,102 +415,6 @@
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
-
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Visitors
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.card -->
-
-            <!-- solid sales graph -->
-            <div class="card bg-gradient-info">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-th mr-1"></i>
-                  Sales Graph
-                </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                           data-fgColor="#39CCCC">
-
-                    <div class="text-white">Mail-Orders</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                           data-fgColor="#39CCCC">
-
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                           data-fgColor="#39CCCC">
-
-                    <div class="text-white">In-Store</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
 
             <!-- Calendar -->
             <div class="card bg-gradient-success">
