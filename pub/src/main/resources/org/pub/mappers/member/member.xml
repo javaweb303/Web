@@ -59,7 +59,7 @@ values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAd
   
 <!-- 정보수정 -->
   <update id="edit_ok"  >
-  update member set pw=#{pw}, name=#{name}, email=#{email} where id=#{id}
+  update member set name=#{name}, email=#{email},email_domain=#{email_domain},zipNo=#{zipNo},roadAddrPart1=#{roadAddrPart1},roadAddrPart2=#{roadAddrPart2},addrDetail=#{addrDetail}  where id=#{id}
   </update>
 
 

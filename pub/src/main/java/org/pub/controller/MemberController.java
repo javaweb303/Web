@@ -259,17 +259,17 @@ public class MemberController {
    	if(id == null) {//세션 만료 된 경우=>로그아웃 되었을때
    		out.println("<script>");
    		out.println("alert('다시 로그인 하세요!');");
-   		out.println("location='login';");
+   		out.println("window.close();");
    		out.println("</script>");
    	}else {
    		m.setId(id);//아이디를 저장
-   		m.setPw(PwdChange.getPassWordToXEMD5String(m.getPw()));
-   		//비번 암호화
+   		
    		this.memberService.updateMember(m);//회원수정
    		
    		out.println("<script>");
    		out.println("alert('회원 수정에 성공했습니다!');");
-   		out.println("location='login';");
+   		out.println("opener.reload();");
+   		out.println("window.close();");
    		out.println("</script>");
    	}//if else
    	return null;
@@ -332,13 +332,47 @@ public class MemberController {
 				   
 				   out.println("<script>");
 				   out.println("alert('회원 탈퇴 했습니다!');");
-				   out.println("location='login';");
+				   out.println("opener.home();");
+				   out.println("window.close();");
 				   out.println("</script>");
 				   
 			   }
 			   
 		   }
       return null;
+	   }
+	   @RequestMapping("/change_pw")
+	   public String change_pw() {
+		   
+		   return "member/change_pw";
+	   }
+	   @RequestMapping("/change_pw_ok")
+	   public String change_pw_ok(HttpServletResponse response,HttpServletRequest request,HttpSession session) throws IOException {
+		   response.setContentType("text/html;charset=UTF-8");
+		   PrintWriter out = response.getWriter();
+		   String id = (String)session.getAttribute("id");
+		   MemberVO vo = memberService.getMember(id);
+		   String pw = PwdChange.getPassWordToXEMD5String(request.getParameter("pw"));
+		   String changepw =request.getParameter("changepw");
+		   System.out.println(changepw);
+		   if(pw.equals(vo.getPw())) {
+			   vo.setPw(PwdChange.getPassWordToXEMD5String(request.getParameter("changepw")));
+			   memberService.updatePwd(vo);
+			   session.invalidate();
+			   out.println("<script>");
+			   out.println("alert('비밀번호가 변경되었습니다!');");
+			   out.println("opener.home();");
+			   out.println("window.close();");
+			   out.println("</script>");
+		   }else {
+			   out.println("<script>");
+			   out.println("alert('비번이 다릅니다. 다시 확인하세요.');");
+			   out.println("history.back();");
+			   out.println("</script>");
+		   }
+		   
+		   
+		   return null;
 	   }
 	   
 	   @RestController
@@ -445,7 +479,7 @@ public class MemberController {
 	    		out.println("</script>");
 	    		
 	    	}else {
-	    	model.setViewName("member/id_find_ok");
+	    	model.setViewName("member/find/id_find_ok");
 	    	model.addObject("id", fi.getId());
 	    	
 	    

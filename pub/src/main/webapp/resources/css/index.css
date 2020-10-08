@@ -1,4 +1,5 @@
 @charset "UTF-8";
+body{margin: 0;}
 ul{margin: 0;}
 ul li{list-style: none;}
 a{text-decoration: none; color: black;}
@@ -8,13 +9,13 @@ a:hover { color: black; text-decoration: underline;}
 
 #wrap{position: relative; max-width: 914px; height: 100%; margin: 0 auto; padding: 0 20px;}
 
-#navbox{display: table; width: 100%; height: 60px;}
+#navbox{display: table; width: 100%; height: 60px; background-color: #555274;}
 #nav{display: table-cell; table-layout: fixed; vertical-align: middle;}
-#nav > span{font-size: 20px; margin:0 2.5%; padding: 15px 4%;}
+#nav > span{font-size: 20px; margin:0 2.5%; padding: 15px 4%; font-weight: 700; color: white;}
 
-#con_top{height: 220px;}
-#con_top_left{width: 68%; float: left; height: 220px;}
-#con_top_right{width: 28%; float: right;}
+#con_top{height: 220px; background-color: #f2f2f2;}
+#con_top_left{width: 70%; float: left; height: 220px;}
+#con_top_right{width: 29%; float: right;}
 
 
 /*슬라이더*/
@@ -41,9 +42,10 @@ span{cursor: pointer; font-size: 8px;}
 #join{margin-left: 90px;}
 
 
-#booklable{display: table; width: 100%; height: 70px;}
-#depth_label{display: table-cell; table-layout: fixed; vertical-align: middle;}
-#depth_label span{font-size: 18px; margin:0 2%; padding: 15px 4%;}
+#booklable{display: table; width: 100%; height: 60px;}
+#depth_label{display: table-cell; table-layout: fixed; vertical-align: middle; background-color: #726d98;}
+#depth_label span{font-size: 18px; margin:0; padding: 19px 6%; font-weight: 700; color: white;}
+#depth_label span.active{background-color: #555274;}
 
 
 #listBox ul li {padding: 3px 0;}

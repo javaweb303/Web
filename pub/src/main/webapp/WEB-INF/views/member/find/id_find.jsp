@@ -56,7 +56,7 @@ href="./resources/css/member.css" />
 
   <input type="submit" value="찾기" />
    <input type="reset" value="취소" 
-   onclick="$('#name').focus();" />
+   onclick="window.close();" />
 
 
 </div>

@@ -90,7 +90,7 @@ href="./resources/css/member.css" />
    <div id="pFind_menu">
    <input type="submit" value="찾기" />
    <input type="reset" value="취소" 
-   onclick="$('#pwd_id').focus();" />
+   onclick="window.close();"/>
    </div>
   </form>
  </div>

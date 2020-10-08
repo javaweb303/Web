@@ -157,7 +157,7 @@ public class eBookController {
 
 	}
 	@RequestMapping("/ebookcont")
-	public ModelAndView bookcont(@RequestParam("isbn") String isbn,HttpServletRequest request) {
+	public ModelAndView bookcont(@RequestParam(value="isbn", required=false, defaultValue="") String isbn,HttpServletRequest request) {
 		ModelAndView model=new ModelAndView();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
@@ -184,7 +184,7 @@ public class eBookController {
 				vo.setImgurl((String)map.get("cover"));
 				int no=eBookService.addBook_isbn(vo);
 				try {
-					InputStream is=new FileInputStream(new File("C:/Users/User/Downloads/book.pdf"));
+					InputStream is=new FileInputStream(new File("C:/Users/st473/Downloads/book.pdf"));
 					PdfFile_Img pdf = new PdfFile_Img();
 					pdf.conversionPdf2Img(is, "ebook", no);
 				}catch (Exception e) {
