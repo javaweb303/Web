@@ -3,6 +3,9 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 $(function(){
+	$('.go_book').on("click",function(){
+		location.href='/ebookcont?isbn='+$(this).data('isbn');
+	})
 	$('.LoanBookBox').on("click",".bookreturn",function(){
 		var eno=$($(this).parents('.LoanBookBox')).data("e_no");
 		if (confirm("반납 하겠습니까?") == true){//확인
@@ -34,6 +37,22 @@ $(function(){
 	}else{
 		$('#lib').hide();
 	}
+	$('.edit_btn').on("click",function(){
+		var text = $(this).val();
+		if(text == '내정보 수정'){
+			window.open("/member_edit","회원탈퇴","width=450px,height=350px"+
+			 ",scrollbars=yes");
+		}
+		if(text == '비밀번호 변경'){
+			window.open("/change_pw","회원탈퇴","width=450px,height=300px"+
+			 ",scrollbars=yes");
+		}
+		if(text == '회원 탈퇴'){
+			window.open("/member_del","회원탈퇴","width=450px,height=300px"+
+			 ",scrollbars=yes");
+		}
+	});
+	
 	//페이지 새로고침을 확인하기위해 가져온것..
 	/*
 	if (window.performance) {
@@ -51,6 +70,12 @@ function pwd(){
 function tab_click(obj){
 	var data=obj.getAttribute('data-taget');//해당 이벤트가 발생한 data-taget에 대한 값을 data에 저장.
 	location.href='/mypage?tab_menu='+data;
+}
+function home(){
+	location.href='/';
+}
+function reload(){
+	location.reload();
 }
 </script>
 <style>
@@ -73,7 +98,7 @@ p{margin: 0;}
 
 
 /*몸체*/
-#content .container{margin: 0 40px;height: 100%; padding-bottom: 80px;}
+#content .container{margin: 0 40px; height: 100%;}
 .cont_wrap{position: relative; max-width: 914px; height: 55px; margin: 0 auto; padding: 0 20px;}
 #content .content_head{position: relative; max-width: 914px; height: 55px; margin: 0 auto; padding: 0 20px;}/*색변경*/
 
@@ -84,6 +109,10 @@ th{border-right: 1px solid #e5e5e5; text-align: left; padding: 12px 0 12px 30px;
 td{padding: 12px 0 12px 10px;}
 
 .mypage_btn{margin:  0 65px 0 65px; width: 100px;}
+
+
+#footer{text-align: center; background-color: #171d33; color: white;}
+#footer_info{position: relative; max-width: 914px; height: 55px; margin: 0 auto; padding: 0 20px;}
 </style>
 <div id="content">
 	<div id="head">
@@ -150,11 +179,11 @@ td{padding: 12px 0 12px 10px;}
 						</tbody>
 					</table>
      		</div>
-     		<div style="height: 100px;">
+     		<div style="height: 150px;">
      			<h3 style="border-bottom: 1px solid gray;">내정보 수정</h3>
      			<p style="text-align: center; margin-bottom: 18px;">＊ ${member_info.name}님의 개인정보 및 비밀번호를 변경할 수 있습니다. 변경을 원하시는 항목을 선택해주세요.</p>
      			<div style="text-align: center;">
-     				<input type="button" value="내정보 수정" class="mypage_btn"> <input type="button" value="비밀번호 변경" class="mypage_btn"> <input type="button" value="회원 탈퇴" class="mypage_btn">
+     				<input type="button" value="내정보 수정" class="mypage_btn edit_btn"> <input type="button" value="비밀번호 변경" class="mypage_btn edit_btn"> <input type="button" value="회원 탈퇴" class="mypage_btn edit_btn">
      			</div>
      		</div>
      	</div>
@@ -176,7 +205,7 @@ td{padding: 12px 0 12px 10px;}
 											<img src="/file/book_img/${loanlist.e_no}_/${loanlist.title}.png" style="width: 165px; height: 225px; margin: 0; float: left;">
 											</c:if>
 											<div style="padding-top: 15px;">
-												<p style="font-size: 25px; margin: 5px 0 5px 0; overflow: hidden; height: 33px;">${loanlist.title}</p>
+												<p style="font-size: 25px; margin: 5px 0 5px 0; overflow: hidden; height: 33px;" data-isbn="${loanlist.isbn}" class="go_book">${loanlist.title}</p>
 													<span>저자:${loanlist.author}</span><br>
 													<span>출판사:${loanlist.publisher}</span><br>
 													<span>출판연도:${loanlist.publication_year}</span><br>
@@ -198,6 +227,20 @@ td{padding: 12px 0 12px 10px;}
 			<div><!-- 보안설정(비밀번호 변경,회원 탈퇴) -->
      	</div>
      </div>
+     
    </div>
+   <footer id="footer">
+			<div class="footer-info">
+				<div class="footer-cont">
+					<address>서울특별시 동작구 장승배기로 171 2층, 3층 303호</address>
+					문의전화 02) 866-9357 | 팩스 02) 5249-1464
+				</div>
+				<p class="copy">COPYRIGHT © Library, Inc. All rights reserved</p>
+			</div>
+			<!--// footer-bottom -->
+		</footer>
 </div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+
+   </div>
+</body>
+</html>

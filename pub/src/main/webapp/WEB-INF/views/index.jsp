@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/index.css" />
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="resources/js/slider.js"></script>
+<script type="text/javascript" src="resources/js/mainpage.js"></script>
 <script>
 </script>
 </head>
@@ -16,10 +17,10 @@
    <div id="wrap">
    <jsp:include page="./menu.jsp"></jsp:include>
       <header>
-      	<div style="height: 150px;"></div>
+      	<div style="height: 130px; background-image: url('resources/images/logo.png'); background-position: 0 0; background-size: 200px 150px; background-repeat: no-repeat;"></div>
       	<div id="navbox">
          <nav id="nav">
-         	<span onclick="location.href='/search'">도서관 서비스</span><span onclick="location.href='/eBook'">전자 도서관</span><span onclick="location.href='/history'">도서관 안내</span><span onclick="location.href='/bbs_list'">열린공간</span>
+         	<span id="service">도서관 서비스</span><span id="eBook">전자 도서관</span><span id="history">도서관 안내</span><span id="open">열린공간</span>
          </nav>
          </div>
       </header>
@@ -57,19 +58,19 @@
 	      				</table>
 	      				</form>
 	      			</div>
-	      			<span>아이디 찾기</span> <span>비밀번호 찾기</span><span id="join">회원가입</span>
+	      			<span id="find_id">아이디 찾기</span> <span id="find_pw">비밀번호 찾기</span><span id="join">회원가입</span>
       		</div>
       		</c:if>
       		<c:if test="${!empty id}">
       			<div>
 	      			<div>
-	      			<span>${id} 님</span> <span onclick="location.href='/logout'">로그아웃</span><br>
+	      			<span>${id} 님</span> <span id="logout">로그아웃</span><br>
 	      			<p></p>
 	      			
 	      			</div>
 	      			<div>
-	      				<c:if test="${Rank eq '1'}"><span onclick="location.href='/mypage'">MyPage</span><span onclick="location.href='/mypage?tab_menu=lib'">MyLibrary</span></c:if>
-	      				<c:if test="${Rank eq '5'}"><span onclick="location.href='./admin/adIndex'">AdminPage</span></c:if>
+	      				<c:if test="${Rank eq '1'}"><span id="mypage">MyPage</span><span id="mylib">MyLibrary</span></c:if>
+	      				<c:if test="${Rank eq '5'}"><span id="adpage">AdminPage</span></c:if>
 	      			</div>
       			</div>
       		</c:if>
@@ -78,26 +79,49 @@
       	<div id="con_center">
       		<div id="bookbox">
       			<div id="booklable">
-      			<div id="depth_label">
-      			<span>신간도서</span><span>인기도서</span><span>추천도서</span>
+      			<div id="depth_label" style="border-bottom: 1px solid gray; ">
+      			<span data-tap="new_book" class="active">신간도서</span><span data-tap="popular_book">인기도서</span><span data-tap="recomm_book">추천도서</span>
       			</div>
       			</div>
-      			<div id="new_book">
-					<ul style="width: auto; height: 225px; overflow: hidden; list-style: none; padding-top: 25px;
-					border-top: 1px solid gray; position: relative;">
-						<c:forEach items="${pubList}" var="list" step="1">
+      			<div id="new_book" class="book_tap_body">
+					<ul style="width: auto; height: 225px; overflow: hidden; list-style: none; padding-top: 25px; position: relative;">
+						<c:forEach items="${newList}" var="list" step="1">
 							<li style="width: 150px; height: 225px; float:left; margin: 0 25px;">
 							<a href="./bookcont?isbn=${list['isbn13']}">
 							<img alt="책이미지" src="${list['cover']}" style="width: 150px; height: 200px;"></a>
 							<p style="width: 150px; height: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${list['bookname']}</p>
 							</li>
 						</c:forEach>
-						<span style="position: absolute; bottom: 3px; right: 3px;">더보기>></span>
+						<span style="position: absolute; bottom: 3px; right: 3px;" id="new_book_more">더보기>></span>
+					</ul>
+				</div>
+				<div id="popular_book" class="book_tap_body" style="display: none;">
+					<ul style="width: auto; height: 225px; overflow: hidden; list-style: none; padding-top: 25px; position: relative;">
+						<c:forEach items="${popularList}" var="list" step="1">
+							<li style="width: 150px; height: 225px; float:left; margin: 0 25px;">
+							<a href="./bookcont?isbn=${list['isbn13']}">
+							<img alt="책이미지" src="${list['cover']}" style="width: 150px; height: 200px;"></a>
+							<p style="width: 150px; height: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${list['bookname']}</p>
+							</li>
+						</c:forEach>
+						<span style="position: absolute; bottom: 3px; right: 3px;" id="popular_book_more">더보기>></span>
+					</ul>
+				</div>
+				<div id="recomm_book" class="book_tap_body" style="display: none;">
+					<ul style="width: auto; height: 225px; overflow: hidden; list-style: none; padding-top: 25px; position: relative;">
+						<c:forEach items="${recommList}" var="list" step="1">
+							<li style="width: 150px; height: 225px; float:left; margin: 0 25px;">
+							<a href="./bookcont?isbn=${list['isbn13']}">
+							<img alt="책이미지" src="${list['cover']}" style="width: 150px; height: 200px;"></a>
+							<p style="width: 150px; height: 25px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${list['bookname']}</p>
+							</li>
+						</c:forEach>
+						<span style="position: absolute; bottom: 3px; right: 3px;" id="recomm_book_more">더보기>></span>
 					</ul>
 				</div>
       		</div><!-- bookbox -->
 				<div id="gongibox" style="padding-top: 5px; width: 100%">
-					<div style="display: table; width: 100%; height: 54px;"><div style="display: table-cell; table-layout: fixed; vertical-align: middle; border-bottom: 1px solid gray;"><span style="font-size: 18px;padding: 15px 4%;">공지사항</span></div></div>
+					<div style="display: table; width: 100%; height: 60px;"><div style="display: table-cell; table-layout: fixed; vertical-align: middle; border-bottom: 1px solid gray; background-color: #726d98; "><span style="font-size: 18px;padding: 15px 4%; font-weight: 700; color: white;">공지사항</span></div></div>
 					<div id="listBox">
 						<ul style="position: relative; padding-bottom: 20px;">
 							<c:if test="${!empty glist}">
@@ -109,7 +133,7 @@
 							<c:if test="${empty glist}">
 								<p>공지사항이 없다.</p>
 							</c:if>
-							<span style="position: absolute; bottom: 3px; right: 3px;">더보기 >></span>
+							<span style="position: absolute; bottom: 3px; right: 3px;" id="gongi_more">더보기 >></span>
 						</ul>
 					</div>
 				</div>
