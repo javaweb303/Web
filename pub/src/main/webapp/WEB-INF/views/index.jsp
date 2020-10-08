@@ -17,7 +17,7 @@
    <div id="wrap">
    <jsp:include page="./menu.jsp"></jsp:include>
       <header>
-      	<div style="height: 130px; background-image: url('resources/images/logo.png'); background-position: 0 0; background-size: 200px 150px; background-repeat: no-repeat;"></div>
+      	<div style="height: 110px; background-image: url('resources/images/logo.png'); background-position: 0 0; background-size: 200px 110px; background-repeat: no-repeat;"></div>
       	<div id="navbox">
          <nav id="nav">
          	<span id="service">도서관 서비스</span><span id="eBook">전자 도서관</span><span id="history">도서관 안내</span><span id="open">열린공간</span>
@@ -63,13 +63,14 @@
       		</c:if>
       		<c:if test="${!empty id}">
       			<div>
-	      			<div>
-	      			<span>${id} 님</span> <span id="logout">로그아웃</span><br>
+	      			<div style="height: 180px;">
+	      			<span style="font-size: 15px;">${id} 님</span> <span id="logout" style="font-size: 15px; right: 3px; margin-left: 110px;">로그아웃</span><br>
 	      			<p></p>
-	      			
+	      			<p>대출현황 :  ${count}/5</p>
+	      			<p>상태 : <c:if test="${overDate >= 1}">연체중..</c:if><c:if test="${overDate <= 0}">미연체</c:if></p>
 	      			</div>
-	      			<div>
-	      				<c:if test="${Rank eq '1'}"><span id="mypage">MyPage</span><span id="mylib">MyLibrary</span></c:if>
+	      			<div style="text-align: center; height: 40px;">
+	      				<c:if test="${Rank eq '1'}"><span id="mypage" class="mem_tap">MyPage</span><span id="mylib" class="mem_tap">MyLibrary</span></c:if>
 	      				<c:if test="${Rank eq '5'}"><span id="adpage">AdminPage</span></c:if>
 	      			</div>
       			</div>

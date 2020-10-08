@@ -12,11 +12,15 @@
 <meta name="viewport" content="width = 1050, user-scalable = no" />
 <script type="text/javascript" src="resources/turnjs/extras/jquery.min.1.7.js"></script>
 <script type="text/javascript" src="resources/turnjs/extras/modernizr.2.5.3.min.js"></script>
+<script>
+	.val(Math.round(${book_imgfile/2}));
+</script>
 <style>
 .on{color:#ff0000;}
 </style>
 </head>
 <body style="background:url(resources/images/viewer/viewbg.png) repeat">
+<input>/<span id="Maxpage"></span>
 <div class="flipbook-viewport">
 	<div class="container">
 		<div class="flipbook">

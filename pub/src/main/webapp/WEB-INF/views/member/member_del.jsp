@@ -9,7 +9,12 @@ href="./resources/css/member.css" />
 <script src="./resources/js/member.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-
+<style type="text/css">
+table{border-bottom: 1px solid #e5e5e5; width: 100%; border-collapse: collapse;}
+th,td{border-top: 1px solid #e5e5e5}
+th{border-right: 1px solid #e5e5e5; text-align: left; padding: 12px 0 12px 30px; width: 150px;}
+td{padding: 12px 0 12px 10px;}
+</style>
 </head>
 <body>
  <div id="mDel_wrap">
