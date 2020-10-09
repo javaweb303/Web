@@ -21,7 +21,7 @@ $(function(){
 		location.href='/mypage';
 	});
 	$('#mylib').on("click",function(){
-		location.href='/mypage?tab_menu=mylib';
+		location.href='/mypage?tab_menu=lib';
 	});
 	$('#adpage').on("click",function(){
 		location.href='/admin/adIndex';

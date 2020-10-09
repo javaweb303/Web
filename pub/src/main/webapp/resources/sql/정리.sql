@@ -126,7 +126,7 @@ select * from recommend;
 select * from reply;
 select * from book_loan_info;
 
-update member set state=1 where id='st4733';
+update member set state=5 where id='st4731';
 /*시퀀스*/
 /* 전자책 번호 */
 create sequence e_num_seq

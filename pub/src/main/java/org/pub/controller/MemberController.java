@@ -213,6 +213,7 @@ public class MemberController {
 				vo.setReturn_date(loan.getReturn_date().substring(0, 10));
 				System.out.println(vo);
 				myloanlist.add(vo);
+				model.addObject("loancount", myloanlist.size());
 			}
 			model.setViewName("/member/mypage");
 			model.addObject("member_info", mem);
