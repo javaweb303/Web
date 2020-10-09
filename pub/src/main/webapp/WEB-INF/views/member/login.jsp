@@ -64,10 +64,6 @@
          	<h2>로그인을 하세요.</h2><br><br><br>
 					<form method="post" action="/login_ok" ><!-- 메인으로 나올라구씀 -->
 						<div id="inputbox">
-						
-						
-						
-						
 							<input type="text" name="id" class="input_row" placeholder="아이디">
 							<br> <input type="password" name="pwd" class="input_row"
 								placeholder="비밀번호"> <br> <input type="submit"

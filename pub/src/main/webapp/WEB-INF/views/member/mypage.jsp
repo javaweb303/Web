@@ -26,7 +26,8 @@ $(function(){
 	$('.LoanBookBox').on("click", ".read", function() {
 			var eno = $($(this).parents('.LoanBookBox')).data("e_no");
 			if (confirm("뷰로 이동.") == true){//확인
-				location.href='/read?e_no='+eno+'';
+				window.open("/read?e_no="+eno,"뷰어","width=1200px,height=800px"+
+				 ",scrollbars=no");
 			 }else{//취소
 			     return false;
 			 }
@@ -40,16 +41,16 @@ $(function(){
 	$('.edit_btn').on("click",function(){
 		var text = $(this).val();
 		if(text == '내정보 수정'){
-			window.open("/member_edit","회원탈퇴","width=450px,height=350px"+
+			window.open("/member_edit","회원탈퇴","width=570px,height=550px"+
 			 ",scrollbars=yes");
 		}
 		if(text == '비밀번호 변경'){
-			window.open("/change_pw","회원탈퇴","width=450px,height=300px"+
+			window.open("/change_pw","회원탈퇴","width=370px,height=310px"+
 			 ",scrollbars=yes");
 		}
 		if(text == '회원 탈퇴'){
-			window.open("/member_del","회원탈퇴","width=450px,height=300px"+
-			 ",scrollbars=yes");
+			window.open("/member_del","회원탈퇴","width=450px,height=450px"+
+			 ",scrollbars=no");
 		}
 	});
 	
@@ -170,13 +171,17 @@ td{padding: 12px 0 12px 10px;}
 							</tr>
 							<tr>
 								<th>도로명주소</th>
-								<td>${member_info.roadAddrPart1}</td>
+								<td>${member_info.roadAddrPart1} ${member_info.roadAddrPart2}</td>
 							</tr>
 							<tr>
 								<th>상세주소</th>
 								<td>${member_info.addrDetail}</td>
 							</tr>
 						</tbody>
+						<tr>
+							<th>대출중인 도서 개수</th>
+							<td>${loancount}개</td>
+						</tr>
 					</table>
      		</div>
      		<div style="height: 150px;">

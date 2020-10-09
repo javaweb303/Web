@@ -44,7 +44,7 @@
       		<div id="member_box">
       			
 	      			<div>
-	      				<form action="/login_ok">
+	      				<form action="/login_ok" method="post">
 	      				<table>
 	      				<tr>
 	      				<th><input type="text" name="id" class="member_input" placeholder="아이디"></th>

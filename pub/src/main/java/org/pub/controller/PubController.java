@@ -45,7 +45,8 @@ public class PubController {
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
 		MemberVO vo=null;
-		if(id!=null) {
+		if(session.getAttribute("id")!=null) {
+			vo=new MemberVO();
 			SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 			String time = format.format(new Date());
 			Date newDate=format.parse(time);

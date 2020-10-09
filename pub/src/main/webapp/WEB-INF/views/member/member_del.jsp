@@ -18,6 +18,7 @@ td{padding: 12px 0 12px 10px;}
 </head>
 <body>
  <div id="mDel_wrap">
+ <h2>회원 탈퇴</h2>
   <form method="post" action="member_del_ok"
   onsubmit="return del_check();">
    <table id="mDel_t">
@@ -38,12 +39,13 @@ td{padding: 12px 0 12px 10px;}
      <td><textarea name="del_cont" id="del_cont"
      rows="9" cols="36"></textarea></td>    
     </tr>
-   </table>  
-   <div id="mDel_menu" style="text-align: center;">
+    <tr><td colspan="2"><div id="mDel_menu" style="text-align: center;">
    <input type="submit" value="탈퇴" />
    <input type="reset" value="취소" 
    onclick="window.close();" />
-   </div>
+   </div></td></tr>
+   </table>  
+   
   </form>
  </div>
 </body>
