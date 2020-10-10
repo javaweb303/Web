@@ -16,5 +16,7 @@ public interface OpenService {
 	
 	List<FaqContentVO> getFaqList(FaqContentVO f);
 	int getTotalFaqCount(int chkCId);
+//	GongjiVO getGprev(int gongji_no);
+//	GongjiVO getGnext(int gongji_no);
 
 }

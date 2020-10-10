@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OpenServiceImpl implements OpenService {
-	int sort;
+
 	@Autowired
 	private OpenDAO openDAO;
+	
 	@Override
 	public List<GongjiVO> getList() {
 		return this.openDAO.getList();
@@ -42,5 +43,16 @@ public class OpenServiceImpl implements OpenService {
 		System.out.println("servcie count:"+chkCId);
 		return this.openDAO.getTotalFaqCount(chkCId);
 	}
-	
+	/*
+	@Override
+	public GongjiVO getGprev(int gongji_no) {
+		this.openDAO.updateHit(gongji_no);//조회수 증가
+		return this.openDAO.getGprev(gongji_no);
+	}
+	@Override
+	public GongjiVO getGnext(int gongji_no) {
+		this.openDAO.updateHit(gongji_no);//조회수 증가
+		return this.openDAO.getGnext(gongji_no);
+	}
+	*/
 }

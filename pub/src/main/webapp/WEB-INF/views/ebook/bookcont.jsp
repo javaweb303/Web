@@ -1,48 +1,212 @@
 <%@page import="java.util.Map"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <jsp:include page="../include/header.jsp"></jsp:include>
 
 <style>
 
 /*헤더 색*/
-#head{background-color: #5F78D4}/*색변경*/
-#gnb li ul{border-top: 7px solid #B36276;}/*색변경*/
+#head {
+	background-color: #5F78D4
+} /*색변경*/
+#gnb li ul {
+	border-top: 7px solid #B36276;
+} /*색변경*/
 /*내용*/
-#content{ height: 100%;}
-#content .container{margin: 0 40px;height: 100%; padding-bottom: 80px;}
+#content {
+	height: 100%;
+}
+
+#content .container {
+	margin: 0 40px;
+	height: 100%;
+	padding-bottom: 80px;
+}
 
 /*테마 이름*/
-#content .content_head{height: 200px; background-color: #6B87ED}/*색변경*/
-#content .content_head h2{padding: 75px 0 70px; text-align: center;}
+#content .content_head {
+	height: 200px;
+	background-color: #6B87ED
+} /*색변경*/
+#content .content_head h2 {
+	padding: 75px 0 70px;
+	text-align: center;
+}
 /*로컬주소*/
-#content .location{margin: 0 auto 23px; width: 100%;}
-#content .location ul li{float: right; list-style: none; right: 4%;}
+#content .location {
+	margin: 0 auto 23px;
+	width: 100%;
+}
+
+#content .location ul li {
+	float: right;
+	list-style: none;
+	right: 4%;
+}
 /*카테고리*/
-#content .cont_wrap{position: relative;}
-#content .container .cont_lnb {position:absolute; width: 250px; height:100%; padding-bottom: 30px;}
-#content .container .cont_lnb h2{padding: 35px 10px 20px; border-bottom: 1px solid gray;}
-#content .container .cont_lnb .cont_lnb_sub li{padding: 15px 0; border-bottom: 1px solid #e6e6e6;}
-#content .container .cont_lnb {padding: 0 10px;}
+#content .cont_wrap {
+	position: relative;
+}
+
+#content .container .cont_lnb {
+	position: absolute;
+	width: 250px;
+	height: 100%;
+	padding-bottom: 30px;
+}
+
+#content .container .cont_lnb h2 {
+	padding: 35px 10px 20px;
+	border-bottom: 1px solid gray;
+}
+
+#content .container .cont_lnb .cont_lnb_sub li {
+	padding: 15px 0;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+#content .container .cont_lnb {
+	padding: 0 10px;
+}
 
 /*메인 내용*/
-#content .container .cont_box{margin-left:300px;width:auto;}
-#content .container .cont_lnb {position:absolute; width: 250px; height:100%; background-color:#fcfcfc; padding: 0 10px; padding-bottom: 30px;}
-#content .container .cont_box .Category_box, #content .container .cont_box .inputbox,  #content .container .cont_box .searchbtn{box-sizing: border-box; margin: 5px; height: 30px;}
-#content .container .cont_box .inputbox{width: 30%;}
+#content .container .cont_box {
+	margin-left: 300px;
+	width: auto;
+}
+
+#content .container .cont_lnb {
+	position: absolute;
+	width: 250px;
+	height: 100%;
+	background-color: #fcfcfc;
+	padding: 0 10px;
+	padding-bottom: 30px;
+}
+
+#content .container .cont_box .Category_box, #content .container .cont_box .inputbox,
+	#content .container .cont_box .searchbtn {
+	box-sizing: border-box;
+	margin: 5px;
+	height: 30px;
+}
+
+#content .container .cont_box .inputbox {
+	width: 30%;
+}
 
 /*ebook검색창*/
-#ebookform {width:100%; height: 50px;background-color:gray; border-radius:10px; text-align: center; margin: 15px 0;}
-#ebookform form{margin: 0 auto; padding: 4.5px;}
+#ebookform {
+	width: 100%;
+	height: 50px;
+	background-color: gray;
+	border-radius: 10px;
+	text-align: center;
+	margin: 15px 0;
+}
+
+#ebookform form {
+	margin: 0 auto;
+	padding: 4.5px;
+}
 
 /* 리스트? */
-.nav_List{padding: 3px 8px; font-weight: 700;}
-.reply_menu{padding: 0 3px;}
-/*탭상단 클릭시 주고 싶은 효과?*/
-.tab_menu span.active{}
-/*버튼*/
-.btn{width: 50px; height: 25px;}
+.nav_List {
+	padding: 3px 8px;
+	font-weight: 700;
+}
 
+.reply_menu {
+	padding: 0 3px;
+}
+/*탭상단 클릭시 주고 싶은 효과?*/
+.tab_menu span.active {
+	
+}
+/*버튼*/
+.btn {
+	width: 50px;
+	height: 25px;
+}
+/* 검색 결과 책 정보 */
+.searchViewWrap .htitle {
+	margin: 20px 0 0;
+	padding-bottom: 10px
+}
+
+.resultViewDetail {
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 30px;
+	border: 2px solid #464646;
+	border-radius: 5px;
+	background-color: #fff
+}
+
+.resultViewDetail .tit {
+	position: relative;
+	padding: 10px 15px;
+	font-weight: 600;
+	font-size: 1.154em;
+	line-height: 1.3;
+	background-color: #f4f4f4;
+}
+
+.resultViewDetail .resultBookInfo {
+	position: relative;
+	min-height: 210px;
+	padding: 20px
+}
+
+.resultViewDetail .thumb {
+	position: absolute;
+	top: 20px;
+	left: 20px
+}
+
+.resultViewDetail .thumb .cover {
+	display: inline-block;
+	overflow: hidden;
+	padding: 6px 17px 10px;
+	background: url(/include/image/common/bg_book_cover.png) 0 0 no-repeat
+}
+
+.resultViewDetail .thumb .tag {
+	position: absolute;
+	top: 0;
+	left: 22px;
+	line-height: 0
+}
+
+.resultViewDetail .thumb .img {
+	display: block;
+	width: 136px;
+	height: 194px;
+	border: 1px solid #969696
+}
+
+.resultViewDetail .thumb .img img {
+	display: block;
+	width: 100%;
+	height: 100%
+}
+
+.resultViewDetail .bookDataWrap {
+	margin-left: 190px
+}
+
+.resultViewDetail .bookDataWrap li {
+	margin-bottom: 6px
+}
+
+.resultBookDesc {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #d7d7d7
+}
+
+.resultBookDesc>p ~ p, .ebookGuide>p ~ p {
+	margin-top: 10px
+}
 </style>
 <script>
 $(function(){
@@ -164,11 +328,12 @@ $(function(){
 	     frame.style.height=(iframeHeight + 38)+"px";
 	 }
 </script>
-<input type="hidden" value="<%=session.getAttribute("id")%>" id="id" name="id"/>
-<input type="hidden" value="${book.e_no}" id="e_no"/>
+<input type="hidden" value="<%=session.getAttribute("id")%>" id="id"
+	name="id" />
+<input type="hidden" value="${book.e_no}" id="e_no" />
 <div id="content">
 	<div class="content_head">
-		<h2>도서관 서비스</h2>
+		<h2>전자도서관</h2>
 	</div>
 	<!-- 이거 바꾸고 -->
 	<div class="location">
@@ -197,47 +362,69 @@ $(function(){
 					<h3>도서 정보</h3>
 					<br>
 					<div>
-						<div style="height: 250px;" id="book_info_box">
-							<div>
-								<img src="${book.imgurl}" style="float:left; width: 200PX; height: 250px; margin-right: 15px;">
-							</div>
-							<div id="book_info">
-							<p>제목 : ${book.title}</p>
-							<p>저자 : ${book.author}</p>
-							<p>출판사 : ${book.publisher}</p>
-							<p>출판연도 : ${book.publication_year}</p>
-							<p>도서현황 : ${book.status}/5</p>
-							<p>추천수 : ${book.recommend}</p>
-							<br> 
-							<input type="button" value="<c:if test="${!empty recommand}"><c:if test="${recommand eq '추천'}">추천</c:if><c:if test="${recommand eq '비추천'}">비추천</c:if></c:if><c:if test="${empty recommand}">추천</c:if>" class="btn" id="recommend" />
-							<input type="button" value="<c:if test="${loan_status=='대출중'}">반납</c:if><c:if test="${empty loan_status}">대여</c:if>" class="btn" id="book_loan_return" />
-							<p>
-						</div>
-						</div>
-						<div class="tab_menu"  style="padding: 3px 0; border-bottom: 1px solid gray;"><span data-target="book_" class="nav_List active">도서 소개</span><span data-target="reply_" class="nav_List">리뷰</span></div>
-						<!-- <div>
+						<div class="contents" id="contents">
+							<div class="searchViewWrap">
+								<!-- 도서 기본 정보-->
+								<div class="resultViewDetail">
+									<!-- 책 제목 -->
+									<div class="tit">
+										<h4>${book.title}</h4>
+									</div>
+									<!-- 책 상세 정보 -->
+									<div class="resultBookInfo">
+										<div class="thumb">
+											<!-- 책 이미지 -->
+											<div class="cover">
+												<span class="img"><img src="${book.imgurl}"
+													alt="책이미지"></span>
+											</div>
+										</div>
+										<!-- 책 저자, 출판사, 발행연도, isbn -->
+										<div class="bookDataWrap">
+											<ul class="sdot-list">
+												<li>저자 : ${book.author}</li>
+												<li>출판사 : ${book.publisher}</li>
+												<li>발행연도 : ${book.publication_year}</li>
+												<li>도서 현황 : ${book.status}/5</li>
+												<li>추천수 : ${book.recommend}</li>
+											</ul>
+											<input type="button"
+												value="<c:if test="${!empty recommand}"><c:if test="${recommand eq '추천'}">추천</c:if><c:if test="${recommand eq '비추천'}">비추천</c:if></c:if><c:if test="${empty recommand}">추천</c:if>"
+												class="btn" id="recommend" /> <input type="button"
+												value="<c:if test="${loan_status=='대출중'}">반납</c:if><c:if test="${empty loan_status}">대여</c:if>"
+												class="btn" id="book_loan_return" />
+										</div>
+									</div>
+								</div>
+								<div class="tab_menu"
+									style="padding: 3px 0; border-bottom: 1px solid gray;">
+									<span data-target="book_" class="nav_List active">도서 소개</span><span
+										data-target="reply_" class="nav_List">리뷰</span>
+								</div>
+								<!-- <div>
 						<br><p style="margin-bottom: 7px; font-weight: 800;">책소개</p><hr><div style="margin: 7px 0 7px 0;">${book.book_introduce}</div>
 						</div> -->
+							</div>
+							<div id="book_" class="tab_body">
+								<div style="margin: 7px 0 7px 0;">${book.book_introduce}</div>
+							</div>
+							<div id="reply_" class="tab_body" style="display: none;">
+								<!-- 댓글 -->
+								<div id="reply_listbox">
+									<!-- 댓글 박스 목록 -->
+									<ul id="reply_list">
+
+									</ul>
+								</div>
+								<div id="reply____" style="width: 100%; height: 100%;"></div>
+								<!-- 댓글 창? -->
+
+							</div>
+						</div>
 					</div>
-					<div id="book_" class="tab_body">
-					<div style="margin: 7px 0 7px 0;">${book.book_introduce}</div>
-					</div>
-					<div id="reply_" class="tab_body" style="display: none;"><!-- 댓글 -->
-					<div id="reply_listbox"><!-- 댓글 박스 목록 -->
-					<ul id="reply_list">
-						
-					</ul>
-					</div>
-					<div id="reply____" style="width: 100%; height: 100%;">
-						
-					</div>
-					<!-- 댓글 창? -->
-					
-					</div>
+					<!-- 여기까지가 몸체우측 -->
 				</div>
 			</div>
-			<!-- 여기까지가 몸체우측 -->
 		</div>
 	</div>
-</div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
+	<jsp:include page="../include/footer.jsp"></jsp:include>

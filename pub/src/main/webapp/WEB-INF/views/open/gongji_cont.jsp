@@ -196,7 +196,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
             <!-- 카테고리 부분 몸체 좌측-->
             <h2>열린공간</h2>
             <ul class="cont_lnb_sub">
-               <li><a href="/gongji_list">공지사항</a></li>
+               <li><a href="/bbs_list">공지사항</a></li>
                <li><a href="/controller/faq">자주 묻는 질문</a></li>
             </ul>
          </div>
@@ -251,10 +251,23 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
    
   </div>
+ <!-- 이전글/다음글 -->
+ 
+ <br><br>
+  <div class="prev">
+
+  <a href="/gongji_cont?gongji_no=${g.gongji_no-1}">이전글</a>
+
+<br>  
+<hr>
+  
+    <a href="/gongji_cont?gongji_no=${g.gongji_no+1}">다음글</a> 
+  </div>
+  
   <br><br>
   <div id="gCont_menu">
    <input class="btn" type="button" value="공지목록"
-   onclick="location='gongji_list';" />
+   onclick="location='/bbs_list';" />
   </div>
  </div>
  

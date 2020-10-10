@@ -92,6 +92,55 @@ public class OpenController {
 
 
 	}//gongji_cont()
+	/*
+	@RequestMapping("/g_prev")
+	public ModelAndView gongji_prev(
+			@RequestParam("gongji_no") int gongji_no, HttpServletResponse response) 
+					throws Exception{
+		ModelAndView gm=null;
+		GongjiVO g=this.openService.getGprev(gongji_no);
+		 response.setContentType("text/HTML; Charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if (g != null) { 
+			String g_cont=g.getGongji_cont().replace("\n", "<br/>");
+		gm =new ModelAndView("open/gongji_cont");
+		gm.addObject("g",g);
+		gm.addObject("g_cont",g_cont);}
+		
+		else {
+			out.println("<script>");
+			out.println("alert('이전글이 없습니다.');");
+			out.println("history.go(-1)");
+			out.println("</script>");
+		}
+		return gm;
+		
+	}
+	
+	@RequestMapping("/g_next")
+	public ModelAndView gongji_next(
+			@RequestParam("gongji_no") int gongji_no, HttpServletResponse response)
+	throws Exception{
+		ModelAndView gm=null;
+		GongjiVO g=this.openService.getGnext(gongji_no);
+		 response.setContentType("text/HTML; Charset=UTF-8");
+		 PrintWriter out = response.getWriter();
+		 
+		 if( g != null) {
+	
+		String g_cont=g.getGongji_cont().replace("\n", "<br/>");
+		gm = new ModelAndView("open/gongji_cont");
+		gm.addObject("g",g);
+		gm.addObject("g_cont",g_cont); 
+		 }else {
+			 out.println("<script>");
+			 out.println("alert('다음글이 없습니다');");
+			 out.println("history.go(-1)");
+			 out.println("</script>");
+		 }
+		return gm;
+		
+}	*/
 
 	@RequestMapping("/faq")
 	public String faq(Model faq, HttpServletRequest request, @ModelAttribute FaqContentVO f, @RequestParam(required=false)String displayCd) {

@@ -403,14 +403,14 @@
 							<li>
 								<!-- 검색한 책 이미지 출력(isbn을 통해 도서 상세 페이지로 이동) -->
 								<div class="thumb">
-									<a href="/bookcont?isbn=${list['isbn13']}" class="cover"> <img
+									<a href="/bookcont?isbn=${list['isbn13']}&searchCa=${categoryId}&searchCondition=${queryType}&searchKeyword=${query}" class="cover"> <img
 										src="${list['cover']}">
 									</a>
 								</div>
 								<!-- 검색한 책 제목, 정보 출력(isbn을 통해 책 제목을 클릭하면 도서 상세 페이지로 이동) -->
 								<div class="bookDataWrap">
 									<strong class="tit"> <a
-										href="bookcont?isbn=${list['isbn13']}"> <span
+										href="bookcont?isbn=${list['isbn13']}&searchCa=${categoryId}&searchCondition=${queryType}&searchKeyword=${query}"> <span
 											class="seachKwd themeFC">${list['title']}</span>
 									</a>
 									</strong>

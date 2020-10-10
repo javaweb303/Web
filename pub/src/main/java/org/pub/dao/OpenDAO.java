@@ -23,6 +23,10 @@ public interface OpenDAO {
 
 	int getTotalFaqCount(int chkCId);
 
+//	GongjiVO getGprev(int gongji_no);
+
+//	GongjiVO getGnext(int gongji_no);
+
 
 
 

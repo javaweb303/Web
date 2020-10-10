@@ -13,7 +13,7 @@ a:hover { color: black; text-decoration: underline;}
 #nav{display: table-cell; table-layout: fixed; vertical-align: middle;}
 #nav > span{font-size: 20px; margin:0 2.5%; padding: 15px 4%; font-weight: 700; color: white;}
 
-#con_top{height: 220px; background-color: #f2f2f2;}
+#con_top{height: 220px;}
 #con_top_left{width: 70%; float: left; height: 220px;}
 #con_top_right{width: 29%; float: right;}
 
