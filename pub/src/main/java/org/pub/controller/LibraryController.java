@@ -78,7 +78,7 @@ public class LibraryController {
 			System.out.println("url:"+url);
 		}else {
 			//XML 데이터를 호출할 URL
-			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big";
+			url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbmys628111103001&QueryType=ItemNewAll&MaxResults=20&start=1&SearchTarget=Book&output=xml&Version=20131101&Cover=Big&CategoryId=1230";
 		}
 		//서버에서리턴될 XML데이터의 엘리먼트 이름 배열  
 		String[] fieldNames ={"title","author","publisher","pubDate","cover","isbn13"};
@@ -150,7 +150,9 @@ public class LibraryController {
 	}
 
 	@GetMapping("/bookcont")
-	public ModelAndView bookcont(HttpServletRequest request) {
+	public ModelAndView bookcont(HttpServletRequest request, @RequestParam(required = false)String searchKeyword,
+			@RequestParam(required = false)String searchCondition,
+			@RequestParam(required = false)String searchCa) {
 		String isbn=request.getParameter("isbn");
 		isbn=isbn.trim();
 		String url="http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbmys628111103001&itemIdType=ISBN13&ItemId="+isbn+"&output=xml&Cover=Big&Version=20131101";
@@ -159,6 +161,19 @@ public class LibraryController {
 		String itemsname="item";
 		ArrayList<Map> pubList=xmlp(url, fieldNames,itemsname);
 		ModelAndView model=new ModelAndView();
+		if(searchKeyword !=null || searchCondition !=null) {
+			String query = request.getParameter("searchKeyword");
+			System.out.println("bookcont:"+query);
+			String queryType =request.getParameter("searchCondition");
+			System.out.println(queryType);
+			int categoryId = Integer.parseInt(request.getParameter("searchCa"));
+			System.out.println(categoryId);
+			
+			model.addObject("query", query);
+			model.addObject("queryType", queryType);
+			model.addObject("categoryId", categoryId);
+			
+		}
 		model.addObject("pubList", pubList);
 		model.setViewName("library_services/bookcont");
 		return model;

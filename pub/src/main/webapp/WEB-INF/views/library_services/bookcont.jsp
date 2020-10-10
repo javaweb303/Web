@@ -249,7 +249,9 @@ div {
 				<div>
 					<!-- 여기 안에 들어갈 내용 잘 배치하면됩니다. 지우고 쓰세요-->
 					<div class="contents" id="contents">
-
+					<input type="hidden" name="query" value="${query}">
+					<input type="hidden" name="queryType" value="${queryType}">
+					<input type="hidden" name="categoryId" value="${categoryId}">
 						<c:forEach items="${pubList}" var="list" step="1">
 							<div class="searchViewWrap">
 								<!-- 도서 기본 정보-->
@@ -285,7 +287,7 @@ div {
 
 								</div>
 								<div class="btnGroup">
-									<a href="#none" id="listBtn" class="btn list">목록</a>
+									<a href="search?searchCa=${categoryId}&searchCondition=${queryType}&searchKeyword=${query}" id="listBtn" class="btn list">목록</a>
 								</div>
 							</div>
 						</c:forEach>

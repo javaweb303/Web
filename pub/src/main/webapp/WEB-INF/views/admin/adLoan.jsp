@@ -136,7 +136,7 @@
 							<thead>
 								<tr>
 									<th style="width: 5%; color:#1495A8;">NO</th>
-									<th style="width: 20%; color:#1495A8;">전자책 제목</th>
+									<th style="width: 25%; color:#1495A8;">전자책 제목</th>
 									<th style="width: 20%; color:#1495A8;">출판사</th>
 									<th style="width: 20%; color:#1495A8;">대출일</th>
 									<th style="width: 20%; color:#1495A8;">반납예정일</th>
@@ -154,8 +154,8 @@
 									<td><c:if test="${fn:length(e.publisher)>12 }">${fn:substring(e.publisher,0,12)}...</c:if> 
 									<c:if test="${fn:length(e.publisher)<12}">${e.publisher}</c:if>
 									</td>
-									<td>${lolist[status.index].loan_date}</td>
-									<td>${lolist[status.index].loan_date}</td>
+									<td>${fn:substring(lolist[status.index].loan_date,0,10)}</td>
+									<td>${fn:substring(lolist[status.index].return_date,0,10)}</td>
 									<td class="project-actions text-right"><a
 										class="btn btn-primary btn-sm"
 										onclick="if(confirm('정말로 반납할까요?')==true){
@@ -196,8 +196,8 @@
 									<c:if test="${fn:length(re.title)<12}">${re.title}</c:if>
 									</a></td>
 									<td>${re.publisher}</td>
-									<td>${lolist[status.index].return_date}</td>
-									<td>${lolist[status.index].return_date}</td>
+									<td>${fn:substring(lolist[status.index].return_date,0,10)}</td>
+									<td>${fn:substring(lolist[status.index].return_date_ok,0,10)}</td>
 									<td><c:if test="${lolist[status.index].state == 2}">정상 반납</c:if>
 									<c:if test="${lolist[status.index].state == 3}">연체 반납</c:if>
 									</td>

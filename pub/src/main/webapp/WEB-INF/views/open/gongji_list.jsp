@@ -169,6 +169,20 @@ a:link, a:visited {text-decoration: none; color: #656565;}
  .wdp_90 {width:90%} 
  .btn {border-radius:3px;padding:5px 11px;color:#fff !important; display:inline-block; background-color:#6b9ab8; border:1px solid #56819d;vertical-align:middle}
 
+
+#content .container .cont_box .b_title  {
+   padding: 35px 10px 20px;border-bottom-color: transparent;
+   margin-bottom: 30px;}
+   
+
+ .prev {width:50%;border-top:2px solid #252525;border-bottom:1px solid #ccc} 
+ .prev tbody th {text-align:left;background:#f7f7f7;color:#3b3a3a} 
+ .prev tbody th.list_tit {font-size:13px;color:#000;letter-spacing:0.1px} 
+ .prev tbody .no_line_b th, .board_view tbody .no_line_b td {border-bottom:none} 
+ .prev tbody th, .board_view tbody td {padding:15px 0 16px 16px;border-bottom:1px solid #ccc} 
+ .prev tbody td.view_text {border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding:45px 18px 45px 18px} 
+ .prev tbody th.th_file {padding:0 0 0 15px; vertical-align:middle}  
+}
 </style>
 
 
@@ -356,6 +370,7 @@ onclick="location='bbs_list?page=${page}';" />
                      location.href = "?&read_cnt=0&totalCount=2&&&cntPerPage=10&cntPerUnit=10&rn=0&fCount=0&thisDepth=0&groupFlag=true&defaultPageCnt=8&defaultGroupCnt=4&p_pg=1&p_totalCount=0&offset=1&root_id=5&menu_name=열린마당&menu_type=bbs&menu_desc=default text&year=2020&month=06&day=29&os=desc&of=&pg="
                            + (pageNo);
                   }
+                  
                </script>
         
                </div>

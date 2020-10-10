@@ -48,5 +48,14 @@ public class OpenDAOImpl implements OpenDAO {
 		System.out.println("dao count:"+chkCId);
 		return this.sqlSession.selectOne("f_count",chkCId);
 	}
+	/*
+	@Override
+	public GongjiVO getGprev(int gongji_no) {
+		return this.sqlSession.selectOne("g_prev", gongji_no);
+	}
+	@Override
+	public GongjiVO getGnext(int gongji_no) {
+		return this.sqlSession.selectOne("g_next", gongji_no);
+	}*/
 
 }
