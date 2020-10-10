@@ -34,9 +34,10 @@ $(function(){
 		});
 	if('${tab_send}'=='lib'){
 		$('#my_info').hide();
-		
+		$('.container').css("height","1210");
 	}else{
 		$('#lib').hide();
+		$('.container').css("height","900");
 	}
 	$('.edit_btn').on("click",function(){
 		var text = $(this).val();

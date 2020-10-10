@@ -10,18 +10,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width = 1050, user-scalable = no" />
+<title>뷰</title>
 <script type="text/javascript" src="resources/turnjs/extras/jquery.min.1.7.js"></script>
 <script type="text/javascript" src="resources/turnjs/extras/modernizr.2.5.3.min.js"></script>
 <style>
 .on{color:#ff0000;}
+.pageEvent{position: absolute; z-index: 5;}
+.pre{top:40%; left: 5px;}
+.next{top:40%; right: 5px;}
 </style>
 </head>
-<body style="background:url(resources/images/viewer/viewbg.png) repeat"onload="load();">
+<body style="background:url(resources/images/viewer/viewbg.png) repeat">
 <div style="width: 100%;">
 	<div style="width: 30%; margin: 0 auto; text-align: center; background-color: rgb(68, 68, 68); box-shadow: rgb(48, 48, 48) 0px 5px 7px; height: 30px; border-radius: 0 0 15px 15px / 0 0 15px 15px">
-		<input type="button" value="First" id="First_" onclick="first();"><input type="button" value="Previous" id="Pre_" onclick="previous();"><input type="text" size="6" id="page_info" style="text-align: center;"><input type="button" value="Next" id="Next_" onclick="next();"><input type="button" value="Last" id="Last_" onclick="last();">
+		<input type="button" value="처음으로" id="First_" onclick="first();"><input type="button" value="이전" id="Pre_" onclick="previous();">
+		<input type="text" size="8" id="page_info" style="text-align: center;">
+		<input type="button" value="다음" id="Next_" onclick="next();"><input type="button" value="맨끝으로" id="Last_" onclick="last();">
+		<!-- <input type="button" value="single" class="displayMode"><input type="button" value="double" class="displayMode"> -->
 	</div>
 </div>
+<a class="pageEvent pre" onclick="previous();"><img alt="이전" src="resources/images/slider/btnPrev.png"></a>
+<a class="pageEvent next" onclick="next();"><img alt="다음" src="resources/images/slider/btnNext.png"></a>
 <div class="flipbook-viewport">
 	<div class="container">
 		<div class="flipbook">
@@ -84,18 +93,26 @@ function OddPage(){
 }
 function next(){
 	$('.flipbook').turn('next');
-	if($('.flipbook').turn('page')==$('.flipbook').turn('pages')){
-		getPage();
+	if($(".flipbook").turn("display")=="double"){
+		if($('.flipbook').turn('page')==$('.flipbook').turn('pages')){
+			getPage();
+		}else{
+			EvenPage();
+		}
 	}else{
-		EvenPage();
+		getPage();
 	}
 }
 function previous(){
 	$('.flipbook').turn('previous');
-	if($('.flipbook').turn('page')==1){
-		getPage();
+	if($(".flipbook").turn("display")=="double"){
+		if($('.flipbook').turn('page')==1){
+			getPage();
+		}else{
+			OddPage();
+		}
 	}else{
-		OddPage();
+		getPage();
 	}
 }
 function first(){
@@ -112,14 +129,18 @@ function inputPage(){//수정해야함.
 }
 function divChange(){
 	var pagenum=$('.flipbook').turn('page');
-	if(pagenum == 1 || pagenum == $('.flipbook').turn('pages')){
-		getPage();
-	}else{
-		if(pagenum % 2 == 0){
-			EvenPage();
+	if($(".flipbook").turn("display")=="double"){
+		if(pagenum == 1 || pagenum == $('.flipbook').turn('pages')){
+			getPage();
 		}else{
-			OddPage();
+			if(pagenum % 2 == 0){
+				EvenPage();
+			}else{
+				OddPage();
+			}
 		}
+	}else{
+		getPage();
 	}
 }
 $('.flipbook').on("click",function(){
@@ -136,6 +157,22 @@ $('#page_info').keydown(function(event){
 		inputPage();
 	}
 });
+/* 이상함.
+$('.displayMode').on("click",function(){
+	var mode=$(this).val();
+	$(".flipbook").turn("display", mode);
+	setSize();
+	$("#flipbook").turn("center");
+	divChange();
+});
+function setSize(){
+	if($(".flipbook").turn("display") == "double"){
+		$(".flipbook").turn("size", 1075, 700);
+	}else{
+		$(".flipbook").turn("size", 538, 700);
+		$(".page-wrapper").turn("size", 538, 700);
+	}
+}*/
 </script>
 
 </body>

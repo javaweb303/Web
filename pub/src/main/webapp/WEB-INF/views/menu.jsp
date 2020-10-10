@@ -29,14 +29,13 @@
                   </li>
                   <li><a>전자 도서관</a>
                         <ul class="gnb_sub">
-                           <li><a href="./jsp/ebook.jsp">전자책</a></li>
+                           <li><a href="./eBook">전자책</a></li>
                         </ul>
                   </li>
                   <li><a>열린공간</a>
                         <ul class="gnb_sub">
                            <li><a href="./history">도서관 소개</a></li>
                            <li><a href="./guide">도서관 이용</a></li>
-                           <li><a href="./status">도서관 현황</a></li>
                            <li><a href="./location">오시는 길</a></li>
                         </ul>
                   </li>

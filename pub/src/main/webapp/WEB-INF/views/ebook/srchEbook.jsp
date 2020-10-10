@@ -332,7 +332,7 @@
 			<div class="cont_lnb">
 				<h2>전자 책</h2>
 				<ul class="cont_lnb_sub">
-					<li><a href="/searchEbook">통합검색</a></li>
+					<li><a href="/eBook">통합검색</a></li>
 				</ul>
 			</div>
 			<!-- 좌측 카테고리 끝 -->

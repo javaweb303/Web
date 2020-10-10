@@ -204,7 +204,7 @@ public class Add_EBook extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "빈칸있음..", "빈칸있음", JOptionPane.PLAIN_MESSAGE);
 			}
 		}else if((JButton)obj == no_btn){
-			dispose();
+			frame.dispose();
 		}else {
 
 		}
