@@ -30,9 +30,9 @@
       			<div id="slider-wrap">
 		      		<div class="slider">
 		      			<ul>
-		      				<li><div><img alt="슬라이더 이미지" src="resources/images/slider/1.jpg"></div></li>
-		      				<li><div><img alt="슬라이더 이미지" src="resources/images/slider/2.jpg"></div></li>
-		      				<li><div><img alt="슬라이더 이미지" src="resources/images/slider/3.jpg"></div></li>
+		      				<li><div><img alt="슬라이더 이미지" src="resources/images/slider/s1.jpg"></div></li>
+		      				<li><div><img alt="슬라이더 이미지" src="resources/images/slider/s2.jpg"></div></li>
+		      				<li><div><img alt="슬라이더 이미지" src="resources/images/slider/s3.jpg"></div></li>
 		      			</ul>
 		      			<a href="#" class="btnPrev controller"><img alt="" src="resources/images/slider/btnPrev.png"> </a>
 		      			<a href="#" class="btnNext controller"><img alt="" src="resources/images/slider/btnNext.png"></a>
@@ -62,29 +62,19 @@
       		</div>
       		</c:if>
       		<c:if test="${!empty id}">
-	      			<div class="login_box" style="height: 100%; float: left; overflow: hidden; padding-left:10px">
-	      			<h2>
-	      			<img alt="로그인" src="<c:url value='resources/images/txt_login.gif' />">
-	      			</h2>
-	      			<ul class="login" style="width:180px; height:40px; padding:5px; margin-left:15px; float:left;">
-	      			<li class="login_id" style="margin-bottom: 5px;">
-	      			<strong style="color:#555274;">${id}</strong>님 환영합니다.<br>
-	      			<div class="email" style="color:gray; font-size:small">${member_info.email}@${member_info.email_domain}</div>
-	      			</li>
-	      			</ul>
-	      			<a href="/logout"><img src="<c:url value='/resources/images/btn_logout.gif' />" alt="로그아웃"></a>
-	      			<div class="new_box" style="overflow:hidden; display:inline-block; padding:10px; width:100%; margin-top:5px; margin-left:10px; float:left; font-size:small"> 
-	      			<c:if test="${Rank eq '1'}">
-	      			<a href="/mypage?tab_menu=mylib" class="link_new">내 서재</a>
-	      			<a href="/mypage" class="link_new">마이 페이지</a> 
-	      			</c:if>
-	      			<c:if test="${Rank eq '5'}">
-	      			<a href="/mypage" class="link_new">마이페이지</a> 
-	      			<a href="/admin/adIndex" class="link_new">관리자 페이지</a> 
-	      			</c:if>
-	      			</div>  
+      			<div>
+	      			<div style="height: 180px;">
+	      			<span style="font-size: 15px;">${id} 님</span> <span id="logout" style="font-size: 15px; right: 20px; position: absolute;">로그아웃</span><br>
+	      			<p></p>
+	      			<p>대출현황 :  ${count}/5</p>
+	      			<p>상태 : <c:if test="${overDate >= 1}">연체중..</c:if><c:if test="${overDate <= 0}">미연체</c:if></p>
 	      			</div>
-	      			</c:if>
+	      			<div style="text-align: center; height: 40px;">
+	      				<c:if test="${Rank eq '1'}"><span id="mypage" class="mem_tap">MyPage</span><span id="mylib" class="mem_tap">MyLibrary</span></c:if>
+	      				<c:if test="${Rank eq '5'}"><span id="adpage">AdminPage</span></c:if>
+	      			</div>
+      			</div>
+      		</c:if>
       		</div>
       	</div>
       	<div id="con_center">

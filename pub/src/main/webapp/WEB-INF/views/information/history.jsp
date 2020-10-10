@@ -66,24 +66,23 @@ ul,li { list-style: none; } a { text-decoration: none }
       <ul class="">
          <li>도서관 소개</li>
          <li>도서관안내 ></li>
-         <li><a href="/controller">Home</a> ></li>
-      </ul>
-   </div>
-   <div class="container">
-      
-      <!-- body -->
-      <div class="cont_wrap">
-         
-         <!-- body 좌측-->
-         <div class="cont_lnb">
-            <h2>도서관안내</h2>
-            <ul class="cont_lnb_sub">
-               <li><a href="/controller/history">도서관 소개</a></li>
-               <li><a href="/controller/guide">도서관 이용</a></li>
-               <li><a href="/controller/status">도서관 현황</a></li>
-               <li><a href="/controller/location">오시는 길</a></li>
-            </ul>
-         </div>
+         <li><a href="/">Home</a> ></li>
+		</ul>
+	</div>
+	<div class="container">
+		
+		<!-- body -->
+		<div class="cont_wrap">
+			
+			<!-- body 좌측-->
+			<div class="cont_lnb">
+				<h2>도서관안내</h2>
+				<ul class="cont_lnb_sub">
+					<li><a href="/history">도서관 소개</a></li>
+					<li><a href="/guide">도서관 이용</a></li>
+					<li><a href="/location">오시는 길</a></li>
+				</ul>
+			</div>
          <!-- body 좌측 끝-->
          
          <!-- body 우측 -->

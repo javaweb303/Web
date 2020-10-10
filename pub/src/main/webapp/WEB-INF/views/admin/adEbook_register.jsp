@@ -30,6 +30,10 @@ function delBook(obj){
 		}
 	});
 }
+function read(eno){
+	window.open("/read?e_no="+eno,"뷰어","width=1200px,height=800px"+
+	 ",scrollbars=no");
+}
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -127,7 +131,7 @@ function delBook(obj){
 									<td>${eb.publication_year}</td>
 									<td class="project-actions text-right">
 									<button type="button"
-										class="btn btn-primary btn-sm" onclick="location.href='read?e_no=${eb.e_no}';"> <i
+										class="btn btn-primary btn-sm" onclick="read(${eb.e_no});"> <i
 											class="fas fa-folder"> </i> View
 									</button> <a class="btn btn-info btn-sm" href="#"> <i
 											class="fas fa-pencil-alt"> </i> Edit

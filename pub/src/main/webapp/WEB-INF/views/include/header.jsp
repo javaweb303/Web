@@ -40,7 +40,6 @@
 							<ul class="gnb_sub">
 								<li><a href="/history">도서관 소개</a></li>
 								<li><a href="/guide">도서관 이용</a></li>
-								<li><a href="/status">도서관 현황</a></li>
 								<li><a href="/location">오시는 길</a></li>
 							</ul></li>
 						<li class="gnb_menu"><a href="/bbs_list">열린공간</a>
@@ -61,7 +60,7 @@
 		            	<a href="./mypage"><img src="resources/images/header/myPage.png"></a>
 		            </c:if>
 		            <c:if test="${Rank eq '5'}">
-		            	<a href="./adIndex"><img src="resources/images/header/myPage.png"></a>
+		            	<a href="/admin/adIndex"><img src="resources/images/header/myPage.png"></a>
 		            </c:if>
 					</c:if>
 					<!-- href를 안쓰는 이유 쓰면 상단을 이동됨. 아니면 #'아무문자나 입력' --> 

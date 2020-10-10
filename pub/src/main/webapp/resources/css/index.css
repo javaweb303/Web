@@ -6,8 +6,9 @@ a{text-decoration: none; color: black;}
 a:link { color: black; text-decoration: none;}
 a:visited { color: black; text-decoration: none;}
 a:hover { color: black; text-decoration: underline;}
+p{margin: 0;}
 
-#wrap{position: relative; max-width: 914px; height: 100%; margin: 0 auto; padding: 0 20px;}
+#wrap{position: relative; min-width: 914px; max-width:1280px;  height: 100%; margin: 0 auto; padding: 0 20px;}
 
 #navbox{display: table; width: 100%; height: 60px; background-color: #555274;}
 #nav{display: table-cell; table-layout: fixed; vertical-align: middle;}
@@ -53,4 +54,4 @@ span{cursor: pointer; font-size: 8px;}
 #listBox ul li {padding: 3px 0;}
 #listBox ul li span{font-size: 15px;}
 
-.footer-info{background-color: #555274; color: white; font-weight: 300;}
+.footer-info{background-color: #555274; color: white; font-weight: 300; padding:15px 0 15px 15px;}
