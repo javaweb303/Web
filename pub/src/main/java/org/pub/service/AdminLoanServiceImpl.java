@@ -35,14 +35,28 @@ public class AdminLoanServiceImpl implements AdminLoanService {
 		return this.adminLoanDAO.getEbook(id);
 	}
 
-	@Override
-	public void delB(String e_no) {
-		this.adminLoanDAO.delB(e_no);
-	}
+//	@Override
+//	public void delB(String e_no) {
+//		this.adminLoanDAO.delB(e_no);
+//	}
 
 	@Override
 	public List<eBookVO> getReturn(String id) {
 		return this.adminLoanDAO.getReturn(id);
+	}
+
+	@Override
+	public String getReturnDate(String id, int e_no) {
+		LoanVO vo=new LoanVO();
+		vo.setE_no(e_no);vo.setId(id);
+		return this.adminLoanDAO.getReturnDate(vo);
+	}
+
+	@Override
+	public void book_Return(String id, int e_no, int state) {
+		LoanVO vo=new LoanVO();
+		vo.setE_no(e_no);vo.setId(id);vo.setState(state);
+		adminLoanDAO.book_return(vo);
 	}
 
 	

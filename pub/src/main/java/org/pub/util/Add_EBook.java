@@ -48,7 +48,7 @@ public class Add_EBook extends JFrame implements ActionListener{
 	
 	public void UI(){ //프레임 출력하기위한 ..
 
-		frame.setTitle("임시");
+		frame.setTitle("책등록");
 		Container c=getContentPane();
 		c.setLayout(null);
 

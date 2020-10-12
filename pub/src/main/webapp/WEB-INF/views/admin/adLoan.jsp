@@ -117,9 +117,13 @@
 									<td style="border:1px solid transparent;color:#DE3182;"><c:if test="${!empty elist}">${ebook.author}</c:if></td>
 									</tr>
 									<tr>
+									<td style="background-color: #EE88B7;">출판사</td>
+									<td style="border:1px solid transparent;color:#DE3182;"><c:if test="${!empty elist}">${ebook.publisher}</c:if></td>
+									</tr>
+									<!--  <tr>
 									<td style="background-color: #EE88B7;">자료 상태</td>
 									<td style="border:1px solid transparent;color:#DE3182;"><c:if test="${!empty lolist}">대출중</c:if></td>
-									</tr>
+									</tr>-->
 								</tbody>
 							</table>
 						</div>
@@ -180,7 +184,7 @@
 							<thead>
 								<tr>
 									<th style="width: 5%; color:#1495A8;">NO</th>
-									<th style="width: 20%; color:#1495A8;">전자책 제목</th>
+									<th style="width: 25%; color:#1495A8;">전자책 제목</th>
 									<th style="width: 20%; color:#1495A8;">출판사</th>
 									<th style="width: 20%; color:#1495A8;">반납예정일</th>
 									<th style="width: 20%; color:#1495A8;">반납일</th>
