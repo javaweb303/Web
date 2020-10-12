@@ -12,7 +12,7 @@
 </script>
 <style>
 /*헤더 색*/
-#head{background-color: #171d33}/*색변경*/
+#head{background-color: #24426E}/*색변경*/
 /*테마 이름*/
 #content .content_head{height: 200px; background-color: #2d5188;}/*색변경*/
 #content .content_head h2{padding: 75px 0 70px; text-align: center; color:white;}

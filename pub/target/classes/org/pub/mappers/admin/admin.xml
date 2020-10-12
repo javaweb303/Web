@@ -218,7 +218,7 @@ author like #{searchKeyword}
 publisher like #{searchKeyword}
 </if>
 </where>
- order by e_no asc))
+ order by e_no desc))
  where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}
 </select>
 
@@ -264,15 +264,26 @@ order by b.loan_date desc)
 where rowNum=1
 </select>
 
+<!--
 <update id="adLoanEbook_return">
-update book_loan_info set state=2 where e_no=#{e_no}
+update book_loan_info set state=2, return_date_ok=sysdate where e_no=#{e_no}
 </update>
-
+ -->
 <select id="adReturnEbook_list" resultType="ebook">
 select e.title, e.isbn, e.publisher, e.e_no
 from member m, book_loan_info b, ebook e
 where m.id=b.id and b.e_no=e.e_no and m.id=#{id} and b.state=2
-order by b.loan_date desc
+order by b.return_date_ok desc
 </select>
+
+<select id="getAdminReturnDate" resultType="String">
+select return_date from book_loan_info where id=#{id} and e_no=#{e_no} and state=1
+</select>
+<update id="adminBookstate_up">
+update ebook set status=status+1 where e_no=#{e_no}
+</update>
+<update id="adminBookReturn"><!-- 전자책 반납 -->
+update book_loan_info set state=#{state},return_date_ok=sysdate where id=#{id} and e_no=#{e_no} and state=1
+</update>
 </mapper>
 

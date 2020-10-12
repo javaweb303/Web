@@ -16,9 +16,13 @@ public interface AdminLoanDAO {
 
 	eBookVO getEbook(String id);
 
-	void delB(String e_no);
+//	void delB(String e_no);
 
 	List<eBookVO> getReturn(String id);
+
+	String getReturnDate(LoanVO vo);
+
+	void book_return(LoanVO vo);
 
 
 }

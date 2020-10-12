@@ -35,14 +35,27 @@ public class AdminLoanDAOImpl implements AdminLoanDAO{
 		return this.sqlSession.selectOne("adLoanEbook_info", id);
 	}
 
-	@Override
-	public void delB(String e_no) {
-		this.sqlSession.update("adLoanEbook_return", e_no);
-	}
+//	@Override
+//	public void delB(String e_no) {
+//		//sqlSession.update("bookstate_down", vo);
+//		this.sqlSession.update("adLoanEbook_return", e_no);
+//	}
 
 	@Override
 	public List<eBookVO> getReturn(String id) {
 		return this.sqlSession.selectList("adReturnEbook_list", id);
+	}
+
+	@Override
+	public String getReturnDate(LoanVO vo) {
+		return this.sqlSession.selectOne("getAdminReturnDate", vo);
+	}
+
+	@Override
+	public void book_return(LoanVO vo) {
+		sqlSession.update("adminBookstate_up", vo);
+		sqlSession.update("adminBookReturn", vo);
+		
 	}
 
 	
