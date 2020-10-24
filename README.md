@@ -8,11 +8,11 @@
 이러한 포스트 코로나에 대비해 핵심 화두인 “언택트”에 이바지하고자 하며 비대면서비스를 확대하려는 노력에 발 맞춰 비대면 서비스를 활용한 도서 대출 서비스를 기획하고자 합니다.
 
 ## Team
-* 문영선
-* 박범석
-* 나소현
-* 손양원
-* 유성근
+* PM - 문영선
+* PL - 박범석
+* PE - 나소현
+* PE - 유성근
+* QA - 손양원
 
 ## Prerequisties
 * JAVA - JDK 1.8.0_251(JDK 1.8이상 권장)
@@ -23,7 +23,8 @@
 * Lombok - 1.18.16
 
 ## Installation Process
-[구글 문서]https://drive.google.com/file/d/1aUkubv1K_yQ9fLQUTRl4V55kSzaYFyjg/view?usp=sharing
+[참고]https://drive.google.com/drive/folders/1YLuwS1mqK5jttIC5Q7nIEAp9fEqJGZT-?usp=sharing
+[구글 문서https://drive.google.com/file/d/1aUkubv1K_yQ9fLQUTRl4V55kSzaYFyjg/view?usp=sharing
 
 ## Getting Started
 ### 1. Oracle 18c 사용자 생성 (cnd 콘솔창에서)
@@ -54,7 +55,7 @@ InputStream is=new FileInputStream(new File("C:/Users/User/Downloads/book.pdf"))
 
 ## References
 * 국가전자도서관
-* 경기도 사이버 도서관
+* 경기도사이버도서관
 
 
 
