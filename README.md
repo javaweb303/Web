@@ -23,7 +23,7 @@
 * Lombok - 1.18.16
 
 ## Installation Process
-[참고]https://drive.google.com/drive/folders/1YLuwS1mqK5jttIC5Q7nIEAp9fEqJGZT-?usp=sharing
+[참고]https://drive.google.com/drive/folders/1YLuwS1mqK5jttIC5Q7nIEAp9fEqJGZT-?usp=sharing <br>
 [구글 문서https://drive.google.com/file/d/1aUkubv1K_yQ9fLQUTRl4V55kSzaYFyjg/view?usp=sharing
 
 ## Getting Started
