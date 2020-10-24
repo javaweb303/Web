@@ -28,6 +28,7 @@ public class AdminEbookController {
 	@Autowired
 	private Add_EBook add_ebook;
 	
+	//전자책 관리 페이지
 	@RequestMapping("/admin_ebook_reg")
 	public String admin_ebook_reg(Model list, HttpServletResponse response, eBookVO eb, HttpServletRequest request) {
 		
@@ -36,13 +37,16 @@ public class AdminEbookController {
 		 if(request.getParameter("page") != null) {//get으로 전달된 쪽번호가 있다면
 			 page=Integer.parseInt(request.getParameter("page"));
 		 }
+		 // 해당 검색어로 전자책 검색하기 위함.
 		 String searchKeyword = request.getParameter("searchKeyword");
 		 String searchCondition = request.getParameter("searchCondition");
-		 System.out.println("keyword: "+searchKeyword);
-		 System.out.println("category: "+searchCondition);
+//		 System.out.println("keyword: "+searchKeyword);
+//		 System.out.println("category: "+searchCondition);
+		 
 		 eb.setSearchKeyword("%"+searchKeyword+"%");
 		 eb.setSearchCondition(searchCondition);
 		
+		 //전자책 개수 -> 페이징 위해
 		int listcount = this.adminEbookService.getEbookListCount(eb);
 		
 		eb.setStartrow((page-1)*7+1);
@@ -69,6 +73,7 @@ public class AdminEbookController {
 		return "admin/adEbook_register";
 	}
 	
+	//전자책 등록
 	@RequestMapping("/Load_UI")
 	public void UI() {
 		add_ebook.UI();

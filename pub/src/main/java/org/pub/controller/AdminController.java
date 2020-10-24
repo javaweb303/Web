@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin/*")
+@RequestMapping("/admin/*") //interceptor에서 admin으로 묶인 페이지는 관리자가 아닌 회원이 접속을 하지 못하도록 만들기 위해 사용함..
 public class AdminController {
 
 	@Autowired
@@ -26,7 +26,7 @@ public class AdminController {
 	@Autowired
 	private AdminEbookService adminEbookService;
 	
-	
+	//관리자 페이지 메인 화면
 	@RequestMapping("/adIndex")
 	public String adIndex(@ModelAttribute GongjiVO g, @ModelAttribute FaqContentVO f, @ModelAttribute MemberVO member,
 			@ModelAttribute eBookVO eb,Model m) throws Exception {
