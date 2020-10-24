@@ -40,22 +40,25 @@ public class AdminLoanController {
 		if(id == null) {
 			id=(String)session.getAttribute("id"); 
 		}
-		MemberVO mem = this.adminLoanService.getMem(id);
-		List<LoanVO> lolist = this.adminLoanService.getLoan(id);
-		List<eBookVO> elist = this.adminLoanService.getEbookList(id);
-		List<eBookVO> relist = this.adminLoanService.getReturn(id);
-		eBookVO ebook = this.adminLoanService.getEbook(id);
+		MemberVO mem = this.adminLoanService.getMem(id); //검색한 id의 회원 정보
+		List<LoanVO> lolist = this.adminLoanService.getLoan(id); //회원들의 대출리스트
+		List<eBookVO> elist = this.adminLoanService.getEbookList(id); //검색한 id의 회원 대출 도서 리스트
+		List<eBookVO> relist = this.adminLoanService.getReturn(id); //검색한 id의 회원 반납 도서 정보
+		eBookVO ebook = this.adminLoanService.getEbook(id); //검색한 id의 회원 최근 대출 도서
 		//System.out.println("전자책 번호 :"+loan.get(4));
 		//eBookVO ebook = this.adminLoanService.getEbook(loan.get(4));
 		//eBookVO eBook = this.adminLoanService.getEbook();
+		
 		m.addAttribute("mem", mem);
 		m.addAttribute("lolist", lolist);
-		System.out.println(lolist);
+//		System.out.println(lolist);
 		m.addAttribute("elist", elist);
 		m.addAttribute("ebook",ebook);
 		m.addAttribute("relist", relist);
 		return "/admin/adLoan";
 	}
+	
+	//관리자가 회원 도서 반납
 	@RequestMapping("/admin_return")
 	public ModelAndView admin_return(int e_no, String id) throws Exception{
 		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");

@@ -14,14 +14,17 @@ select count(*) from gongji
 <select id="adIndex_faqCount" resultType="int">
 select count(*) from faqContent
 </select>
+
 <!-- 관리자 메인화면에서 회원 수 -->
 <select id="adIndex_memberCount" resultType="int">
 select count(*) from member where state=1
 </select>
+
 <!-- 관리자 메인화면에서 ebook 수 -->
 <select id="adIndex_ebookCount" resultType="int">
 select count(*) from ebook 
 </select>
+
 <!--  메인화면에서 최근 공지사항 출력-->
 <select id="adIndex_gongjiList" resultType="gongji">
 select * from (
@@ -29,6 +32,7 @@ select gongji_no, gongji_title, gongji_date
 from gongji order by gongji_no desc)
 where rownum &lt; 6
 </select>
+
 <!-- 메인화면에서 최근 faq 출력 -->
 <select id="adIndex_faqList" resultType="fct">
 select * from (
@@ -37,7 +41,7 @@ from faqContent order by faqNo desc)
 where rownum &lt; 6
 </select>
 
-
+<!-- 회원수 검색(페이징)  -->
 <select id="ad_count" resultType="int">
 select count(id) from member
 <where>
@@ -51,6 +55,7 @@ name like #{find_name}
 </where>
 </select>
 
+<!-- 회원 정보 -->
 <select id="ad_list" resultType="m">
 select * from (select rowNum rNum, id, name,email,email_domain,state from
 (select * from member
@@ -67,22 +72,32 @@ order by id asc))
 where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}
 </select>
 
+<!-- 회원 정보 -->
 <select id="ad_info" resultType="m">
 select * from member where id=#{id}
 </select>
 
+<!-- 회원 정보 수정 -->
 <update id="ad_edit">
 update member set email=#{email}, email_domain=#{email_domain}, name=#{name}, gender=#{gender},
 zipNo=#{zipNo}, roadAddrPart1=#{roadAddrPart1}, roadAddrPart2=#{roadAddrPart2}, addrDetail=#{addrDetail}
-
 where id=#{id}
 </update>
 
+<!-- 회원 등록 -->
+<insert id="ad_join">
+<!-- 1은 가입회원 2는 탈퇴회원 -->
+insert into member (id, pw, name, gender, birth, zipNo, roadAddrPart1, roadAddrPart2, addrDetail, mem_phone1, mem_phone2, mem_phone3, email, email_domain, regdate, state)
+values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAddrPart2},#{addrDetail},#{mem_phone1},#{mem_phone2},#{mem_phone3},#{email},#{email_domain},sysdate,1)
+</insert>
+
+<!-- 회원 탈퇴 -->
 <update id="ad_del">
 update member set state=2 where id=#{id}
 </update>
 
 <!-- 공지사항 sql -->
+<!-- 공지사항 추가 -->
 <insert id="adBbs_in">
 insert into gongji (gongji_no,gongji_name,gongji_title,
    gongji_pwd,gongji_cont,gongji_date)
@@ -90,6 +105,7 @@ insert into gongji (gongji_no,gongji_name,gongji_title,
    #{gongji_pwd},#{gongji_cont},sysdate)
 </insert>
 
+<!-- 공지사항 보기 -->
 <select id="adBbs_list" resultType="gongji">
 select * from 
      (select rowNum rNum,gongji_no,gongji_name,gongji_title,
@@ -113,6 +129,7 @@ select * from
    <!-- &gt;은 ~보다 크다(>), &lt;은 ~보다 작다(<) -->
 </select>
 
+<!-- 공지사항 개수(페이징) -->
 <select id="adBbs_count" resultType="int">
 select count(gongji_no) from gongji
      <where>
@@ -130,25 +147,23 @@ select count(gongji_no) from gongji
      </where>
 </select>
 
+<!-- 공지사항 내용 보기 -->
 <select id="adBbs_cont" resultType="gongji">
 select * from gongji where gongji_no=#{no}
 </select>
 
+<!-- 공지사항 수정 -->
 <update id="adBbs_edit">
 update gongji set gongji_title=#{gongji_title}, gongji_cont=#{gongji_cont} where gongji_no=#{gongji_no}
 </update>
 
+<!-- 공지사항 삭제 -->
 <delete id="adBbs_del">
 delete from gongji where gongji_no=#{no}
 </delete>
 
-<insert id="ad_join">
-<!-- 1은 가입회원 2는 탈퇴회원 -->
-insert into member (id, pw, name, gender, birth, zipNo, roadAddrPart1, roadAddrPart2, addrDetail, mem_phone1, mem_phone2, mem_phone3, email, email_domain, regdate, state)
-values(#{id},#{pw},#{name},#{gender},#{birth},#{zipNo},#{roadAddrPart1},#{roadAddrPart2},#{addrDetail},#{mem_phone1},#{mem_phone2},#{mem_phone3},#{email},#{email_domain},sysdate,1)
-</insert>
-
 <!-- faq -->
+<!-- faq 등록 -->
 <insert id="adFaq_in">
 insert into faqContent (faqNo,Question,Answer,cId) values(faqCont_no_seq.nextval,#{Question},#{Answer},#{cId})
 </insert>
@@ -169,6 +184,7 @@ select count(faqNo) from faqContent
      </where> 
 </select>
 
+<!-- faq 리스트 출력 -->
 <select id="adFaq_list" resultType="fct">
 select * from(
 select rowNum rNum, faqNo,Question,Answer,cId,chkCId from
@@ -190,18 +206,22 @@ select rowNum rNum, faqNo,Question,Answer,cId,chkCId from
 
 </select>
 
+<!-- faq 내용 보기 -->
 <select id="adFaq_cont" resultType="fct">
 select * from faqContent where faqNo=#{no}
 </select>
 
+<!-- faq 수정 -->
 <update id="adFaq_edit">
 update faqContent set question=#{question}, answer=#{answer} where faqNo=#{faqNo}
 </update>
 
+<!-- faq 삭제 -->
 <delete id="adFaq_del">
 delete from faqContent where faqNo=#{no}
 </delete>
 
+<!-- 전자책 리스트 -->
 <select id="adEbook_list" parameterType="ebook" resultType="ebook">
 select * from (select rowNum rNum, e_no, title, author,
  publisher, publication_year from 
@@ -222,6 +242,7 @@ publisher like #{searchKeyword}
  where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}
 </select>
 
+<!-- 전자책 개수(페이징) -->
 <select id="adEbook_count" resultType="int">
 select count(e_no) from ebook
 <where>
@@ -238,16 +259,17 @@ publisher like #{searchKeyword}
 </where>
 </select>
 
-
-
+<!-- 회원 정보 -->
 <select id="adMem_info" resultType="m">
 select * from member where id=#{id}
 </select>
 
+<!-- 검색한 id 회원의 대출 정보 -->
 <select id="adLoan_list" resultType="loan">
 select * from book_loan_info where id=#{id}
 </select>
 
+<!-- 검색한 id 회원의 대출 도서 목록 -->
 <select id="adLoanEbook_list" resultType="ebook">
 select e.title, e.isbn, e.publisher, e.e_no
 from member m, book_loan_info b, ebook e
@@ -255,6 +277,7 @@ where m.id=b.id and b.e_no=e.e_no and m.id=#{id} and b.state=1
 order by b.loan_date desc
 </select>
 
+<!-- 검색한 id 회원의 대출 도서 정보 -->
 <select id="adLoanEbook_info" resultType="ebook">
 select * from(
 select rowNum, e.title, e.isbn, e.publisher,e.author,e.publication_year, e.e_no
@@ -269,6 +292,8 @@ where rowNum=1
 update book_loan_info set state=2, return_date_ok=sysdate where e_no=#{e_no}
 </update>
  -->
+ 
+ <!-- 검색한 id 회원의 반납 도서 리스트 목록 -->
 <select id="adReturnEbook_list" resultType="ebook">
 select e.title, e.isbn, e.publisher, e.e_no
 from member m, book_loan_info b, ebook e
@@ -276,12 +301,16 @@ where m.id=b.id and b.e_no=e.e_no and m.id=#{id} and b.state=2
 order by b.return_date_ok desc
 </select>
 
+<!-- 반납 날짜 -->
 <select id="getAdminReturnDate" resultType="String">
 select return_date from book_loan_info where id=#{id} and e_no=#{e_no} and state=1
 </select>
+
+<!-- 반납 상태 변경 -->
 <update id="adminBookstate_up">
 update ebook set status=status+1 where e_no=#{e_no}
 </update>
+
 <update id="adminBookReturn"><!-- 전자책 반납 -->
 update book_loan_info set state=#{state},return_date_ok=sysdate where id=#{id} and e_no=#{e_no} and state=1
 </update>
