@@ -20,8 +20,12 @@
 * Tomcat - Apache Tomcat 9.0.30
 * Oracle - OracleXE184_Win64
 * STS - Spring Tools 3 (Standalone Edition) 3.9.11.RELEASE
+* Lombok - 1.18.16
 
-## Installing
+## Installation Process
+[구글 문서]https://drive.google.com/file/d/1aUkubv1K_yQ9fLQUTRl4V55kSzaYFyjg/view?usp=sharing
+
+## Getting Started
 ### 1. Oracle 18c 사용자 생성 (cnd 콘솔창에서)
 ```
 C:>sqlplus /as sysdba
@@ -30,15 +34,23 @@ SQL>create tablespace javaoracle datafile 'C:\app\user\product\18.0.0\oradata\XE
 
 SQL>alter session set "_oracle_script"=true; //18c에서 오라클 사용자 생성을 11g와 같은 이전에 쓰던 방식으로 돌려준다. 비번 변경과는 관계 없다.
 
-SQL> create user week // 계정 생성
-2  identified by week // 패스워드 생성
+SQL> create user pub // 계정 생성
+2  identified by pub // 패스워드 생성
 3  default tablespace javaoracle // 위에서 생성한 테이블스페이스 명
 4  quota UNLIMITED ON javaoracle; // 테이블 스페이스의 제한량 무한대
 
-SQL> GRANT connect, resource TO week;
+SQL> GRANT connect, resource TO pub;
 ```
 ### 2. 톰캣 서버를 생성합니다.
 ### 3. 파일을 클론합니다. (import -> GIT)
+### 4. 정리.sql에서 테이블을 생성합니다.
+### 5. eBookController 187라인을 적절히 수정합니다. 
+```
+InputStream is=new FileInputStream(new File("C:/Users/User/Downloads/book.pdf"));
+```
+
+## MAIN PAGE
+![main](https://user-images.githubusercontent.com/51254596/97086534-d0c15480-165e-11eb-8c29-2632c20a7733.png)
 
 ## References
 * 국가전자도서관
